@@ -66,6 +66,7 @@
 				
 				projectService.uploadProject(projectObj).then(function(response){
 					console.log(response);
+					self.closeDialog();
 				});
 			}
 			function closeDialog(){

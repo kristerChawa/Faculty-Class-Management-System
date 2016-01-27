@@ -7,9 +7,9 @@
 				<md-input-container class="md-icon-float md-block">
 				  	<label>Research name</label>
 				  	 <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon>
-				  	<input ng-model="research.name">
+				  	<input ng-model="modal.research.name">
 				</md-input-container>
-				<md-datepicker ng-model="research.date" md-placeholder="Research date" ng-required></md-datepicker>
+				<md-datepicker ng-model="modal.research.date" md-placeholder="Research date" ng-required></md-datepicker>
 			</md-content>      
 		</md-content>
 	</md-dialog-content>
@@ -18,7 +18,7 @@
 			<md-button class="md-primary md-raised" ng-click="modal.closeDialog()">
 				Cancel
 			</md-button>
-			<md-button class="md-primary md-raised" ng-click="modal.upload()">
+			<md-button class="md-primary md-raised" ng-click="modal.uploadResearch()">
 			    Add research
 			</md-button>
 		</md-content>
