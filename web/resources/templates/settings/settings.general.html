@@ -1,0 +1,103 @@
+<md-content layout-padding layout-margin layout="column">
+	
+	<md-content layout="row" layout-align="center center">
+		
+		<form name="" layout="column" flex="50">
+		
+		<h5 class="md-title">Basic Information</h5>
+	     
+	      <md-input-container class="md-block">
+	       	<label>Firstname</label>
+	        <input ng-model="genSet.user.firstname">
+	      </md-input-container>
+	      
+	      <md-input-container class="md-block">
+	        <label>Lastname</label>
+	        <input ng-model="genSet.user.lastname">
+	      </md-input-container>
+
+	      <md-input-container class="md-block">
+	        <label>Username (disabled)</label>
+	        <input ng-model="genSet.user.username" >
+	      </md-input-container>
+
+	      <md-content layout-padding>
+	      	<md-chips ng-model="genSet.selectedChips"
+	      		 	 md-autocomplete-snap>
+	      		<md-autocomplete
+	      			md-selected-item="genSet.selectedItem"
+	      			md-search-text="genSet.searchText"
+	      			md-items="item in genSet.listOfSubjects | filter:genSet.searchText"
+	      			md-item-text="item"
+	      			placeholder="Preferred subject">
+	      			<span md-highlight-text="genSet.searchText">{{item}}</span>
+	      		</md-autocomplete>	
+	      		<md-chip-template>
+	      			<span>
+	      				{{$chip}}
+	      				
+	      			</span>
+	      		</md-chip-template>
+	      	</md-chips>
+
+		      
+	      </md-content>
+
+	        <md-content>
+		      <md-button class="md-primary md-raised md-fab" ng-click="genSet.showDialogPassword($event)">
+		      	<md-icon md-svg-icon="resources/img/svg/report.svg"></md-icon>
+		      </md-button>
+		      <span>Request for a password change</span>
+	        </md-content>
+
+	    </form>
+
+	</md-content>	
+
+
+	<md-content layout="row" layout-align="center center">
+		<md-button class="md-primary md-raised">
+		    Save changes
+		</md-button>
+	</md-content>
+	
+</md-content>
+
+<!-- <h4 class="md-headline">General settings</h4>
+					<md-divider></md-divider>
+					<md-content layout-padding layout-xs="column" layout-gt-sm="row" layout-align-gt-sm="center stretch">
+						<form name="settings.general" flex-gt-sm>
+							<md-input-container class="md-block">
+							  <label>Firstname</label>
+							  <input type="text" ng-model="firstname" required md-maxlength="20" ng-pattern="/^[A-Za-z ]+$/">
+							  <div ng-messages="settings.general.firstname.$error">
+							  	<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+							  		Firstname is required.
+							  	</div>
+							  </div>	
+							</md-input-container>
+							<md-input-container class="md-block">
+							  <label>Lastname</label>
+							  <input type="text" ng-model="lastname" required md-maxlength="20" ng-pattern="/^[A-Za-z ]+$/">
+							   <div ng-messages="settings.general.lastname.$error">
+							  	<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+							  		Lastname is required.
+							  	</div>
+							  </div>	
+							</md-input-container>
+							<md-input-container class="md-block">
+							  <label>Email</label>
+							  <input type="text" ng-model="email" required md-maxlength="20" ng-pattern="/^.+@.+\..+$/">
+							  <div ng-messages="settings.general.email.$error">
+							  	<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+							  		Email is required.
+							  	</div>
+							  </div>	
+							</md-input-container>
+
+							<md-button class="md-primary md-raised">
+								Save changes
+							</md-button>
+						</form>
+				
+					</md-content> -->

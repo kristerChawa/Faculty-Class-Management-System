@@ -1,0 +1,27 @@
+<md-dialog aria-label="Upload achievement/certification">
+	<md-dialog-content style="width: 500px;">
+	    <md-content layout-padding layout-margin>
+
+	      	<h5 class="md-title">Upload project</h5>
+			<md-content layout="column" layout-margin>
+				<md-input-container class="md-icon-float md-block">
+				  	<label>Project name</label>
+				  	 <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon>
+				  	<input ng-model="modal.project.name">
+				</md-input-container>
+				<md-datepicker ng-model="modal.project.date" md-placeholder="Project date" ng-required></md-datepicker>
+			</md-content>      
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-content layout-padding layout-margin>
+			<md-button class="md-primary md-raised" ng-click="modal.closeDialog()">
+				Cancel
+			</md-button>
+			<md-button class="md-primary md-raised" ng-click="modal.uploadProject()">
+			    Add project
+			</md-button>
+		</md-content>
+	</md-dialog-actions>
+</md-dialog>
+

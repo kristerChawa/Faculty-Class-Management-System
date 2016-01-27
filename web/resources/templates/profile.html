@@ -1,0 +1,46 @@
+<div layout="column">
+		<md-content layout-padding layout-margin layout="column">
+			<md-tabs md-stretch-tabs="always" md-selected="$index" md-dynamic-height=true>
+				<md-tab ui-sref="dashboard.profile.general">
+					<md-tab-label>
+						General
+					</md-tab-label>
+					<md-tab-body>
+						<div ui-view></div>
+					</md-tab-body>
+				</md-tab>
+				<md-tab ui-sref="dashboard.profile.achievements">
+					<md-tab-label>
+						Achievements
+					</md-tab-label>
+					<md-tab-body>
+						<div ui-view></div>
+					</md-tab-body>
+				</md-tab>
+				<md-tab ui-sref="dashboard.profile.projects">
+					<md-tab-label>
+						Projects
+					</md-tab-label>
+					<md-tab-body>
+						<div ui-view></div>
+					</md-tab-body>
+				</md-tab>
+				<md-tab ui-sref="dashboard.profile.research">
+					<md-tab-label>
+						Researches
+					</md-tab-label>
+					<md-tab-body>
+						<div ui-view></div>
+					</md-tab-body>
+				</md-tab>
+				<md-tab ui-sref="dashboard.profile.schedule">
+					<md-tab-label>
+						My Schedule
+					</md-tab-label>
+					<md-tab-body>
+						<div ui-view></div>
+					</md-tab-body>
+				</md-tab>
+			</md-tabs>
+		</md-content>
+</div>
