@@ -35,7 +35,7 @@
 				var researchObj = {
 					"rModel": {
 						researchName: self.research.name,
-						researchDate: self.research.date
+						researchDate: researchDate
 					}
 				};
 				researchService.uploadResearch(researchObj).then(function(response){
