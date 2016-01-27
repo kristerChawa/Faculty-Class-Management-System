@@ -67,8 +67,43 @@
 			.state("dashboard.settings", {
 				url: "/settings",
 				templateUrl: TEMP_LOC + "settings.html",
+				controller: function($state){
+					$state.go("dashboard.settings.general");
+				}
+				
+			})
+			.state("dashboard.settings.general", {
+				url: "/general",
+				templateUrl: TEMP_LOC + "settings/settings.general.html",
 				controller: "genSetCtrl",
 				controllerAs: "genSet"
+			})
+			.state("developer", {
+				url: "/developer",
+				templateUrl: TEMP_LOC + "developer/developer.html",
+				controller: function(developerService){
+					var self = this;
+					self.message = "Hello";
+					self.loadProfessors = loadProfessors;
+					self.saveProfessors = saveProfessors;
+
+					function loadProfessors(){
+						developerService.loadProfessors().then(function(response){
+							console.log(response);
+							self.list = response;
+							saveProfessors(self.list);
+						});
+					}
+
+					function saveProfessors(data){
+						developerService.saveProfessors(data).then(function(response){
+							console.log(response);
+						});
+					}
+
+
+				},
+				controllerAs: "developer"
 			});
 	}
 

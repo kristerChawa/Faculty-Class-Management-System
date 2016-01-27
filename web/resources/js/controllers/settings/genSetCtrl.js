@@ -2,7 +2,9 @@
 	angular.module("facultyApp")
 		.controller("genSetCtrl", genSetCtrl);
 
-	function genSetCtrl($mdDialog){
+	function genSetCtrl($mdDialog, $state){
+
+		const TEMP_LOC = "resources/templates/";
 		var self = this;
 
 		self.showDialogPassword = showDialogPassword;
@@ -22,5 +24,6 @@
 				clickOutsideToClose: true
 			   });
 		}
+		
 	}
 }());

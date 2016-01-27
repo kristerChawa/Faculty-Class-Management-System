@@ -51,6 +51,7 @@
 			self.project = {};
 			self.closeDialog = closeDialog;
 			self.uploadProject = uploadProject;
+			self.disableButton = false;
 
 			function uploadProject(){
 				
@@ -63,6 +64,9 @@
 						projectDate : projectDate
 					}
 				};
+				
+				/** Disable uploadButton to avoid double submission */
+				self.disableButton = true;
 				
 				projectService.uploadProject(projectObj).then(function(response){
 					console.log(response);

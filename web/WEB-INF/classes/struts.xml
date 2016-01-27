@@ -6,6 +6,7 @@
   <struts>
   	<constant name="struts.devMode" value="true"/>
   	
+  	
   	<package name="projects" extends="json-default">
   		<interceptors>
 	   		<interceptor-stack name="defaultStack">
@@ -29,7 +30,10 @@
 	   		</interceptor-ref>
 	  		<result name="success" type="json"/>
   		</action>
+  		
+   	
   	</package>
+  	<include file="developer.xml"></include>
   	
   	
   </struts>
