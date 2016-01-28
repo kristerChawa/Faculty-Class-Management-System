@@ -31,9 +31,15 @@
 	  		<result name="success" type="json"/>
   		</action>
   		
+  		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
+   			<interceptor-ref name="json">
+	   			<param name="enableSMD">true</param>
+	   		</interceptor-ref>
+	   		<result name="success" type="json"></result>
+   		</action>
    	
   	</package>
-  	<include file="developer.xml"></include>
+  	<!-- <include file="developer.xml"></include> -->
   	
   	
   </struts>

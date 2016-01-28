@@ -24,8 +24,10 @@ public class Users {
 	@Column(length=25,name="LastName")
 	private String lastName;
 	@Column(length=25,name="UserName")
-	private String userName;
+	private String username;
 	
+	
+
 	@OneToMany(mappedBy="users")
 	private List<AccountType> accountType;
 	
@@ -98,14 +100,15 @@ public class Users {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getUserName() {
-		return userName;
+	
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
-	
+
 	public Users(){}
 	
 	public Users(String idNo,String firstName,String lastName,String userName)
@@ -113,7 +116,7 @@ public class Users {
 		setIdNo(idNo);
 		setFirstName(firstName);
 		setLastName(lastName);
-		setUserName(userName);
+		setUsername(userName);
 	}
 	
 

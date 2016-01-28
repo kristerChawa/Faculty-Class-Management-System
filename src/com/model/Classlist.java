@@ -2,6 +2,7 @@ package com.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Classlist {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="ClassID")
 	private int classID;
 	
 	@ManyToOne
@@ -27,7 +29,7 @@ public class Classlist {
 	private Users users;
 	
 	
-	@OneToMany(mappedBy="attendance")
+	@OneToMany(mappedBy="classlist")
 	private List<Attendance>attendance;
 
 	public List<Attendance> getAttendance() {

@@ -26,9 +26,13 @@
 			self.research = {};
 			self.closeDialog = closeDialog;
 			self.uploadResearch = uploadResearch;
+			self.disableButton = false;
 
 			
 			function uploadResearch(){
+				
+				self.disableButton = true;
+				
 				var d = new Date(self.research.date),
 					researchDate = d.toLocaleDateString();
 				

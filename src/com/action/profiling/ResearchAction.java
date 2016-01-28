@@ -1,25 +1,41 @@
 package com.action.profiling;
 
-import com.model.profiling.ResearchModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.model.Researches;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ResearchAction extends ActionSupport {
 	
-	private ResearchModel rModel = new ResearchModel();
+	private Researches rModel = new Researches();
+	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	Session session = sessionFactory.openSession();
 	
 	
+
 	@Override
 	public String execute() throws Exception {
-		// TODO Auto-generated method stub
+		
 		System.out.println(rModel.getResearchName());
+		session.beginTransaction();
+		
+		session.save(rModel);
+		
+		session.getTransaction().commit();
+		session.close();
 		return SUCCESS;
 	}
 	
-	public ResearchModel getrModel() {
+	public Researches getrModel() {
 		return rModel;
 	}
-	
-	public void setrModel(ResearchModel rModel) {
+
+
+	public void setrModel(Researches rModel) {
 		this.rModel = rModel;
 	}
+
+	
 }
