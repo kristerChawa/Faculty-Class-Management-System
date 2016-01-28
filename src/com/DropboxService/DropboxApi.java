@@ -15,7 +15,10 @@ public interface DropboxApi {
 	
 	
 	final String achievements_certificates_path = folderPath + "Achievements&Certifications/";
+<<<<<<< 2793fc1397d801b36b82b260abd4fc507180dc31
 	final String resume_path = folderPath + "Resume/";
+=======
+>>>>>>> missing db
 	
 	
 	/**
@@ -24,7 +27,11 @@ public interface DropboxApi {
 	 * @return
 	 */
 	public String upload_Achievement_Certificate(String filepath);
+<<<<<<< 2793fc1397d801b36b82b260abd4fc507180dc31
 	public String uploadResume(String filepath);
+=======
+//	public String uploadResume(String filepath);
+>>>>>>> missing db
 	public List<Metadata> listFolders();
 	
 	
