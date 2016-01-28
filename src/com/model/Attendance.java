@@ -13,6 +13,7 @@ public class Attendance {
 	
 	@Id	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="AttendID")
 	private int attendID;
 	
 	@Column(name="Attendance",length=4)

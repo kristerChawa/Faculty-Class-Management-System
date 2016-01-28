@@ -54,6 +54,7 @@
 			self.disableButton = false;
 
 			function uploadProject(){
+				self.disableButton = true;
 				
 				var d = new Date(self.project.date),
 					projectDate = d.toLocaleDateString();

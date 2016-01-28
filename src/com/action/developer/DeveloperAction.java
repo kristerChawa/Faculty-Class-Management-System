@@ -1,25 +1,62 @@
 package com.action.developer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import com.model.developer.DeveloperModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DeveloperAction extends ActionSupport {
 	
 	
-	List<DeveloperModel> users;
+	List<Users> users=getUsers();
+	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	
+	
+	
+	
 	@Override
 	public String execute() throws Exception {
-		// TODO Auto-generated method stub
-		users.forEach(i -> System.out.println(i.getFirstName() + i.getLastName() + i.getIdNo() + i.getUsername()));
+		
+		session.beginTransaction();
+		for (Users uModel : getUsers())
+		{ 
+			session.save(uModel); 
+		}
+
+		
+		session.getTransaction().commit();
+		session.close();
 		return SUCCESS;
 	}
-	
-	public List<DeveloperModel> getUsers() {
+	public List<Users> getUsers() {
 		return users;
 	}
-	public void setUsers(List<DeveloperModel> users) {
+	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
+	
+	
+	/*
+	Iterator<Users> i = users.iterator();
+	while(i.hasNext()){
+		uModel = new Users();
+		uModel.setIdNo(i.next().getIdNo());
+		uModel.setFirstName(i.next().getFirstName());
+		uModel.setLastName(i.next().getLastName());
+		uModel.setUsername(i.next().getUsername());
+		
+		System.out.println(uModel.getFirstName());
+		System.out.println(uModel.getLastName());
+		System.out.println(uModel.getUsername());
+		System.out.println(uModel.getIdNo());
+	}
+*/
+	
 }

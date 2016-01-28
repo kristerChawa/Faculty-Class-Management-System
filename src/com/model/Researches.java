@@ -25,11 +25,17 @@ public class Researches {
 	private String researchName;
 	
 	@Column(name="Date")
-	private String date;
+	private String researchDate;
 	
 	
 	
 	
+	public String getResearchDate() {
+		return researchDate;
+	}
+	public void setResearchDate(String researchDate) {
+		this.researchDate = researchDate;
+	}
 	public int getrID() {
 		return rID;
 	}
@@ -48,19 +54,14 @@ public class Researches {
 	public void setResearchName(String researchName) {
 		this.researchName = researchName;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+
 	
 	public Researches(){}
 	
 	public Researches(String researchName,String date,ProfessorProfile professorProfile)
 	{
 		setResearchName(researchName);
-		setDate(date);
+		setResearchDate(date);
 		setProfessorProfile(professorProfile);
 	}
 }
