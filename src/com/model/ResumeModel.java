@@ -42,16 +42,24 @@ public class ResumeModel {
 	}
 	public void doUpload(String serverPath) {
 
+<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
 		try
 		{
+=======
+		try {
+>>>>>>> Resume
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
 			String url = dbService.uploadResume(tempFile.getPath());
 			resumeUrl = url;
+<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
 			
 		} 
 		catch (IOException e) 
 		{
+=======
+		} catch (IOException e) {
+>>>>>>> Resume
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

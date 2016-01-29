@@ -22,6 +22,11 @@ public class Achievement_Certificate_Action extends ActionSupport
 		implements ModelDriven<Achievement_Certificate_Model>, ServletRequestAware {
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private HttpServletRequest request;
 	
 	private Achievement_Certificate_Model acModel = new Achievement_Certificate_Model();

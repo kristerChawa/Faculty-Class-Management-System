@@ -49,7 +49,10 @@ public class DropBoxService implements DropboxApi {
 	}
 	
 	@Override
+<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
 <<<<<<< 2793fc1397d801b36b82b260abd4fc507180dc31
+=======
+>>>>>>> Resume
 	public String uploadResume(String filepath) {
 		// TODO Auto-generated method stub
 		File file = new File(filepath);
@@ -69,8 +72,11 @@ public class DropBoxService implements DropboxApi {
 	}
 	
 	@Override
+<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
 =======
 >>>>>>> missing db
+=======
+>>>>>>> Resume
 	public List<Metadata> listFolders() {
 		// TODO Auto-generated method stub
 		List<Metadata> files = null;
