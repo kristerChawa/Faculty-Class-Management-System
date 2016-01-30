@@ -36,34 +36,19 @@
    		</action>
 
   	</package>
-<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
-<<<<<<< 2793fc1397d801b36b82b260abd4fc507180dc31
   	<package name="default" extends="struts-default, json-default">
-=======
   	<package name="achievements" extends="struts-default, json-default">
->>>>>>> missing db
-=======
   	<package name="default" extends="struts-default, json-default">
->>>>>>> Resume
   		<action name="upload_Achievement_Certificate" class="com.action.profiling.Achievement_Certificate_Action">
   			<result type="json">
   				<param name="">acModel</param>
   			</result>
   		</action>
-<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
-<<<<<<< 2793fc1397d801b36b82b260abd4fc507180dc31
-=======
->>>>>>> Resume
   		<action name="uploadResume" class="com.action.profiling.ResumeAction">
   			<result type="json">
   				<param name="">rModel</param>
   			</result>
   		</action>
-<<<<<<< 31e3ba1d682ad4144441b0b70d9ab393d78d4f87
-=======
->>>>>>> missing db
-=======
->>>>>>> Resume
   	</package>
   	<!-- <include file="developer.xml"></include> -->
   	
