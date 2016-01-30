@@ -2,18 +2,21 @@
 	angular.module("profileModule")
 		.controller("projectsCtrl", projectsCtrl);
 
-	function projectsCtrl($mdDialog){
+	function projectsCtrl($mdDialog, projectService){
 		
 		const TEMP_LOC = "resources/templates/";
 		
 		var self = this;
-		self.message = "Hello";
+		
 		self.showUploadDialog = showUploadDialog;
 		self.showDeleteDialog = showDeleteDialog;
+		
+		self.getFiles = getFiles;
 		self.hasFiles = false;
 
 		function getFiles(){
-			var file = achievementService.file;
+			var file = projectService.listFile;
+			console.log(file);
 			self.hasFiles = Object.keys(file).length ? true : false;
 			return file;
 		}

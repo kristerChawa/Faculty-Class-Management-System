@@ -15,6 +15,9 @@ public class Password {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="PassID")
 	private int passID;
+	
+	@Column(name="Password",insertable=false, updatable = true, nullable = false,
+			columnDefinition="varchar(25) default 'qwerty'")
 	private String password;
 	
 	@ManyToOne
@@ -49,9 +52,9 @@ public class Password {
 
 	public Password(){}
 	
-	public Password(String password,Users users)
+	public Password(Users users)
 	{
-		setPassword(password);
+		//setPassword(password);
 		setUsers(users);
 	}
 	

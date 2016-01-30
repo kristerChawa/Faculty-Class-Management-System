@@ -8,15 +8,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.HibernateUtil.DeveloperHelper;
+import com.model.Password;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DeveloperAction extends ActionSupport {
 	
-	
+	DeveloperHelper session_Helper=new DeveloperHelper();
 	List<Users> users=getUsers();
-	SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-	Session session = sessionFactory.openSession();
+	private Password password;
 	
 	
 	
@@ -24,17 +25,18 @@ public class DeveloperAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		
-		session.beginTransaction();
 		for (Users uModel : getUsers())
 		{ 
-			session.save(uModel); 
+			session_Helper.addUser(uModel);
+			password=new Password(uModel);
+			session_Helper.addPassword(password);
+			
 		}
-
 		
-		session.getTransaction().commit();
-		session.close();
 		return SUCCESS;
 	}
+	
+	
 	public List<Users> getUsers() {
 		return users;
 	}

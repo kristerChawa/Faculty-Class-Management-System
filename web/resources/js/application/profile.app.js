@@ -17,8 +17,9 @@
 				url: "/profile",
 				templateUrl: TEMP_LOC + "profile.html",
 				controller: function($state, $stateParams){
-					// console.log($stateParams);
+					
 					$state.go("dashboard.profile.general");
+					console.log(1);
 					
 				}
 			})

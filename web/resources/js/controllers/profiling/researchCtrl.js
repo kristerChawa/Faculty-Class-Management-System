@@ -2,12 +2,23 @@
 	angular.module("profileModule")
 		.controller("researchCtrl", researchCtrl);
 
-	function researchCtrl($mdDialog){
+	function researchCtrl($mdDialog, researchService){
 		
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
 		self.message = "Hello";
 		self.showUploadDialog = showUploadDialog;
+		
+		
+		self.getFiles = getFiles;
+		self.hasFiles = false;
+
+		function getFiles(){
+			var file = researchService.listFile;
+			console.log(file);
+			self.hasFiles = Object.keys(file).length ? true : false;
+			return file;
+		}
 
 
 		function showUploadDialog(event){

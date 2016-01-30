@@ -10,7 +10,7 @@
 		return scheduleService;
 
 		function getSchedules(){
-			return $http.get("uploadFile")
+			return $http.get("resources/extras/schedules.json")
 				.then(function(response){
 					return response.data;
 				});

@@ -42,10 +42,10 @@ public class Resume {
 	
 	public Resume(){}
 	
-	public Resume(String resumeUrl,ProfessorProfile professorProfile)
+	public Resume(String resumeUrl)
 	{
 		setResumeUrl(resumeUrl);
-		setProfessorProfile(professorProfile);
+		//setProfessorProfile(professorProfile);
 	}
 
 }

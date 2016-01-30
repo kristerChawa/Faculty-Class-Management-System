@@ -16,7 +16,8 @@
 		self.hasFiles = false;
 
 		function getFiles(){
-			var file = achievementService.file;
+			var file = achievementService.listFile;
+			console.log(file);
 			self.hasFiles = Object.keys(file).length ? true : false;
 			return file;
 		}
@@ -40,29 +41,44 @@
 			$mdDialog.show({
 					parent: angular.element(document.body),
 					targetEvent: event,
-					templateUrl: TEMP_LOC + "profiling/achievements.upload.html",
+					templateUrl: TEMP_LOC + "profiling/achievements.uploadDialog.html",
 					controller: dialogController,
 					controllerAs: "modal"
 			   });
 		}
 
-		function dialogController($scope, $mdDialog, achievementService){
+		function dialogController($scope, $mdDialog, achievementService, $http){
 			
 			//DIALOG CONTROLLER - MODAL
 
 			var self = this;
-			self.message = "Hello";
-
 			self.closeDialog = closeDialog;
+			self.disableButton = false;
 			self.fileData = {};
 
-			self.uploadFile = uploadFile;
+			self.upload_Achievement_Certificate = upload_Achievement_Certificate;
 
 
-			function uploadFile(){
-				//fileData - would be coming in the params which consists of the data
-				self.closeDialog();
-				achievementService.addFile();
+			function upload_Achievement_Certificate(){
+				
+				self.disableButton = true;
+				
+				var formdata = new FormData();
+				formdata.append("file", self.fileData.file);
+				formdata.append("Achievement_Certificate_Name", self.fileData.achievementName);
+				
+				
+				achievementService.uploadFile(formdata).then(function(response){
+					self.closeDialog();
+				});
+				
+
+				
+
+
+
+				// achievementService.addFile();
+				// self.closeDialog();
 			}
 
 

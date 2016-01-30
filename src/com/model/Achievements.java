@@ -62,11 +62,11 @@ public class Achievements {
 	public Achievements(){}
 	
 	
-	public Achievements(String certifications,String attachmentUrl,ProfessorProfile professorProfile)
+	public Achievements(String certifications,String attachmentUrl)
 	{
 		setAttachmentUrl(attachmentUrl);
 		setCertifications(certifications);
-		setProfessorProfile(professorProfile);
+		//setProfessorProfile(professorProfile);
 	}
 	
 }

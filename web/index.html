@@ -5,8 +5,9 @@
 	<title>Faculty Class Management System</title>
 
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<!-- <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'> -->
-	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.css">
+	
+	<link rel="stylesheet" type="text/css" href="resources/css/roboto-font.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
 	<script type="text/javascript" src="resources/angular.min.js"></script>
 	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
@@ -15,7 +16,7 @@
 		<!-- Angular Material (dependecies must come first) -->
 	<script type="text/javascript" src="resources/angular-animate.js"></script>
 	<script type="text/javascript" src="resources/angular-aria.min.js"></script>
-	<script type="text/javascript" src="resources/angular-material.js"></script>
+	<script type="text/javascript" src="resources/angular-material.min.js"></script>
 
 		<!-- Angular application/modules -->
 	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
@@ -39,7 +40,8 @@
 	<script type="text/javascript" src="resources/js/directives/dashboard.menus.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadSubject.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadImage.directive.js"></script>
-	<script type="text/javascript" src="resources/js/directives/uploadFile.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
+	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
 	
 		<!-- Angular services -->
 	<script type="text/javascript" src="resources/js/services/userService.js"></script>
@@ -47,6 +49,7 @@
 	<script type="text/javascript" src="resources/js/services/profiling/achievementService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/projectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/researchService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
 
 	<style type="text/css">
@@ -65,7 +68,6 @@
 		}
 
 		
-
 	</style>
 </head>
 <body ng-app="facultyApp">

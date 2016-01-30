@@ -16,19 +16,16 @@
 	   		</interceptor-stack>
 	   	</interceptors>
   	
-  	
   		<action name="uploadProject" class="com.action.profiling.ProjectAction">
-	  		<interceptor-ref name="json">
-	   			<param name="enableSMD">true</param>
-	   		</interceptor-ref>
-	  		<result name="success" type="json"/>
+	  		<result type="json">
+	  			<param name="">pModel</param>
+	  		</result>
   		</action>
   		
   		<action name="uploadResearch" class="com.action.profiling.ResearchAction">
-	  		<interceptor-ref name="json">
-	   			<param name="enableSMD">true</param>
-	   		</interceptor-ref>
-	  		<result name="success" type="json"/>
+	  		<result name="success" type="json">
+	  			<param name="">rModel</param>
+	  		</result>
   		</action>
   		
   		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
@@ -37,7 +34,19 @@
 	   		</interceptor-ref>
 	   		<result name="success" type="json"></result>
    		</action>
-   	
+
+  	</package>
+  	<package name="default" extends="struts-default, json-default">
+  		<action name="upload_Achievement_Certificate" class="com.action.profiling.Achievement_Certificate_Action">
+  			<result type="json">
+  				<param name="">acModel</param>
+  			</result>
+  		</action>
+  		<action name="uploadResume" class="com.action.profiling.ResumeAction">
+  			<result type="json">
+  				<param name="">rModel</param>
+  			</result>
+  		</action>
   	</package>
   	<!-- <include file="developer.xml"></include> -->
   	

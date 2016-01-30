@@ -32,7 +32,7 @@
 						vm.progressNumber = 80;
 						$timeout(function(){
 							vm.displayProgress = 100;
-							$state.go("dashboard", {type: "student"});	
+							$state.go("dashboard");	
 						}, 1500);
 					}
 				},
@@ -41,9 +41,6 @@
 			.state("dashboard", {
 				url: "/dashboard",
 				templateUrl: TEMP_LOC + "dashboard.html",
-				params:{
-					type: null
-				},
 				controller: function(userService, $stateParams){
 					var vm = this;
 					
@@ -66,7 +63,7 @@
 			})
 			.state("dashboard.settings", {
 				url: "/settings",
-				templateUrl: TEMP_LOC + "settings.html",
+				templateUrl: TEMP_LOC + "/settings/settings.html",
 				controller: function($state){
 					$state.go("dashboard.settings.general");
 				}

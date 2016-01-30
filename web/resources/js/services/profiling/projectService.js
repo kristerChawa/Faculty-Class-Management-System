@@ -1,12 +1,12 @@
 (function(){
 	angular.module("profileModule")
-		.factory("projectService", projectService);
+		.service("projectService", projectService);
 	
 	function projectService($http){
-		var service = {
-			uploadProject : uploadProject
-		};
-		return service;
+	
+		var self = this;
+		self.uploadProject = uploadProject;
+		self.listFile = [];
 		
 		function uploadProject(projectFile){
 			
@@ -26,8 +26,18 @@
 			return $http(request)
 				.then(function(response){
 					console.log(response);
+					addFile(response.data.pModel.projectName, response.data.pModel.projectDate);
 					return response.data;
 				});
+		}
+		
+		function addFile(projectName, projectDate){
+			var obj = {
+					projectName: projectName,
+					projectDate: projectDate
+			};
+			
+			self.listFile.push(obj);
 		}
 	}
 }());
