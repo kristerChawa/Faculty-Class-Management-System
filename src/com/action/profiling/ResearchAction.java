@@ -19,7 +19,8 @@ public class ResearchAction extends ActionSupport {
 	public String execute() throws Exception
 	{
 		
-		session_Helper.addResearches(rModel);
+        session_Helper.addResearches(rModel);
+		session_Helper.viewResearches();
 		return SUCCESS;
 	}
 	
@@ -27,7 +28,7 @@ public class ResearchAction extends ActionSupport {
 		return rModel;
 	}
 
-
+	
 	public void setrModel(Researches rModel) {
 		this.rModel = rModel;
 	}

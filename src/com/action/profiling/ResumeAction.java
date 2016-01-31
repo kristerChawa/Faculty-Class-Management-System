@@ -29,6 +29,7 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 		
 		resume=new Resume(rModel.getResumeUrl());
 		session_Helper.addResume(resume);
+		session_Helper.viewResume();
 		return SUCCESS;
 	}
 	

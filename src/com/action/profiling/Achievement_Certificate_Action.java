@@ -34,7 +34,7 @@ public class Achievement_Certificate_Action extends ActionSupport
 		achievements=new Achievements(acModel.getAchievement_Certificate_Name(), acModel.getAchievement_Certificate_Url());
 		
 		session_Helper.addAchievements(achievements);
-		
+		session_Helper.viewAchievements();
 		return SUCCESS;
 	}
 	@Override

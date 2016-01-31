@@ -17,7 +17,7 @@ public class ProjectAction extends ActionSupport {
 	{
 		
 		session_Helper.addProjects(pModel);
-		
+		session_Helper.viewProjects();
 		return SUCCESS;
 	}
 

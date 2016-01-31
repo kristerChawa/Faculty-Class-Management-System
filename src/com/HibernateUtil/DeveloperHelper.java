@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.model.Password;
+import com.model.ProfessorProfile;
 import com.model.Users;
 
 public class DeveloperHelper {
@@ -50,6 +51,22 @@ public class DeveloperHelper {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	public void addProfessorProfile(ProfessorProfile professorProfile)
+	{
+		try
+		{
+			session=sessionFactory.openSession();
+			session.beginTransaction();
+			session.save(professorProfile);
+			session.getTransaction().commit();
+			session.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	

@@ -9,15 +9,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.HibernateUtil.DeveloperHelper;
+import com.HibernateUtil.LoginHelper;
 import com.model.Password;
+import com.model.ProfessorProfile;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class DeveloperAction extends ActionSupport {
 	
 	DeveloperHelper session_Helper=new DeveloperHelper();
+	LoginHelper login_Helper=new LoginHelper();
 	List<Users> users=getUsers();
-	private Password password;
 	
 	
 	
@@ -27,9 +29,18 @@ public class DeveloperAction extends ActionSupport {
 		
 		for (Users uModel : getUsers())
 		{ 
+			//add Users
 			session_Helper.addUser(uModel);
-			password=new Password(uModel);
+			
+			//add passwords
+			Password password=new Password(uModel);
 			session_Helper.addPassword(password);
+			
+			//add ProfessorProfile
+			ProfessorProfile professorProfile=new ProfessorProfile(uModel);
+			session_Helper.addProfessorProfile(professorProfile);
+			
+			login_Helper.getID();
 			
 		}
 		
@@ -43,22 +54,5 @@ public class DeveloperAction extends ActionSupport {
 	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
-	
-	
-	/*
-	Iterator<Users> i = users.iterator();
-	while(i.hasNext()){
-		uModel = new Users();
-		uModel.setIdNo(i.next().getIdNo());
-		uModel.setFirstName(i.next().getFirstName());
-		uModel.setLastName(i.next().getLastName());
-		uModel.setUsername(i.next().getUsername());
 		
-		System.out.println(uModel.getFirstName());
-		System.out.println(uModel.getLastName());
-		System.out.println(uModel.getUsername());
-		System.out.println(uModel.getIdNo());
-	}
-*/
-	
 }
