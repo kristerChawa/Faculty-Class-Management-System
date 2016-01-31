@@ -15,8 +15,8 @@
 
 		function getFiles(){
 			var file = researchService.listFile;
-			console.log(file);
-			self.hasFiles = Object.keys(file).length ? true : false;
+
+			self.hasFiles = file.length ? true : false;
 			return file;
 		}
 
@@ -38,11 +38,13 @@
 			self.closeDialog = closeDialog;
 			self.uploadResearch = uploadResearch;
 			self.disableButton = false;
+			self.displayProgress = false;
 
 			
 			function uploadResearch(){
 				
 				self.disableButton = true;
+				self.displayProgress = true;
 				
 				var d = new Date(self.research.date),
 					researchDate = d.toLocaleDateString();
@@ -54,7 +56,7 @@
 					}
 				};
 				researchService.uploadResearch(researchObj).then(function(response){
-					console.log(response);
+					self.displayProgress = false;
 					self.closeDialog();
 				});
 			}

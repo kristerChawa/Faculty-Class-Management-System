@@ -18,10 +18,17 @@
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
-		<md-content layout-padding layout-margin>
+
+		<md-content layout="row" layout-padding layout-margin layout-align="end end" ng-show="modal.displayProgress">
+			<span class="md-subhead">Uploading...</span>
+			<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+		</md-content>
+		
+		<md-content layout-padding layout-margin ng-hide="modal.displayProgress">
 			<md-button class="md-primary md-raised" ng-click="modal.closeDialog()">
 				Cancel
 			</md-button>
+			
 			<md-button class="md-primary md-raised" 
 				ng-click="modal.upload_Achievement_Certificate()" ng-disabled="modal.disableButton">
 			    Upload file

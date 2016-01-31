@@ -7,8 +7,13 @@
 
 		self.listFile = [];
 		self.uploadFile = uploadFile;
+		self.addFile = addFile;
 
 		function uploadFile(formdata){
+
+			var formdata = new FormData();
+			formdata.append("file", fileData.file);
+			formdata.append("Achievement_Certificate_Name", fileData.achievementName);
 			
 			var request = {
 					method: "post",
@@ -31,17 +36,12 @@
 		}
 
 		function addFile(name, url){
+
 			var obj = {
 				Achievement_Certificate_Name: name,
 				Achievement_Certificate_Url: url
 			};
 			self.listFile.push(obj);
 		}
-		
-
-		
-
-	
-
 	}
 }());

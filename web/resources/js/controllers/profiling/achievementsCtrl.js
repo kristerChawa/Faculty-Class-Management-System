@@ -2,10 +2,9 @@
 	angular.module("profileModule")
 		.controller("achievementsCtrl", achievementsCtrl);
 
-	function achievementsCtrl($mdDialog, achievementService){
+	function achievementsCtrl($mdDialog, achievementService, listFiles , cfpLoadingBar){
 		
 		const TEMP_LOC = "resources/templates/";
-
 
 		var self = this;
 		
@@ -15,10 +14,14 @@
 		self.getFiles = getFiles;
 		self.hasFiles = false;
 
+
 		function getFiles(){
-			var file = achievementService.listFile;
-			console.log(file);
-			self.hasFiles = Object.keys(file).length ? true : false;
+			var file = null;
+			
+			file = achievementService.listFile;
+			self.hasFiles = file.length ? true : false;
+			
+		
 			return file;
 		}
 
@@ -54,31 +57,21 @@
 			var self = this;
 			self.closeDialog = closeDialog;
 			self.disableButton = false;
+			self.displayProgress = false;
 			self.fileData = {};
 
 			self.upload_Achievement_Certificate = upload_Achievement_Certificate;
 
-
 			function upload_Achievement_Certificate(){
-				
+				cfpLoadingBar.start();
 				self.disableButton = true;
-				
-				var formdata = new FormData();
-				formdata.append("file", self.fileData.file);
-				formdata.append("Achievement_Certificate_Name", self.fileData.achievementName);
-				
-				
-				achievementService.uploadFile(formdata).then(function(response){
+				// self.displayProgress = true;
+
+				achievementService.uploadFile(self.fileData).then(function(response){
+					// self.displayProgress = false;
+					cfpLoadingBar.complete();
 					self.closeDialog();
-				});
-				
-
-				
-
-
-
-				// achievementService.addFile();
-				// self.closeDialog();
+				});				
 			}
 
 

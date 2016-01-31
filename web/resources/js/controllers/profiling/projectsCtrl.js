@@ -2,7 +2,7 @@
 	angular.module("profileModule")
 		.controller("projectsCtrl", projectsCtrl);
 
-	function projectsCtrl($mdDialog, projectService){
+	function projectsCtrl($mdDialog, $timeout, projectService){
 		
 		const TEMP_LOC = "resources/templates/";
 		
@@ -14,10 +14,10 @@
 		self.getFiles = getFiles;
 		self.hasFiles = false;
 
+
 		function getFiles(){
 			var file = projectService.listFile;
-			console.log(file);
-			self.hasFiles = Object.keys(file).length ? true : false;
+			self.hasFiles = file.length ? true : false;
 			return file;
 		}
 
@@ -45,7 +45,6 @@
 					},
 					controllerAs: "delete"
 			   });
-			
 		}
 
 		function dialogController($mdDialog, projectService){
@@ -55,9 +54,11 @@
 			self.closeDialog = closeDialog;
 			self.uploadProject = uploadProject;
 			self.disableButton = false;
+			self.displayProgress = false;
 
 			function uploadProject(){
 				self.disableButton = true;
+				self.displayProgress = true;
 				
 				var d = new Date(self.project.date),
 					projectDate = d.toLocaleDateString();
@@ -73,7 +74,7 @@
 				self.disableButton = true;
 				
 				projectService.uploadProject(projectObj).then(function(response){
-					console.log(response);
+					self.displayProgress = false;
 					self.closeDialog();
 				});
 			}

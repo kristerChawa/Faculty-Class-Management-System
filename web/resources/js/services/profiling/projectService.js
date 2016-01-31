@@ -2,7 +2,7 @@
 	angular.module("profileModule")
 		.service("projectService", projectService);
 	
-	function projectService($http){
+	function projectService($http, $q, $timeout){
 	
 		var self = this;
 		self.uploadProject = uploadProject;
@@ -36,8 +36,9 @@
 					projectName: projectName,
 					projectDate: projectDate
 			};
-			
 			self.listFile.push(obj);
 		}
+
+		
 	}
 }());

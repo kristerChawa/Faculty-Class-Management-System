@@ -1,6 +1,7 @@
 (function(){
 	
-	angular.module("facultyApp", ["ui.router", "ngMaterial", "md.data.table", "profileModule"]);
+	angular.module("facultyApp", ["ui.router", "ngMaterial", "md.data.table", "profileModule", "angular-loading-bar"]);
+
 
 }());
 
@@ -15,23 +16,24 @@
 
 
 		
-		$urlRouterProvider
-			.otherwise("/");
+		// $urlRouterProvider
+		// 	.when("/dashboard/", "/dashboard")
+			// .otherwise("/");
 		
 
 		$stateProvider
 			.state("index", {
 				url: "/",
 				templateUrl: TEMP_LOC + "loginPage.html",
-				controller: function($state, userService, $timeout){
+				controller: function($state, userService, $timeout, cfpLoadingBar){
 					var vm = this;
 					
 					vm.login = function(){
 						// userService.setUser(vm.user);
+						cfpLoadingBar.start();
 						
-						vm.progressNumber = 80;
 						$timeout(function(){
-							vm.displayProgress = 100;
+							cfpLoadingBar.complete();
 							$state.go("dashboard");	
 						}, 1500);
 					}

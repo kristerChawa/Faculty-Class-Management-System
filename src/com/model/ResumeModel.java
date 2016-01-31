@@ -12,7 +12,7 @@ public class ResumeModel {
 	private File file;
 	private String fileFileName;
 	private String fileContentType;
-	private String resumeUrl;
+	private String url;
 	
 	private DropBoxService dbService = new DropBoxService();
 
@@ -34,24 +34,24 @@ public class ResumeModel {
 	public void setFileContentType(String fileContentType) {
 		this.fileContentType = fileContentType;
 	}
-	public String getResumeUrl() {
-		return resumeUrl;
+	public String geturl() {
+		return url;
 	}
-	public void setResumeUrl(String resumeUrl) {
-		this.resumeUrl = resumeUrl;
+	public void seturl(String url) {
+		this.url = url;
 	}
 	public void doUpload(String serverPath) {
 
-	
-		try {
+		try
+		{
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
 			String url = dbService.uploadResume(tempFile.getPath());
-			resumeUrl = url;
+			url = url;
 			
 		} 
-	
-		} catch (IOException e) {
+		catch (IOException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -37,8 +37,6 @@
 
   	</package>
   	<package name="default" extends="struts-default, json-default">
-  	<package name="achievements" extends="struts-default, json-default">
-  	<package name="default" extends="struts-default, json-default">
   		<action name="upload_Achievement_Certificate" class="com.action.profiling.Achievement_Certificate_Action">
   			<result type="json">
   				<param name="">acModel</param>

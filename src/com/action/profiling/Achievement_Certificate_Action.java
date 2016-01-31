@@ -10,19 +10,12 @@ import org.hibernate.cfg.Configuration;
 import com.HibernateUtil.ProfilingHelper;
 import com.model.Achievement_Certificate_Model;
 import com.model.Achievements;
-
-import com.model.Achievement_Certificate_Model;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class Achievement_Certificate_Action extends ActionSupport 
 		implements ModelDriven<Achievement_Certificate_Model>, ServletRequestAware {
 	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	private HttpServletRequest request;
 	
@@ -31,6 +24,7 @@ public class Achievement_Certificate_Action extends ActionSupport
 	private Achievements achievements;
 	ProfilingHelper session_Helper=new ProfilingHelper();
 
+	
 	@Override
 	public String execute() throws Exception {
 		
@@ -40,6 +34,7 @@ public class Achievement_Certificate_Action extends ActionSupport
 		achievements=new Achievements(acModel.getAchievement_Certificate_Name(), acModel.getAchievement_Certificate_Url());
 		
 		session_Helper.addAchievements(achievements);
+		
 		return SUCCESS;
 	}
 	@Override
