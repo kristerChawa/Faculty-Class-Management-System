@@ -29,10 +29,9 @@
   		</action>
   		
   		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
-   			<interceptor-ref name="json">
-	   			<param name="enableSMD">true</param>
-	   		</interceptor-ref>
-	   		<result name="success" type="json"></result>
+	   		<result name="success" type="json">
+	   			<param name="">users</param>
+	   		</result>
    		</action>
 
   	</package>

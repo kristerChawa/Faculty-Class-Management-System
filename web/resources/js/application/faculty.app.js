@@ -80,24 +80,44 @@
 			.state("developer", {
 				url: "/developer",
 				templateUrl: TEMP_LOC + "developer/developer.html",
-				controller: function(developerService){
+				controller: function(developerService, $timeout){
 					var self = this;
 					self.message = "Hello";
-					self.loadProfessors = loadProfessors;
-					self.saveProfessors = saveProfessors;
+					self.uploadProfessors = uploadProfessors;
+					self.loadDBUsers = loadDBUsers;
+					self.updateAccountType = updateAccountType;
+					self.selectedUsers = {};
 
-					function loadProfessors(){
-						developerService.loadProfessors().then(function(response){
+
+					function uploadProfessors(){
+						developerService.uploadProfessors().then(function(response){
 							console.log(response);
-							self.list = response;
-							saveProfessors(self.list);
 						});
 					}
 
-					function saveProfessors(data){
-						developerService.saveProfessors(data).then(function(response){
-							console.log(response);
+					function loadDBUsers(){
+						//Database Users
+						self.displayTable = false;
+						self.displayProgress = true;
+
+						developerService.loadDBUsers().then(function(response){
+							
+							self.displayTable = true;
+							self.displayProgress = false;
+							self.list = response.data.users;
+							
+
 						});
+					}
+					
+
+					function updateAccountType(){
+						// console.log(self.list[self.selected.acad]);
+
+						// var x = JSON.stringify(self.selected);
+						console.log(self.selectedUsers);
+						// console.log(x);
+						
 					}
 
 

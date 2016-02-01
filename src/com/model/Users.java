@@ -26,7 +26,6 @@ public class Users {
 	@Column(length=25,name="UserName")
 	private String username;
 	
-	
 
 	@OneToMany(mappedBy="users")
 	private List<AccountType> accountType;

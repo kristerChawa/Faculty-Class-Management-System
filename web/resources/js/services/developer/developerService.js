@@ -4,24 +4,22 @@
 
 	function developerService($http){
 		var service = {
-			loadProfessors: loadProfessors,
-			saveProfessors: saveProfessors
+			uploadProfessors: uploadProfessors,
+			loadDBUsers: loadDBUsers
 		};
 
 		return service;
 
-		function loadProfessors(){
+		function uploadProfessors(){
 			return $http.post("resources/extras/professors.json")
 				.then(function(response){
-					return response.data;
+					return saveProfessors(response.data);
 				})
 		}
 
 		function saveProfessors(data){
 
 			JSON.stringify(data);
-
-
 			var request = {
 				method: "post",
 				url: "saveProfessors.action",
@@ -30,14 +28,33 @@
 					"Content-Type" : "application/json",
 					"dataType" : "json"
 				}
-					
 			};
-
+			
 			return $http(request)
 				.then(function(response){
 					console.log(response);
 					return response;
 				});
+		}
+
+		function loadDBUsers(){
+			var request = {
+				method: "post",
+				url: "resources/extras/professors.json",
+				headers: {
+					"Content-Type" : "application/json",
+					"dataType" : "json"
+				}
+			};
+
+			return $http(request)
+				.then(function(response){
+					return response;
+				});
+		}
+
+		function updateAccountType(){
+			
 		}
 	}
 }());
