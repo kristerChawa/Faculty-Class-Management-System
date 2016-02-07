@@ -14,7 +14,7 @@
 					<md-toolbar class="md-tall toolbar-profile-bg">
 						<div class="md-toolbar-tools"> 
 							<md-list-item layout="row">
-								<img class="avatar" ng-src="{{dash.user.icon}}"/>
+								<img class="avatar" ng-src="{{dash.user.userImage}}"/>
 								
 								<upload-Image>
 									<md-button class="md-icon-button" aria-label="icon">
@@ -28,7 +28,7 @@
 						</div>
 						<div class="md-toolbar-tools"> 
 							<md-list-item>
-								<h3 class="md-headline">{{dash.user.username}}</h3>
+								<h3 class="md-headline">{{dash.user.firstName + " " + dash.user.lastName}}</h3>
 							</md-list-item>
 						</div>
 					</md-toolbar>
@@ -40,8 +40,8 @@
 							<md-icon md-svg-icon="resources/img/svg/home.svg"></md-icon>
 							<p class="md-body-2">Home</p>
 						</md-list-item>
-						<md-list-item ui-sref="dashboard.profile">
-							<md-icon md-svg-icon="resources/img/svg/person.svg"></md-icon>
+						<md-list-item ui-sref="dashboard.profile.general">
+							<md-icon md-svg-icon="resources/img/svg/profile_circle.svg"></md-icon>
 							<p class="md-body-2">Profile</p>
 						</md-list-item>
 						<md-list-item ui-sref="dashboard.profile.schedule">
@@ -52,7 +52,7 @@
 							<md-icon md-svg-icon="resources/img/svg/settings.svg"></md-icon>
 							<p class="md-body-2">Settings</p>
 						</md-list-item>
-						<md-list-item ui-sref="index">
+						<md-list-item ui-sref="logout">
 							<md-icon md-svg-icon="resources/img/svg/logout.svg"></md-icon>
 							<p class="md-body-2">Logout</p>
 						</md-list-item>
@@ -68,7 +68,7 @@
 			</md-sidenav>
 		</div>
 		<div ui-view>
-
-
+			<dashboard-Menus></dashboard-Menus>
 		</div>
+		
 </div>

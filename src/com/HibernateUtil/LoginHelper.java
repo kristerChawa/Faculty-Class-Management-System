@@ -1,13 +1,14 @@
 package com.HibernateUtil;
 
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
-import org.apache.tomcat.util.buf.UDecoder;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Projections;
 
 import com.model.Users;
 
@@ -18,11 +19,15 @@ public class LoginHelper {
 	static
 	{
 		sessionFactory=new Configuration().configure().buildSessionFactory();
+		
 	}
 	
-	public int getID() //overload String userName
+	public int getUserID(String username) //Jm was here :)
 	{
-		int i = 0;
+		//Handle the exception when the the username is not found in the database.
+		//Exception: NullPointerException
+		
+		int userID = 0;
 		try
 		{
 			
@@ -30,11 +35,11 @@ public class LoginHelper {
 			session.beginTransaction();
 			
 			Query query=session.createQuery("from Users where username=:uName");
-			query.setParameter("uName", "Panda");
+			query.setParameter("uName", username);
 			
 			Users users=(Users) query.uniqueResult();
 			
-			i=users.getUserID();
+			userID = users.getUserID();
 			session.getTransaction().commit();
 			session.close();
 		}
@@ -43,7 +48,58 @@ public class LoginHelper {
 		{
 			ex.printStackTrace();
 		}
-		return i;
+		return userID;
 	
+	}
+	
+	public boolean loginUser(String username, String password){
+		
+		boolean isAuthenticated = false;
+		try{ 
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			Query query = session.createQuery("from Users where username = :uName");
+			query.setParameter("uName", username);
+			Users users = (Users) query.uniqueResult();
+			
+			session.getTransaction().commit();
+			session.close();
+			if(users != null){
+				if(users.getUsername().equalsIgnoreCase(username) 
+						&& users.getPassword().get(0).getPassword().equals(password)){
+					isAuthenticated = true;
+				}
+			}
+			
+			
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		
+		return isAuthenticated;
+	}
+	
+	public Users getUserDetails(String username){
+		Users usersModel = new Users();
+		
+		try{
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+		
+			//But I don't want to get the password for security reasons.
+			Query query = session.createQuery("from Users where username = :uName");
+			query.setParameter("uName", username);
+			
+			//Single result
+			usersModel = (Users) query.uniqueResult();
+			session.getTransaction().commit();
+			session.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return usersModel;
+		
 	}
 }

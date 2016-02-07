@@ -6,19 +6,22 @@
 		
 		const TEMP_LOC = "resources/templates/";
 
-
 		var self = this;
+		self.hasFiles = false;
 		
 		self.showUploadDialog = showUploadDialog;
 		self.showDeleteDialog = showDeleteDialog;
-		
 		self.getFiles = getFiles;
-		self.hasFiles = false;
+		
+
 
 		function getFiles(){
-			var file = achievementService.listFile;
-			console.log(file);
-			self.hasFiles = Object.keys(file).length ? true : false;
+			var file = null;
+			
+			file = achievementService.listFile;
+			self.hasFiles = file.length ? true : false;
+			
+		
 			return file;
 		}
 
@@ -26,63 +29,73 @@
 			$mdDialog.show({
 					parent: angular.element(document.body),
 					targetEvent: event,
-					templateUrl: TEMP_LOC + "profiling/delete-upload.html",
-					controller: function($mdDialog){
-						var self = this;
-						self.closeDialog = function(){
-							$mdDialog.hide();
-						}
-					},
-					controllerAs: "delete"
+					templateUrl: TEMP_LOC + "profiling/global-delete-upload.html",
+					controller: deleteDialogController,
+					controllerAs: "deleteDialogCtrl"
 			   });
 		}
-
+											/** DeleteDialog Controller **/
+		
+		function deleteDialogController($mdDialog){
+			var self = this;
+			self.closeDialog = closeDialog;
+			
+			function closeDialog(){
+				$mdDialog.hide();
+			}
+		}
+											/** UploadDialog Controller **/
+		
 		function showUploadDialog(event){
 			$mdDialog.show({
 					parent: angular.element(document.body),
 					targetEvent: event,
 					templateUrl: TEMP_LOC + "profiling/achievements.uploadDialog.html",
 					controller: dialogController,
-					controllerAs: "modal"
+					controllerAs: "uploadDialogCtrl"
 			   });
 		}
-
-		function dialogController($scope, $mdDialog, achievementService, $http){
+				
+		function dialogController($mdDialog, $mdToast, $timeout, $http, achievementService){
 			
 			//DIALOG CONTROLLER - MODAL
 
 			var self = this;
-			self.closeDialog = closeDialog;
+			self.achievementFileData = {};
 			self.disableButton = false;
-			self.fileData = {};
-
+			self.cancelDialog = cancelDialog;
 			self.upload_Achievement_Certificate = upload_Achievement_Certificate;
 
-
 			function upload_Achievement_Certificate(){
-				
 				self.disableButton = true;
-				
-				var formdata = new FormData();
-				formdata.append("file", self.fileData.file);
-				formdata.append("Achievement_Certificate_Name", self.fileData.achievementName);
-				
-				
-				achievementService.uploadFile(formdata).then(function(response){
-					self.closeDialog();
-				});
-				
 
+				var achievementObj = self.achievementFileData;
 				
+				achievementService.uploadFile(achievementObj)
+				.then(function(response){
+					
+					if(response.status == 200){
+						self.cancelDialog();
+					}else{
+						errorToast($mdToast);
+						$timeout(function(){
+							self.disableButton = false;	
+						}, 1500);
+					}
+				});				
+			}
 
-
-
-				// achievementService.addFile();
-				// self.closeDialog();
+			function errorToast($mdToast){
+				$mdToast.show(
+					$mdToast.simple()
+						.textContent("An error has occured. Please try again.")
+						.position("top")
+						.hideDelay(2000)
+				);
 			}
 
 
-			function closeDialog(){
+			function cancelDialog(){
 				$mdDialog.hide();
 			}
 		}

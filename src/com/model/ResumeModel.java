@@ -12,8 +12,8 @@ public class ResumeModel {
 	private File file;
 	private String fileFileName;
 	private String fileContentType;
-	private String resumeUrl;
-	
+	private String Url;
+		
 	private DropBoxService dbService = new DropBoxService();
 
 	public File getFile() {
@@ -34,11 +34,11 @@ public class ResumeModel {
 	public void setFileContentType(String fileContentType) {
 		this.fileContentType = fileContentType;
 	}
-	public String getResumeUrl() {
-		return resumeUrl;
+	public String getUrl() {
+		return Url;
 	}
-	public void setResumeUrl(String resumeUrl) {
-		this.resumeUrl = resumeUrl;
+	public void setUrl(String Url) {
+		this.Url = Url;
 	}
 	public void doUpload(String serverPath) {
 
@@ -46,8 +46,8 @@ public class ResumeModel {
 		{
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
-			String url = dbService.uploadResume(tempFile.getPath());
-			resumeUrl = url;
+			String Url = dbService.uploadResume(tempFile.getPath());
+			this.Url = Url;
 			
 		} 
 		catch (IOException e) 

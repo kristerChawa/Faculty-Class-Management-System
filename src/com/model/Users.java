@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,22 +27,26 @@ public class Users {
 	@Column(length=25,name="UserName")
 	private String username;
 	
+	@Column(length=30,name="PictureUrl")
+	private String pictureUrl;
 	
 
-	@OneToMany(mappedBy="users")
+	
+
+	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<AccountType> accountType;
 	
-	@OneToMany(mappedBy="users")
+	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<Password> password;
 	
 	
-	@OneToMany(mappedBy="users")
+	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<ProfessorProfile> professorProfile;
 	
-	@OneToMany(mappedBy="users")
-	private List<Classlist> classlist;
+	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
+	private List<Classlist> ClassList;
 	
-	@OneToMany(mappedBy="users")
+	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<Attendance> attendance;
 	
 	
@@ -52,11 +57,11 @@ public class Users {
 	public void setAttendance(List<Attendance> attendance) {
 		this.attendance = attendance;
 	}
-	public List<Classlist> getClasslist() {
-		return classlist;
+	public List<Classlist> getClassList() {
+		return ClassList;
 	}
-	public void setClasslist(List<Classlist> classlist) {
-		this.classlist = classlist;
+	public void setClassList(List<Classlist> ClassList) {
+		this.ClassList = ClassList;
 	}
 	public List<ProfessorProfile> getProfessorProfile() {
 		return professorProfile;
@@ -108,7 +113,15 @@ public class Users {
 		this.username = username;
 	}
 	
-
+	
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+	
+	
 	public Users(){}
 	
 	public Users(String idNo,String firstName,String lastName,String userName)

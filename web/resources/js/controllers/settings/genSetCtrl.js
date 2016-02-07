@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.controller("genSetCtrl", genSetCtrl);
 
-	function genSetCtrl($mdDialog, $state){
+	function genSetCtrl($mdDialog, $state, userService){
 
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
@@ -11,9 +11,9 @@
 		self.listOfSubjects = ["ISPROG1", "PROGAP1", "IS-EBIZ", "PROGAP2", "WEBDEVT"];
 		self.selectedChips = [];
 		self.user = {
-			"firstname": "Jm",
-			"lastname": "Santos",
-			"username": "santosjm"
+			"firstname": userService.userInfo.firstName,
+			"lastname": userService.userInfo.lastName,
+			"username": userService.userInfo.username
 		};
 
 		function showDialogPassword(event){

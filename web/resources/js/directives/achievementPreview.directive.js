@@ -2,13 +2,13 @@
 	angular.module("profileModule")
 		.directive("achievementPreview", achievementPreview);
 
-	function achievementPreview(){
+	function achievementPreview($timeout){
 
 		const TEMP_LOC = "resources/templates/";
 
 		return{
 			restrict: "E",
-			templateUrl: TEMP_LOC + "profiling/achievementPreview.html",
+			templateUrl: TEMP_LOC + "profiling/achievement.uploadPreview.html",
 			scope: {
 				file: "="
 			},
@@ -52,7 +52,7 @@
 					}
 
 					scope.filename = filename;
-					scope.$apply(function(){
+					$timeout(function(){
 						//Share to the parent controller in the dialogCtrl
 						scope.file = selectedFile;
 					});

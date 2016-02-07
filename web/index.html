@@ -9,9 +9,17 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/roboto-font.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/angular-material.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
+	<link rel='stylesheet' href='resources/css/loading-bar.css' type='text/css' media='all' />
+
+	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+
+
+	
+ 	
 	<script type="text/javascript" src="resources/angular.min.js"></script>
 	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="resources/md-data-table.min.js"></script>
+	<script type='text/javascript' src='resources/loading-bar.js'></script>
 
 		<!-- Angular Material (dependecies must come first) -->
 	<script type="text/javascript" src="resources/angular-animate.js"></script>
@@ -19,9 +27,10 @@
 	<script type="text/javascript" src="resources/angular-material.min.js"></script>
 
 		<!-- Angular application/modules -->
-	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
-	<script type="text/javascript" src="resources/js/application/profile.app.js"></script>
 
+	<script type="text/javascript" src="resources/js/application/profile.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/developer.app.js"></script>
+	<script type="text/javascript" src="resources/js/application/faculty.app.js"></script>
 		<!-- Angular controllers -->
 
 	<script type="text/javascript" src="resources/js/controllers/settings/genSetCtrl.js"></script>	
@@ -32,8 +41,9 @@
 	<script type="text/javascript" src="resources/js/controllers/profiling/researchCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/scheduleCtrl.js"></script>
 
-
-
+	<script type="text/javascript" src="resources/js/controllers/loginCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/dashboardCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/developer/developerCtrl.js"></script>
 
 		<!-- Angular directives -->
 	<script type="text/javascript" src="resources/js/directives/toggleNav.directive.js"></script>
@@ -43,14 +53,23 @@
 	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
 	
+	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
+	
 		<!-- Angular services -->
 	<script type="text/javascript" src="resources/js/services/userService.js"></script>
+	<script type="text/javascript" src="resources/js/services/authService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/scheduleService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/achievementService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/projectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/researchService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
+
+
+		<!-- Angular events -->
+	<script type="text/javascript" src="resources/js/events/AUTH_EVENTS.js"></script>
+	<script type="text/javascript" src="resources/js/events/USER_ROLES.js"></script>
+	
 
 	<style type="text/css">
 		.toolbar-profile-bg{
@@ -66,6 +85,14 @@
 		input[type=file]{
 			display: none;
 		}
+
+		.achievementImage{
+        background: no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
 
 		
 	</style>

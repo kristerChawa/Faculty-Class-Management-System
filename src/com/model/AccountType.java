@@ -17,13 +17,12 @@ public class AccountType {
 	@Column(name="ATID")
 	private int atID;
 	
-	
+	@Column(name="AccountType",length=30)
 	private String accountType;
 	
 	@ManyToOne
 	@JoinColumn(name="UserID")
 	private Users users;
-	
 	
 
 	public int getAtID() {
@@ -54,9 +53,10 @@ public class AccountType {
 
 	public AccountType(){}
 	
-	public AccountType(String accountType,Users users)
+	
+	public AccountType(String type,Users users)
 	{
-		setAccountType(accountType);
+		setAccountType(type);
 		setUsers(users);
 	}
 	

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+   <struts>
+   	<constant name="struts.devMode" value="true"/>
+   	<package name="developer" extends="json-default">
+   		
+  		<interceptors>
+	   		<interceptor-stack name="defaultStack">
+	   			<interceptor-ref name="json">
+	   				<param name="enableSMD">true</param>
+	   			</interceptor-ref>
+	   		</interceptor-stack>
+	   	</interceptors>
+	   	
+   		<action name="saveProfessors" class="com.action.developer.DeveloperAction">
+	   		<result name="success" type="json">
+	   			<param name="">users</param>
+	   		</result>
+   		</action>
+   		<action name="viewProfessors" class="com.action.developer.DeveloperViewProfessors">
+	   		<result name="success" type="json">
+	   			<param name="">users</param>
+	   		</result>
+   		</action>
+   		<action name="addAccountType" class="com.action.developer.Developer_AccountType">
+	   		<result name="success" type="json">
+	   			<param name="">users</param>
+	   			<param name="excludeNullProperties">true</param>
+	   		</result>
+   		</action>
+   	
+   	</package>
+   </struts>

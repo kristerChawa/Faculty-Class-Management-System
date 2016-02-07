@@ -1,0 +1,34 @@
+<md-dialog aria-label="Upload achievement/certification">
+	<md-dialog-content style="width: 500px;">
+	    <md-content layout-padding layout-margin>
+
+	      	<h5 class="md-title">Upload research</h5>
+			<md-content layout="column" layout-margin>
+				<md-input-container class="md-icon-float md-block">
+				  	<label>Research name</label>
+				  	 <md-icon md-svg-src="resources/img/svg/project_name.svg" style="color: gray;"></md-icon>
+				  	<input ng-model="uploadDialogCtrl.research.name">
+				</md-input-container>
+				<md-datepicker ng-model="uploadDialogCtrl.research.date" md-placeholder="Research date" ng-required></md-datepicker>
+			</md-content>      
+		</md-content>
+	</md-dialog-content>
+	<md-dialog-actions>
+
+	<!-- 	<md-content layout="row" layout-padding layout-margin layout-align="end end" ng-show="uploadDialogCtrl.displayProgress">
+			<span class="md-subhead">Uploading...</span>
+			<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+		</md-content> -->
+
+		<md-content layout-padding layout-margin ng-hide="uploadDialogCtrl.displayProgress">
+			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
+				Cancel
+			</md-button>
+			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.uploadResearch()" 
+						ng-disabled="uploadDialogCtrl.disableButton">
+			    Add research
+			</md-button>
+		</md-content>
+	</md-dialog-actions>
+</md-dialog>
+

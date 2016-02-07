@@ -2,82 +2,97 @@
 	angular.module("profileModule")
 		.controller("projectsCtrl", projectsCtrl);
 
-	function projectsCtrl($mdDialog, projectService){
+	function projectsCtrl($mdDialog, $timeout, projectService){
 		
 		const TEMP_LOC = "resources/templates/";
 		
 		var self = this;
+		self.hasFiles = false;
 		
 		self.showUploadDialog = showUploadDialog;
 		self.showDeleteDialog = showDeleteDialog;
-		
 		self.getFiles = getFiles;
-		self.hasFiles = false;
+		
+
 
 		function getFiles(){
-			var file = projectService.listFile;
-			console.log(file);
-			self.hasFiles = Object.keys(file).length ? true : false;
+			var file = null;
+			file = projectService.listFile;
+			self.hasFiles = file.length ? true : false;
 			return file;
-		}
-
-
-		function showUploadDialog(event){
-			$mdDialog.show({
-					parent: angular.element(document.body),
-					targetEvent: event,
-					templateUrl: TEMP_LOC + "profiling/projects.upload.html",
-					controller: dialogController,
-					controllerAs: "modal"
-			   });
+			
 		}
 
 		function showDeleteDialog(event, project){
 			$mdDialog.show({
 					parent: angular.element(document.body),
 					targetEvent: event,
-					templateUrl: TEMP_LOC + "profiling/delete-upload.html",
-					controller: function($mdDialog){
-						var self = this;
-						self.closeDialog = function(){
-							$mdDialog.hide();
-						}
-					},
-					controllerAs: "delete"
+					templateUrl: TEMP_LOC + "profiling/global-delete-upload.html",
+					controller: deleteDialogController,
+					controllerAs: "deleteDialogCtrl"
 			   });
-			
 		}
-
-		function dialogController($mdDialog, projectService){
+									/** DeleteDialog Controller **/
+		
+		function deleteDialogController($mdDialog){
 			var self = this;
-			self.message = "Hello";
-			self.project = {};
 			self.closeDialog = closeDialog;
-			self.uploadProject = uploadProject;
+			
+			function closeDialog(){
+				$mdDialog.hide();
+			}
+		}
+		
+		function showUploadDialog(event){
+			$mdDialog.show({
+					parent: angular.element(document.body),
+					targetEvent: event,
+					templateUrl: TEMP_LOC + "profiling/projects.uploadProject.html",
+					controller: uploadDialogController,
+					controllerAs: "uploadDialogCtrl"
+			   });
+		}
+		
+									/** UploadDialog Controller **/
+
+		function uploadDialogController($mdDialog, $mdToast, projectService){
+			var self = this;
+			self.project = {};
 			self.disableButton = false;
+			self.cancelDialog = cancelDialog;
+			self.uploadProject = uploadProject;
+			
 
 			function uploadProject(){
-				self.disableButton = true;
-				
-				var d = new Date(self.project.date),
-					projectDate = d.toLocaleDateString();
-				
-				var projectObj = {
-					"pModel": {
-						projectName : self.project.name,
-						projectDate : projectDate
-					}
-				};
 				
 				/** Disable uploadButton to avoid double submission */
 				self.disableButton = true;
 				
-				projectService.uploadProject(projectObj).then(function(response){
-					console.log(response);
-					self.closeDialog();
-				});
+				var projectObj = self.project;
+				
+				projectService.uploadProject(projectObj)
+					.then(function(response){
+						if(response.status == 200){
+							self.cancelDialog();	
+						}else{
+							errorToast($mdToast);
+							$timeout(function(){
+								self.disableButton = false;	
+							}, 1500);
+						}
+					});
 			}
-			function closeDialog(){
+
+			function errorToast($mdToast){
+				$mdToast.show(
+					$mdToast.simple()
+						.textContent("An error has occured. Please try again.")
+						.position("top")
+						.hideDelay(2000)
+				);
+			}
+
+			function cancelDialog(){
 				$mdDialog.hide();
 			}
 		}

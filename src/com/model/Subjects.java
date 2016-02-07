@@ -2,6 +2,7 @@ package com.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,20 +21,27 @@ public class Subjects {
 	@Column(name="CourseCode",length=10)
 	private String courseCode;
 	
-	@Column(name="Description",length=30)
+	@Column(name="Description",length=60)
 	private String description;
 	
 	@Column(name="Units",length=10)
 	private String units;
 	
-	@OneToMany(mappedBy="subjects")
+	@OneToMany(mappedBy="subjects",cascade=CascadeType.ALL)
 	private List<Schedule> schedule;
 	
 	@OneToMany(mappedBy="subjects")
 	private List<Expertise> expertise;
 	
 	
+	public Subjects(){}
 	
+	public Subjects(String courseCode,String description,String units)
+	{
+		setCourseCode(courseCode);
+		setDescription(description);
+		setUnits(units);
+	}
 	
 	
 	public List<Expertise> getExpertise() {
@@ -72,12 +80,5 @@ public class Subjects {
 	public void setUnits(String units) {
 		this.units = units;
 	}
-	public Subjects(){}
 	
-	public Subjects(String courseCode,String description,String units)
-	{
-		setCourseCode(courseCode);
-		setDescription(description);
-		setUnits(units);
-	}
 }

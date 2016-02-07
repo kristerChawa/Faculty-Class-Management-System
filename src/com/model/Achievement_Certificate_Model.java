@@ -54,6 +54,7 @@ public class Achievement_Certificate_Model {
 	public void doUpload(String serverPath) {
 		
 		try {
+			System.out.println(Achievement_Certificate_Name);
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
 			String url = dbService.upload_Achievement_Certificate(tempFile.getPath());

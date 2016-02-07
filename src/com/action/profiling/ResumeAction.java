@@ -27,7 +27,7 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 		String serverPath = request.getServletContext().getRealPath("/");
 		rModel.doUpload(serverPath);
 		
-		resume=new Resume(rModel.getResumeUrl());
+		resume=new Resume(rModel.getUrl());
 		session_Helper.addResume(resume);
 		session_Helper.viewResume();
 		return SUCCESS;

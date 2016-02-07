@@ -2,6 +2,7 @@ package com.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Schedule {
 	@Column(name="Section",length=10)
 	private String section;
 	
-	@Column(name="Time",length=20)
+	@Column(name="Time",length=30)
 	private String time;
 	
 	@ManyToOne
@@ -108,6 +109,8 @@ public class Schedule {
 		setSection(section);
 		setSubjects(subjects);
 	}
+	
+	
 	
 	
 

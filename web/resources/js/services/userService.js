@@ -1,23 +1,32 @@
 (function(){
 	angular.module("facultyApp")
-		.factory("userService", userService);
+		.service("userService", userService);
 
-	function userService($q){
+	function userService(){
+		var self = this;
 
-		var result = ["Professor", "Student", "Chairperson", "AcademicAdviser", "Secretary"];
-		var user = {};
+		self.createSession = createSession;
+		self.destroySession = destroySession;
+		self.userInfo = {};
 
-		return {
-			getUser: function(){
-				var deferred = $q.defer();
-				deferred.resolve(user);
-				return deferred.promise;
-			},
-			setUser: function(userForm){
-				user.username = userForm.username;
-				user.password = userForm.password;
-			}
-		};
+		function createSession(responseObj){
+			
+			self.userInfo.username = responseObj.username;
+			self.userInfo.firstName = responseObj.firstName;
+			self.userInfo.lastName = responseObj.lastName;
+
+			var ac = [responseObj.accountType[0].accountType, responseObj.accountType[1].accountType];
+			ac = ac.join(", ");
+			console.log(ac);
+			self.userInfo.userRole = responseObj.accountType[0].accountType;
+			self.userInfo.userImage = "resources/img/avatar.png"; //responseObj.userImage;
+			
+			console.log(self.userInfo);
+		}
+
+		function destroySession(){
+			self.userInfo = {};
+		}
+
 	}
-
 }());

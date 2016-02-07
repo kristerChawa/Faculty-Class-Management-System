@@ -112,10 +112,14 @@ public class ProfilingHelper {
 	{
 		session=sessionFactory.openSession();
 		session.beginTransaction();
+		
 		List<Projects>list=null;
 		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, 1);
+		
 		list=professorProfile.getProjects();
 		list.forEach(i -> System.out.println(i.getProjectName()));
+		
+		
 		session.getTransaction().commit();
 		session.close();
 		return list;

@@ -1,34 +1,33 @@
 (function(){
-	angular.module("profileModule", ["ui.router"]);
+	angular.module("profileModule", [
+			"ui.router", 
+			"lazyLoadingApp",
+			"angular-loading-bar"
+			]);
 }());
 
 (function(){
 	angular.module("profileModule")
 		.config(config);
 
-	function config($stateProvider, $urlRouterProvider){
+	function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider){
 		const TEMP_LOC = "resources/templates/";
+		cfpLoadingBarProvider.includeSpinner = false;
 
 		$urlRouterProvider
-		.otherwise("/");
+			.when("/dashboard/profile", "dashboard/profile/general")
+			.otherwise("/dashboard/profile");
 
 		$stateProvider
 			.state("dashboard.profile", {
 				url: "/profile",
-				templateUrl: TEMP_LOC + "profile.html",
-				controller: function($state, $stateParams){
-					
-					$state.go("dashboard.profile.general");
-					console.log(1);
-					
-				}
+				templateUrl: TEMP_LOC + "profile.html"
 			})
 			.state("dashboard.profile.general", {
 				url: "/general",
 				templateUrl: TEMP_LOC + "profiling/generalTab.html",
 				controller: "generalCtrl",
 				controllerAs: "general"
-				
 			})
 			.state("dashboard.profile.achievements", {
 				url: "/achievements",

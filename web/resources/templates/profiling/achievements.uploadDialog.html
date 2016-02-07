@@ -6,24 +6,31 @@
 			<md-content layout="column" layout-margin>
 				<md-input-container class="md-block">
 				  	<label>Achievement/Certification name</label>
-				  	<input ng-model="modal.fileData.achievementName">
+				  	<input ng-model="uploadDialogCtrl.achievementFileData.achievementName">
 				</md-input-container>
 
 				
 					<achievement-Preview
-						file="modal.fileData.file">
+						file="uploadDialogCtrl.achievementFileData.file">
 					</achievement-Preview>
 
 			</md-content>      
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
-		<md-content layout-padding layout-margin>
-			<md-button class="md-primary md-raised" ng-click="modal.closeDialog()">
+
+		<md-content layout="row" layout-padding layout-margin layout-align="end end" ng-show="uploadDialogCtrl.displayProgress">
+			<span class="md-subhead">Uploading...</span>
+			<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+		</md-content>
+		
+		<md-content layout-padding layout-margin ng-hide="uploadDialogCtrl.displayProgress">
+			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
 				Cancel
 			</md-button>
+			
 			<md-button class="md-primary md-raised" 
-				ng-click="modal.upload_Achievement_Certificate()" ng-disabled="modal.disableButton">
+				ng-click="uploadDialogCtrl.upload_Achievement_Certificate()" ng-disabled="uploadDialogCtrl.disableButton">
 			    Upload file
 			</md-button>
 		</md-content>

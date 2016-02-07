@@ -1,64 +1,70 @@
 (function(){
 	
-	angular.module("facultyApp", ["ui.router", "ngMaterial", "md.data.table", "profileModule"]);
-
+	angular.module("facultyApp", [
+			"ui.router", 
+			"ngMaterial", 
+			"md.data.table", 
+			"angular-loading-bar",
+			"profileModule", 
+			"developerApp"
+			]);
 }());
 
 (function(){
 
 	angular.module("facultyApp")
-		.config(facultyAppConfig);
+		.config(facultyAppConfig)
+		.run(function($rootScope, $state){
+			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
+				event.preventDefault();
+				return $state.go("index");
+			});
+		});
 
 	function facultyAppConfig($stateProvider, $urlRouterProvider){
 
 		const TEMP_LOC = "resources/templates/";
-
-
 		
-		$urlRouterProvider
-			.otherwise("/");
+		 $urlRouterProvider
+		 	.when("/dashboard/", "/dashboard")
+			 .otherwise("/");
 		
-
 		$stateProvider
 			.state("index", {
 				url: "/",
 				templateUrl: TEMP_LOC + "loginPage.html",
-				controller: function($state, userService, $timeout){
-					var vm = this;
-					
-					vm.login = function(){
-						// userService.setUser(vm.user);
-						
-						vm.progressNumber = 80;
-						$timeout(function(){
-							vm.displayProgress = 100;
-							$state.go("dashboard");	
-						}, 1500);
-					}
-				},
-				controllerAs: "vm"
+				controller: "loginCtrl",
+				controllerAs: "login"
 			})
 			.state("dashboard", {
 				url: "/dashboard",
 				templateUrl: TEMP_LOC + "dashboard.html",
-				controller: function(userService, $stateParams){
-					var vm = this;
-					
-			
-					userService.getUser().then(onComplete, onError);
+				controller: "dashboardCtrl",
+				controllerAs: "dash",
+				resolve:{
+					"userObj": function(authService, userService, $q, $state, AUTH_EVENTS){
+						var deferred = $q.defer();
+						console.log(userService.userInfo.username);
 
-					function onComplete(data){
-						vm.data = data;
-						console.log(vm.data);
+						//This one solves for refreshing the page
+						if(userService.userInfo.username == undefined){
+							authService.checkOnlineUser().then(function(response){
+								var responseObj = response.data.usersModel;
+								console.log(responseObj);
+								if(responseObj.username == undefined){
+									//Paano kung wala talagang sessionUser..
+									deferred.reject(AUTH_EVENTS.notAuthenticated);
+								}
+								userService.createSession(response.data.usersModel);
+								deferred.resolve(userService.userInfo);
+							});
+						}else{
+							deferred.resolve(userService.userInfo);
+						}
+						
+						return deferred.promise;
 					}
-
-					function onError(reason){
-						console.log(reason);
-					}
-					
-				
-				},
-				controllerAs: "dash"
+				}
 				
 			})
 			.state("dashboard.settings", {
@@ -75,33 +81,17 @@
 				controller: "genSetCtrl",
 				controllerAs: "genSet"
 			})
-			.state("developer", {
-				url: "/developer",
-				templateUrl: TEMP_LOC + "developer/developer.html",
-				controller: function(developerService){
-					var self = this;
-					self.message = "Hello";
-					self.loadProfessors = loadProfessors;
-					self.saveProfessors = saveProfessors;
-
-					function loadProfessors(){
-						developerService.loadProfessors().then(function(response){
-							console.log(response);
-							self.list = response;
-							saveProfessors(self.list);
-						});
-					}
-
-					function saveProfessors(data){
-						developerService.saveProfessors(data).then(function(response){
-							console.log(response);
-						});
-					}
-
-
-				},
-				controllerAs: "developer"
+			.state("logout",{
+				url: "/",
+				controller: function($scope, authService){
+					
+					$scope.init = function(){
+						authService.logoutUser();
+					}();
+					
+				}
 			});
+			
 	}
 
 }());
