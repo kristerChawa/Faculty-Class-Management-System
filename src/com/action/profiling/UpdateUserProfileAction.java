@@ -21,17 +21,20 @@ public class UpdateUserProfileAction extends ActionSupport {
 		// TODO Auto-generated method stub
 		
 		System.out.println(uModel.getUsername() + uModel.getFirstName());
+		subjects.forEach(i -> System.out.println(i.getCourseCode()));
+		
+		
 		//Before to add the uModel use the helperClass for the username.
 		//Subjects are already retrieved. 
-		ProfilingHelper profiling_helper = new ProfilingHelper();
-		ProfessorProfile pProf_helper = new ProfessorProfile();
-		Expertise expertise = new Expertise();
-		
+//		ProfilingHelper profiling_helper = new ProfilingHelper();
+//		ProfessorProfile pProf_helper = new ProfessorProfile();
+//		Expertise expertise = new Expertise();
+//		
 		
 		
 		uModel.setUsername(HelperClass.CreateUsername(uModel.getFirstName(), uModel.getLastName()));
-		
-		profiling_helper.updateUserProfile(uModel);
+		//Hindi ko ma add yung subjects sa expertise haha
+//		profiling_helper.updateUserProfile(uModel);
 //		pProf_helper.setUsers(uModel);
 //		subjects.forEach(i -> expertise.setSubjects(i));
 //		expertise.setProfessorProfile(pProf_helper);

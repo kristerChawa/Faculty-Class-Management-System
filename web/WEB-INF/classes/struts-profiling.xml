@@ -30,8 +30,6 @@
 	  			
 	  		</action>
 	  	
-	  		
-	  	
 	  		<action name="uploadProject" class="com.action.profiling.ProjectAction">
 	  			<interceptor-ref name="myStack"/>
 		  		<result name="success" type="json">
@@ -60,8 +58,7 @@
 	  			</result>
 	  		</action>
 	  		
-	  		<action name="uploadUserImage" class="com.action.profiling.UploadUserImageAction">
-	  			
+	  		<action name="uploadUserImage" class="com.action.profiling.UploadUserImageAction">	  			
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
 	  			

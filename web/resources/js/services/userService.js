@@ -7,7 +7,6 @@
 
 		self.createSession = createSession;
 		self.destroySession = destroySession;
-		self.updateSession = updateSession;
 		self.userInfo = {};
 
 		function createSession(responseObj){
@@ -28,31 +27,7 @@
 			
 			console.log(self.userInfo);
 		}
-
-		function updateSession(){
-
-			var request = {
-				url: "updateCurrentSession.action",
-				method: "post",
-				headers:{
-					"Content-Type": "application/json",
-					"datatype": "json"
-				}
-			};
-
-			$http(request)
-				.then(function(response){
-					console.log(response);
-					var responseObj = response.data.user;
-					createSession(responseObj);
-				})
-				.catch(function(error){
-					console.log(error);	
-				});
-
-			// createSession();	
-		}
-
+		
 		function destroySession(){
 			self.userInfo = {};
 		}

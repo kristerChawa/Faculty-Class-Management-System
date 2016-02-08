@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.controller("genSetCtrl", genSetCtrl);
 
-	function genSetCtrl($mdDialog, $state, userService, subjectService, genSetService){
+	function genSetCtrl($mdDialog, $state, userService, authService, subjectService, genSetService){
 
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
@@ -36,7 +36,7 @@
 
 			genSetService.updateUserProfile(userObj).then(function(response){
 				console.log(response);
-				userService.updateSession();
+				authService.updateSession();
 			});
 
 			// userService.updateSession();
@@ -85,8 +85,5 @@
 			}
 
 		}
-
-		
-		
 	}
 }());
