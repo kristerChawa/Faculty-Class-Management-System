@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.HibernateUtil.DeveloperHelper;
+import com.helper.HelperClass;
 import com.model.AccountType;
 import com.model.Password;
 import com.model.ProfessorProfile;
@@ -24,6 +25,7 @@ public class DeveloperAction extends ActionSupport {
 			{ 
 				
 				//add user
+				uModel.setUsername(HelperClass.CreateUsername(uModel.getFirstName(), uModel.getLastName()));
 				session_Helper.addUser(uModel);
 				
 				//add password
@@ -32,7 +34,7 @@ public class DeveloperAction extends ActionSupport {
 				
 				for(AccountType acType : uModel.getAccountType()){
 					AccountType accountType = new AccountType(acType.getAccountType(), uModel);
-					session_Helper.addAccountType(accountType);
+					session_Helper.addAccountType(accountType,uModel);
 				}
 				
 				
@@ -40,7 +42,6 @@ public class DeveloperAction extends ActionSupport {
 			//	add professorprofile
 				ProfessorProfile professorProfile=new ProfessorProfile(uModel);
 				session_Helper.addProfessorProfile(professorProfile);
-				session_Helper.viewAllProfessors();
 			}
 		}catch(Exception e){
 			return ERROR;

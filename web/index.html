@@ -11,11 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/md-data-table.min.css">
 	<link rel='stylesheet' href='resources/css/loading-bar.css' type='text/css' media='all' />
 
-	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-
-	
- 	
 	<script type="text/javascript" src="resources/angular.min.js"></script>
 	<script type="text/javascript" src="resources/angular-ui-router.min.js"></script>
 	<script type="text/javascript" src="resources/md-data-table.min.js"></script>
@@ -39,6 +36,7 @@
 	<script type="text/javascript" src="resources/js/controllers/profiling/achievementsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/projectsCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/researchCtrl.js"></script>
+	<script type="text/javascript" src="resources/js/controllers/profiling/resumeCtrl.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/profiling/scheduleCtrl.js"></script>
 
 	<script type="text/javascript" src="resources/js/controllers/loginCtrl.js"></script>
@@ -52,7 +50,7 @@
 	<script type="text/javascript" src="resources/js/directives/uploadImage.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/achievementPreview.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/uploadIcon.directive.js"></script>
-	
+	<script type="text/javascript" src="resources/js/directives/uploadFile.directive.js"></script>
 	<script type="text/javascript" src="resources/js/directives/bnLazyLoading.js"></script>
 	
 		<!-- Angular services -->
@@ -62,7 +60,10 @@
 	<script type="text/javascript" src="resources/js/services/profiling/achievementService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/projectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/researchService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/resumeService.js"></script>
+	<script type="text/javascript" src="resources/js/services/profiling/subjectService.js"></script>
 	<script type="text/javascript" src="resources/js/services/profiling/uploadIconService.js"></script>
+	<script type="text/javascript" src="resources/js/services/settings/genSetService.js"></script>
 	<script type="text/javascript" src="resources/js/services/developer/developerService.js"></script>
 
 
@@ -87,12 +88,12 @@
 		}
 
 		.achievementImage{
-        background: no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-}
+	        background: no-repeat center center fixed;
+	        -webkit-background-size: cover;
+	        -moz-background-size: cover;
+	        -o-background-size: cover;
+	        background-size: cover;
+		}
 
 		
 	</style>

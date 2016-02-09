@@ -2,40 +2,39 @@
 	
 	<md-content layout="row" layout-align="center center">
 		
-		<form name="" layout="column" flex="50">
+		<form name="basicInformation" layout="column" flex="50">
 		
 		<h5 class="md-title">Basic Information</h5>
 	     
 	      <md-input-container class="md-block">
 	       	<label>Firstname</label>
-	        <input ng-model="genSet.user.firstname">
+	        <input ng-model="genSet.user.firstName">
 	      </md-input-container>
 	      
 	      <md-input-container class="md-block">
 	        <label>Lastname</label>
-	        <input ng-model="genSet.user.lastname">
+	        <input ng-model="genSet.user.lastName">
 	      </md-input-container>
 
 	      <md-input-container class="md-block">
 	        <label>Username (disabled)</label>
-	        <input ng-model="genSet.user.username" >
+	        <input ng-model="genSet.user.username" disabled="true">
 	      </md-input-container>
 
 	      <md-content layout-padding>
-	      	<md-chips ng-model="genSet.selectedChips"
-	      		 	 md-autocomplete-snap>
+	      	<md-chips ng-model="genSet.selectedSubjects"
+	      		 	 md-require-match="true">
 	      		<md-autocomplete
 	      			md-selected-item="genSet.selectedItem"
 	      			md-search-text="genSet.searchText"
 	      			md-items="item in genSet.listOfSubjects | filter:genSet.searchText"
-	      			md-item-text="item"
+	      			md-item-text="item.courseCode"
 	      			placeholder="Preferred subject">
-	      			<span md-highlight-text="genSet.searchText">{{item}}</span>
+	      			<span md-highlight-text="genSet.searchText">{{item.courseCode}}</span>
 	      		</md-autocomplete>	
 	      		<md-chip-template>
 	      			<span>
-	      				{{$chip}}
-	      				
+	      				{{$chip.courseCode}}
 	      			</span>
 	      		</md-chip-template>
 	      	</md-chips>
@@ -44,7 +43,7 @@
 	      </md-content>
 
 	        <md-content>
-		      <md-button class="md-primary md-raised md-fab" ng-click="genSet.showDialogPassword($event)">
+		      <md-button class="md-primary md-raised md-fab" ng-click="genSet.showDialogPassword($event)" aria-label="button">
 		      	<md-icon md-svg-icon="resources/img/svg/report.svg"></md-icon>
 		      </md-button>
 		      <span>Request for a password change</span>
@@ -56,7 +55,7 @@
 
 
 	<md-content layout="row" layout-align="center center">
-		<md-button class="md-primary md-raised">
+		<md-button class="md-primary md-raised" ng-click="genSet.saveChanges()">
 		    Save changes
 		</md-button>
 	</md-content>

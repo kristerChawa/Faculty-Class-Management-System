@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +28,11 @@ public class Subjects {
 	@Column(name="Units",length=10)
 	private String units;
 	
-	@OneToMany(mappedBy="subjects",cascade=CascadeType.ALL)
+	
+	@OneToMany(mappedBy="subjects",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Schedule> schedule;
 	
-	@OneToMany(mappedBy="subjects")
+	@OneToMany(mappedBy="subjects", fetch = FetchType.EAGER)
 	private List<Expertise> expertise;
 	
 	

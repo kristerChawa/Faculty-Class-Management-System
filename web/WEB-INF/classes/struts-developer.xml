@@ -31,6 +31,24 @@
 	   			<param name="excludeNullProperties">true</param>
 	   		</result>
    		</action>
+   		<action name="addSubjects" class="com.action.developer.Developer_AddSubjects">
+	   		<result name="success" type="json">
+	   			<param name="excludeNullProperties">true</param>
+	   		</result>
+	   		<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+	  		</result>
+   		</action>
+   		<action name="loadSubjects" class="com.action.developer.Developer_LoadSubjects">
+	   		<result name="success" type="json">
+	   			<param name="excludeNullProperties">true</param>
+	   		</result>
+	   		<result name="input" type="json">
+	  			<param name="statusCode">500</param>
+	  			<param name="errorCode">500</param>
+	  		</result>
+   		</action>
    	
    	</package>
    </struts>

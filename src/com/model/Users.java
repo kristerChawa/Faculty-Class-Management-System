@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity(name="Users")
 public class Users {
@@ -27,15 +28,15 @@ public class Users {
 	@Column(length=25,name="UserName")
 	private String username;
 	
-	@Column(length=30,name="PictureUrl")
+	//make this one default value: resources/img/avatar.png 
+	@Column(name="PictureUrl",insertable=false, updatable = true, nullable = false,
+	columnDefinition="varchar(250) default 'resources/img/avatar.png'")
 	private String pictureUrl;
-	
-
 	
 
 	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<AccountType> accountType;
-	
+
 	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
 	private List<Password> password;
 	
@@ -132,5 +133,11 @@ public class Users {
 		setUsername(userName);
 	}
 	
+	public Users(String pictureUrl,int id)
+	{
+		setPictureUrl(pictureUrl);
+		setUserID(id);
+	}
+
 
 }

@@ -16,6 +16,7 @@ public interface DropboxApi {
 	
 	final String achievements_certificates_path = folderPath + "Achievements&Certifications/";
 	final String resume_path = folderPath + "Resume/";
+	final String userImage_path = folderPath + "UserImages/";
 	
 	
 	/**
@@ -26,6 +27,7 @@ public interface DropboxApi {
 	public String upload_Achievement_Certificate(String filepath);
 	public String uploadResume(String filepath);
 	public List<Metadata> listFolders();
+	public String uploadUserImage(String filepath);
 	
 	
 	

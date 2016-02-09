@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.helper.Utilities;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LogoutUser extends ActionSupport implements SessionAware, ServletRequestAware {
@@ -20,7 +21,7 @@ public class LogoutUser extends ActionSupport implements SessionAware, ServletRe
 		System.out.println("Trying to logout...");
 		userSession.forEach( (k,v) -> System.out.println("key= " + k + " - " + "value= " + v));
 		userSession.clear();
-		userSession.remove("usersModel");
+		userSession.remove(Utilities.user_sessionName);
 		System.out.println(request.getSession(false).getCreationTime());
 		
 		request.getSession(false).invalidate();

@@ -85,6 +85,25 @@ public class DropBoxService implements DropboxApi {
 		}
 		return files;
 	}
+	
+	@Override
+	public String uploadUserImage(String filepath) {
+		// TODO Auto-generated method stub
+		File file = new File(filepath);
+		Files.FileMetadata metadata = null;
+		
+		try(InputStream in = new FileInputStream(file);) {
+			metadata = getDropBoxInstance().files
+					.uploadBuilder(DropboxApi.userImage_path + file.getName()).run(in);
+			
+			return getDropBoxInstance().sharing.createSharedLink(metadata.pathLower).url + "&raw=1";
+
+		} catch (DbxException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "Something went wrong while uploading your file.";
+		}
+	}
 		
 	
 }

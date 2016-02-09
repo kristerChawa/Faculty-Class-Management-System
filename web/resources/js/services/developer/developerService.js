@@ -5,8 +5,10 @@
 	function developerService($http){
 		var service = {
 			uploadProfessors: uploadProfessors,
-			loadDBUsers: loadDBUsers,
-			addAccountType: addAccountType
+			loadProfessors: loadProfessors,
+			addAccountType: addAccountType,
+			uploadSubjects: uploadSubjects,
+			loadSubjects: loadSubjects
 		};
 
 		return service;
@@ -15,7 +17,7 @@
 			return $http.post("resources/extras/professors.json")
 				.then(function(response){
 					return saveProfessors(response.data);
-				})
+				});
 		}
 
 		function saveProfessors(data){
@@ -38,7 +40,7 @@
 				});
 		}
 
-		function loadDBUsers(){
+		function loadProfessors(){
 			var request = {
 				method: "post",
 				url: "viewProfessors.action",
@@ -91,6 +93,60 @@
 				.then(function(response){
 					console.log(response);
 					return response;
+				});
+		}
+
+		function getSubjects(){
+			var request = {
+				url: "https://raw.githubusercontent.com/jmaicaaan/FCMS/gh-pages/ISSubjects.json",
+				method: "post"
+			};
+			return $http(request)
+				.then(function(response){
+					return response.data;
+				})
+				.catch(function(error){
+					return error;
+				});
+		}
+
+		function uploadSubjects(){
+
+
+			return getSubjects().then(function(response){
+				var responseObj = response;
+				
+				var request = {
+					url: "addSubjects.action",
+					method: "post",
+					data: responseObj
+				};
+				
+				return $http(request)
+					.then(function(response){
+						console.log(response);
+						return response.data;
+					})
+					.catch(function(error){
+						return error;
+					});
+			});
+
+		}
+
+		function loadSubjects(){
+			var request = {
+				url: "loadSubjects.action",
+				method: "post"
+			};
+
+			return $http(request)
+				.then(function(response){
+					console.log(response);
+					return response.data;
+				})
+				.catch(function(error){
+					return error;
 				});
 		}
 	}

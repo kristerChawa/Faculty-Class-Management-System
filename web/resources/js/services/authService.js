@@ -6,6 +6,7 @@
 		var authService = {
 			login: login,
 			checkOnlineUser: checkOnlineUser,
+			updateSession: updateSession,
 			logoutUser: logoutUser
 		};
 
@@ -59,9 +60,34 @@
 			return $http(request)
 				.then(function(response){
 					console.log(response);
+
+					updateSession();
 					return response;
 				})
 				.catch(function(error){
+					return error;
+				});
+		}
+
+		function updateSession(){
+
+			var request = {
+				url: "updateCurrentSession.action",
+				method: "post",
+				headers:{
+					"Content-Type": "application/json",
+					"datatype": "json"
+				}
+			};
+
+			return $http(request)
+				.then(function(response){
+					console.log(response);
+					var responseObj = response.data.user;
+					return userService.createSession(responseObj);
+				})
+				.catch(function(error){
+					console.log(error);	
 					return error;
 				});
 		}

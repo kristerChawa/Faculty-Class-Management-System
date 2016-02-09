@@ -1,10 +1,8 @@
 {"users":[
-	{"firstName":"Ernest Richard","lastName":"Ocson","idNo":"000111","username":"Buboy", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Christine","lastName":"Dacanay","idNo":"000112","username":"Chique", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Eisen Lewis","lastName":"Sy","idNo":"000113","username":"Syel", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Raymund Christian","lastName":"Zalameda","idNo":"000114","username":"Mon", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Abram","lastName":"Limpin","idNo":"000115","username":"Panda", "accountType": [{"accountType": "Professor"}]},
-	{"firstName":"Gary","lastName":"Soriano","idNo":"000116","username":"PogiGary", "accountType": [{"accountType": "Professor"}]}	
+	{"firstName":"Ernest Richard","lastName":"Ocson","idNo":"000111", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Christine","lastName":"Dacanay","idNo":"000112", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Eisen Lewis","lastName":"Sy","idNo":"000113", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Christian Raymond","lastName":"Zalameda","idNo":"000114", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Abram","lastName":"Limpin","idNo":"000115", "accountType": [{"accountType": "Professor"}]},
+	{"firstName":"Gary","lastName":"Soriano","idNo":"000116", "accountType": [{"accountType": "Professor"}]}	
 ]}
-		
-		

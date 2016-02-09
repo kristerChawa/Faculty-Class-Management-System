@@ -1,12 +1,12 @@
 <div layout="column">
 		
-			<md-toolbar class="" md-scroll-shrink>
-				<div class="md-toolbar-tools">
-					<md-button class="md-icon-button" aria-label="icon" toggle-Nav>
-						<md-icon md-svg-icon="resources/img/svg/menu.svg"></md-icon>
-					</md-button>
-				</div>
-			</md-toolbar>
+		<md-toolbar class="" md-scroll-shrink>
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" aria-label="icon" toggle-Nav>
+					<md-icon md-svg-icon="resources/img/svg/menu.svg"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
 		
 		<div layout="row">
 			<md-sidenav md-component-id="sidenav" class="md-whiteframe-24dp">
@@ -14,14 +14,13 @@
 					<md-toolbar class="md-tall toolbar-profile-bg">
 						<div class="md-toolbar-tools"> 
 							<md-list-item layout="row">
-								<img class="avatar" ng-src="{{dash.user.userImage}}"/>
+								<img class="avatar" ng-src="{{dash.user.pictureUrl.url}}"/>
 								
-								<upload-Image>
-									<md-button class="md-icon-button" aria-label="icon">
-										<md-icon md-svg-icon="resources/img/svg/upload_image.svg"></md-icon>
-										<input type="file" class="dot"/>
-									</md-button>
-								</upload-Image>
+								<upload-Icon 
+									icon="resources/img/svg/upload_image.svg"
+									file-data="dash.user.pictureUrl"
+									url="uploadUserImage.action">
+								</upload-Icon>
 								
 							</md-list-item>
 							

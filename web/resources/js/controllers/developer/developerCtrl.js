@@ -5,9 +5,14 @@
 	function developerCtrl(developerService, $timeout){
 		var self = this;
 		self.uploadProfessors = uploadProfessors;
-		self.loadDBUsers = loadDBUsers;
+		self.loadProfessors = loadProfessors;
 		self.updateAccountType = updateAccountType;
+		self.uploadSubjects = uploadSubjects;
+		self.loadSubjects = loadSubjects;
 		self.selectedUsers = {};
+		
+		self.displaySubjectsTable = false;
+		self.displayUsersTable = false;
 
 		function uploadProfessors(){
 			developerService.uploadProfessors().then(function(response){
@@ -15,13 +20,14 @@
 			});
 		}
 
-		function loadDBUsers(){
+		function loadProfessors(){
 			//Database Users
-			self.displayTable = false;
 
-			developerService.loadDBUsers().then(function(response){
+			developerService.loadProfessors().then(function(response){
 				
-				self.displayTable = true;
+				self.displaySubjectsTable = false;
+				self.displayUsersTable = true;
+				
 				self.list = response.data.users;
 				console.log(response);
 				
@@ -35,12 +41,25 @@
 			developerService.addAccountType(usersObjList).then(function(response){
 				console.log(response);
 				self.selectedUsers = {};
+				self.loadProfessors();
 			});
-			
-		
-			
 		}
-		
-		
+
+		function uploadSubjects(){
+
+			developerService.uploadSubjects().then(function(response){
+				self.displaySubjectsTable = true;
+				self.displayUsersTable = false;
+				self.listOfSubjects = response.subjects;
+			});
+		}
+
+		function loadSubjects(){
+			developerService.loadSubjects().then(function(response){
+				self.displaySubjectsTable = true;
+				self.displayUsersTable = false;
+				self.listOfSubjects = response.subjects;
+			});
+		}	
 	}
 }());

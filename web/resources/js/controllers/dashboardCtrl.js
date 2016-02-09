@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.controller("dashboardCtrl", dashboardCtrl);
 
-	function dashboardCtrl($state, userObj){
+	function dashboardCtrl($state, $scope, userObj){
 		var self = this;
 
 		self.user = userObj;

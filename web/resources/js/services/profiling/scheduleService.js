@@ -10,10 +10,18 @@
 		return scheduleService;
 
 		function getSchedules(){
-			return $http.get("resources/extras/schedules.json")
+			var request = {
+				url: "resources/extras/schedules.json",
+				method: "post"
+			};
+			return $http(request)
 				.then(function(response){
 					return response.data;
+				})
+				.catch(function(error){
+					return error;
 				});
+			
 		}
 	}
 }());

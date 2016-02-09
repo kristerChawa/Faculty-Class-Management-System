@@ -1,0 +1,15 @@
+<div layout="column" layout-padding layout-margin>
+	<md-content layout="column" layout-align="center center" ng-hide="resume.hasFiles">
+		<h5 class="md-title">No resume</h5>
+		<img ng-src="resources/img/null.png">
+		<p class="md-subhead">Help the department manage your profiles for the PAASCU.</p>
+	</md-content>
+
+	<md-content layout="column" ng-show="resume.hasFiles">
+		{{resume.resumeFile.name}}
+    </md-content>
+	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="resume.showUploadDialog($event)"
+        style="position: fixed;">
+		<md-icon md-svg-src="resources/img/svg/add.svg"></md-icon>
+	</md-button>
+</div>

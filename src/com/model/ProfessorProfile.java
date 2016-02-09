@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,21 +24,21 @@ public class ProfessorProfile {
 	@JoinColumn(name="UserID")
 	private Users users;
 	
-	@OneToMany(mappedBy="ProfessorProfile")
+	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
 	private List<Achievements> achievements;
 
 	
-	@OneToMany(mappedBy="ProfessorProfile")
+	@OneToMany(mappedBy="ProfessorProfile", fetch = FetchType.EAGER)
 	private List<Resume> resume;
 	
-	@OneToMany(mappedBy="professorProfile")
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
 	private List<Researches> researches;
 	
-	@OneToMany(mappedBy="professorProfile")
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
 	private List<Projects> projects;
 	
 	
-	@OneToMany(mappedBy="professorProfile")
+	@OneToMany(mappedBy="professorProfile", fetch = FetchType.EAGER)
 	private List<FacultyAssign> facultyAssign;
 	
 	

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity(name="Password")
 public class Password {
@@ -17,12 +18,18 @@ public class Password {
 	private int passID;
 	
 	@Column(name="Password",insertable=false, updatable = true, nullable = false,
-			columnDefinition="varchar(25) default 'qwerty'")
+			columnDefinition="varchar(250) default '+91NMyl5hSlOZMu+6dXukQ=='")
 	private String password;
 	
 	@ManyToOne
 	@JoinColumn(name="UserID")
 	private Users users;
+	
+	
+	private String newPassword;
+	
+	private String newPassword_Verify;
+	
 
 	public int getPassID() {
 		return passID;
@@ -38,6 +45,19 @@ public class Password {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public String getNewPassword_Verify() {
+		return newPassword_Verify;
+	}
+	public void setNewPassword_Verify(String newPassword_Verify) {
+		this.newPassword_Verify = newPassword_Verify;
 	}
 
 	

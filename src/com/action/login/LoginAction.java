@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.LoginHelper;
+import com.helper.Utilities;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -18,18 +19,22 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
+		userSession.clear();
+		userSession.remove(Utilities.user_sessionName);
 		
 		LoginHelper loginHelper = new LoginHelper();
 		try{
 			String username = usersModel.getUsername(),
 					password = usersModel.getPassword().get(0).getPassword();
+
+			usersModel = loginHelper.loginUser(username, password);
 			
-			if(!loginHelper.loginUser(username, password)){
+			if(usersModel == null){
 				return INPUT;
 			}
-			usersModel = loginHelper.getUserDetails(usersModel.getUsername());
+//			loginHelper.getUserDetails(usersModel.getUserID());
 			
-			userSession.put("usersModel", usersModel);
+			userSession.put(Utilities.user_sessionName, usersModel);
 			return SUCCESS;
 		}catch(Exception e){
 			return INPUT;
