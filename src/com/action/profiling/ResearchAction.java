@@ -37,7 +37,7 @@ public class ResearchAction extends ActionSupport implements SessionAware {
 			rModel.setProfessorProfile(professorProfile);
 			
 			session_Helper.addResearches(rModel);
-			session_Helper.viewResearches();
+			session_Helper.viewResearches(professorProfile);
 		}catch(Exception e){
 			return INPUT;
 		}

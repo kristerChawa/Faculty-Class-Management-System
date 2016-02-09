@@ -179,12 +179,12 @@ public class ProfilingHelper {
 	
 	
 	
-	public List<Researches>viewResearches() //overload id from loginHelper
+	public List<Researches>viewResearches(ProfessorProfile professor) //overload id from loginHelper
 	{
 		session=sessionFactory.openSession();
 		session.beginTransaction();
 		List<Researches> list = null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, 1);
+		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, professor.getPpID());
 		list = professorProfile.getResearches();
 		list.forEach(i -> System.out.println(i.getResearchName()));
 		session.getTransaction().commit();

@@ -80,7 +80,7 @@ public class DeveloperHelper implements Utilities {
 		}
 	}
 
-	public void addAccountType(AccountType accountType)
+	public void addAccountType(AccountType accountType,Users users)
 	{
 		try
 		{
@@ -107,17 +107,26 @@ public class DeveloperHelper implements Utilities {
 			}
 			else if(acType.equals(Utilities.ACADEMIC_ADIVSER))
 			{
-		
-				Integer count=(Integer)session.createSQLQuery("select COUNT(*) from AccountType where AccountType=:act")
-						.setString("act", Utilities.ACADEMIC_ADIVSER).uniqueResult();
-				if(count>=3)
+				Integer firstCount=(Integer)session.createSQLQuery("select COUNT(*) from AccountType where UserID=:id and AccountType=:act")
+						.setInteger("id", users.getUserID()).setParameter("act", Utilities.ACADEMIC_ADIVSER).uniqueResult();
+				if(firstCount==0)
 				{
-					System.out.println("MORE THAN NA PO");
+					Integer secondCount=(Integer)session.createSQLQuery("select COUNT(*) from AccountType where AccountType=:act")
+							.setString("act", Utilities.ACADEMIC_ADIVSER).uniqueResult();
+					if(secondCount>=3)
+					{
+						System.out.println("MORE THAN NA PO");
+					}
+					else
+					{
+						session.save(accountType);
+					}
 				}
 				else
 				{
-					session.save(accountType);
+					System.out.println("NDI KA PEDE UGOK");
 				}
+				
 			}
 			else
 			{
