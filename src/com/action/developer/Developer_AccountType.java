@@ -20,7 +20,7 @@ public class Developer_AccountType extends ActionSupport {
 			for(Users uModel : users){
 				for(AccountType acType : uModel.getAccountType()){
 					AccountType accountType = new AccountType(acType.getAccountType(), uModel);
-					session_Helper.addAccountType(accountType);
+					session_Helper.addAccountType(accountType,uModel);
 				}
 			}
 		}catch(Exception e){

@@ -34,7 +34,7 @@ public class DeveloperAction extends ActionSupport {
 				
 				for(AccountType acType : uModel.getAccountType()){
 					AccountType accountType = new AccountType(acType.getAccountType(), uModel);
-					session_Helper.addAccountType(accountType);
+					session_Helper.addAccountType(accountType,uModel);
 				}
 				
 				
