@@ -6,7 +6,7 @@
 	</md-content>
 
 	<md-content layout="column" ng-show="resume.hasFiles">
-		
+		{{resume.resumeFile.name}}
     </md-content>
 	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="resume.showUploadDialog($event)"
         style="position: fixed;">

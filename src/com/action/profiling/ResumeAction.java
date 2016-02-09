@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.ProfilingHelper;
 import com.helper.Utilities;
+import com.model.ProfessorProfile;
 import com.model.Resume;
 import com.model.ResumeModel;
 import com.model.Users;
@@ -21,7 +22,7 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 	private static final long serialVersionUID = 1L;
 	private HttpServletRequest request;
 	private ResumeModel rModel = new ResumeModel();
-	private Resume resume;
+	private Resume resume=new Resume();
 
 	private Map<String, Object> userSession;
 	
@@ -36,7 +37,11 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 		String serverPath = request.getServletContext().getRealPath("/");
 		rModel.doUpload(serverPath);
 		
-		resume=new Resume(rModel.getUrl());
+		ProfessorProfile professorProfile=new ProfessorProfile();
+		professorProfile.setPpID(uModel.getUserID());
+		resume.setProfessorProfile(professorProfile);
+		resume.setResumeUrl(rModel.getUrl());
+		
 		session_Helper.addResume(resume);
 		session_Helper.viewResume();
 		return SUCCESS;

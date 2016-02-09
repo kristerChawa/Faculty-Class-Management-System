@@ -6,6 +6,7 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.HibernateUtil.ProfilingHelper;
 import com.helper.Utilities;
+import com.model.ProfessorProfile;
 import com.model.Projects;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,15 +21,23 @@ public class ProjectAction extends ActionSupport implements SessionAware {
 	{
 		ProfilingHelper session_Helper=new ProfilingHelper();
 		Users uModel = new Users();
-		try{
-		System.out.println(pModel.getProjectName());
-		uModel = (Users) userSession.get(Utilities.user_sessionName);
+		try
+		{
+			System.out.println(pModel.getProjectName());
+			uModel = (Users) userSession.get(Utilities.user_sessionName);
+			
+			ProfessorProfile professorProfile=new ProfessorProfile();
+			professorProfile.setPpID(uModel.getUserID());
+			pModel.setProfessorProfile(professorProfile);
+			
+			
+			session_Helper.addProjects(pModel);
+			
+			session_Helper.viewProjects();
 		
-		
-//		session_Helper.addProjects(pModel);
-		
-//		session_Helper.viewProjects();
-		}catch(Exception e){
+		}
+		catch(Exception e)
+		{
 			return INPUT;
 		}
 		return SUCCESS;

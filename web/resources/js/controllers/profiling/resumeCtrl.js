@@ -2,14 +2,34 @@
 	angular.module("profileModule")
 		.controller("resumeCtrl", resumeCtrl);
 
-	function resumeCtrl($mdDialog){
+	function resumeCtrl($scope, $mdDialog, resumeService){
 
 		const TEMP_LOC = "resources/templates/";
 		var self = this;
 		self.hasFiles = false;
+		// self.getFiles = getFiles;
 
 		self.showUploadDialog = showUploadDialog;
 		self.showDeleteDialog = showDeleteDialog;
+		self.resumeFile = {};
+
+		$scope.$watch(function(){
+			return resumeService.listFile;
+		}, function(newValue){
+			console.log(newValue);
+			self.hasFiles = Object.keys(newValue).length? true: false;
+			if(self.hasFiles){
+				self.resumeFile = newValue;
+			}
+		});
+
+		// function getFiles(){
+		// 	var file = null;
+		// 	file = resumeService.listFile;
+		// 	self.hasFiles = Object.keys(file).length? true: false;
+		// 	console.log(file);
+		// 	return file;
+		// }
 
 		function showDeleteDialog(event, research){
 			$mdDialog.show({
@@ -42,11 +62,19 @@
 			   });
 		}
 
-		function uploadDialogController($mdDialog, $mdToast, $timeout){
+		function uploadDialogController($scope, $mdDialog, resumeService, $mdToast, $timeout){
 			var self = this;
 
 			self.filedata = {};
 			
+			$scope.$watch(function(){
+				return self.filedata;
+			}, function(newValue){
+				var len = Object.keys(newValue).length;
+				if(len != 0){
+					resumeService.addFile(newValue);
+				}
+			});
 
 		}
 

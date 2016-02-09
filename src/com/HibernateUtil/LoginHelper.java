@@ -62,7 +62,7 @@ public class LoginHelper {
 			query.setParameter("uName", username);
 			users = (Users) query.uniqueResult();
 			trans.commit();
-
+			
 			if(users == null){
 				return null;
 			}else{

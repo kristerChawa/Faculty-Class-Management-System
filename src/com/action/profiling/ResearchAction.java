@@ -31,10 +31,13 @@ public class ResearchAction extends ActionSupport implements SessionAware {
 			uModel = (Users) userSession.get(Utilities.user_sessionName);
 			
 			System.out.println(rModel.getResearchName());
-			//professorProfile.setPpID(userSession.);
+			
+			ProfessorProfile professorProfile=new ProfessorProfile();
+			professorProfile.setPpID(uModel.getUserID());
+			rModel.setProfessorProfile(professorProfile);
 			
 			session_Helper.addResearches(rModel);
-			//session_Helper.viewResearches();
+			session_Helper.viewResearches();
 		}catch(Exception e){
 			return INPUT;
 		}

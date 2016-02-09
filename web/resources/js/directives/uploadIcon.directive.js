@@ -20,8 +20,8 @@
 					uploadIconService.upload(formdata, url).then(function(response){
 						console.log(response);
 						var obj = {
-								name: response.data.fileFileName,
-								url: response.data.url 
+							name: response.data.fileFileName,
+							url: response.data.url 
 						};
 						
 						//Best practice compared to $scope.$apply

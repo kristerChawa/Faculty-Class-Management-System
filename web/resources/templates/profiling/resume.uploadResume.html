@@ -9,17 +9,15 @@
 				<upload-Icon 
 					icon="resources/img/svg/file.svg"
 					file-data="uploadDialogCtrl.filedata"
-					url="uploadResume.action"
-					>
+					url="uploadResume.action">
 				</upload-Icon>
 			</md-content>      
 		</md-content>
 	</md-dialog-content>
 	<md-dialog-actions>
-		<md-content layout-padding layout-margin ng-hide="uploadDialogCtrl.displayProgress">
-			<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
-				Close
-			</md-button>
+		<md-button class="md-primary md-raised" ng-click="uploadDialogCtrl.cancelDialog()">
+			Close
+		</md-button>
 	</md-dialog-actions>
 </md-dialog>
 
