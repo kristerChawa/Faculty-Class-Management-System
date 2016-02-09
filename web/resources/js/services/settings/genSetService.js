@@ -32,7 +32,7 @@
 
 		function updateUserPassword(userObj){
 			var request = {
-				url: "updateUserProfile.action",
+				url: "updateUserPassword.action",
 				method: "post",
 				data: userObj,
 				headers: {
@@ -41,8 +41,11 @@
 				}
 			};
 
+			console.log(userObj);
+
 			return $http(request)
 				.then(function(response){
+					console.log(response);
 					return response.data;
 				})
 				.catch(function(error){

@@ -20,7 +20,7 @@ public class UpdateCurrentSessionAction extends ActionSupport implements Session
 			uModel = (Users) userSession.get("usersModel");
 			LoginHelper loginHelper = new LoginHelper();
 			
-			uModel = loginHelper.getUserDetails(uModel.getUsername());
+			uModel = loginHelper.getUserDetails(uModel.getUserID());
 		}catch(Exception e){
 			return INPUT;
 		}

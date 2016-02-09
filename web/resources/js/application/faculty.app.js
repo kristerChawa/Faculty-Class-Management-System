@@ -17,7 +17,7 @@
 		.run(function($rootScope, $state){
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
 				// event.preventDefault();
-				return $state.go("index");
+				$state.go("index");
 			});
 		});
 
@@ -49,14 +49,21 @@
 						//This one solves for refreshing the page
 						if(userService.userInfo.username == undefined){
 							authService.checkOnlineUser().then(function(response){
-								var responseObj = response.data.usersModel;
-								console.log(responseObj);
-								if(responseObj.username == undefined){
-									//Paano kung wala talagang sessionUser..
+								if(response.data.has_User == true){
+									authService.updateSession().then(function(){
+										deferred.resolve(userService.userInfo);
+									})
+									// userService.createSession(response.data.usersModel);
+								}else{
 									deferred.reject(AUTH_EVENTS.notAuthenticated);
 								}
-								userService.createSession(response.data.usersModel);
-								deferred.resolve(userService.userInfo);
+								// 
+								
+								//Paano kung wala talagang sessionUser..
+
+								
+								
+								
 							});
 						}else{
 							deferred.resolve(userService.userInfo);

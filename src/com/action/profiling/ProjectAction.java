@@ -1,20 +1,30 @@
 package com.action.profiling;
 
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.HibernateUtil.ProfilingHelper;
+import com.helper.Utilities;
 import com.model.Projects;
+import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ProjectAction extends ActionSupport {
+public class ProjectAction extends ActionSupport implements SessionAware {
 	
 	private Projects pModel = new Projects();
+	private Map<String, Object> userSession;
 	
 	@Override
 	public String execute() throws Exception 
 	{
 		ProfilingHelper session_Helper=new ProfilingHelper();
-		
+		Users uModel = new Users();
 		try{
 		System.out.println(pModel.getProjectName());
+		uModel = (Users) userSession.get(Utilities.user_sessionName);
+		
+		
 //		session_Helper.addProjects(pModel);
 		
 //		session_Helper.viewProjects();
@@ -30,7 +40,8 @@ public class ProjectAction extends ActionSupport {
 //		// TODO Auto-generated method stub
 //		return pModel;
 //	}
-
+	
+	
 
 	public Projects getpModel() {
 		return pModel;
@@ -39,6 +50,12 @@ public class ProjectAction extends ActionSupport {
 
 	public void setpModel(Projects pModel) {
 		this.pModel = pModel;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		// TODO Auto-generated method stub
+		this.userSession = session;
 	}
 	
 }

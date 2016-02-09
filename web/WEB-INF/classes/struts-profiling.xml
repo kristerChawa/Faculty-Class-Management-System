@@ -83,7 +83,6 @@
 	  		<action name="updateUserPassword" class="com.action.profiling.UpdateUserPasswordAction">
 	  			<interceptor-ref name="myStack"/>
 	  			<result name="success" type="json">
-	  				<param name="excludeNullProperties">true</param>
 	  			</result>
 	  			<result name="input" type="json">
 		  			<param name="statusCode">500</param>

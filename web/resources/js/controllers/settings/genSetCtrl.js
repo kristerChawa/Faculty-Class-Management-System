@@ -76,7 +76,6 @@
 
 			function updateUserPassword(){
 				var userObj = {
-					"uModel": userService.userInfo,
 					"pModel": self.pass
 				};
 				genSetService.updateUserPassword(userObj).then(function(response){

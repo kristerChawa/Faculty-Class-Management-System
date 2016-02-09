@@ -1,28 +1,37 @@
 package com.action.profiling;
 
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.SessionAware;
 import org.apache.struts2.util.ServletContextAware;
 
+import com.helper.Utilities;
 import com.model.Achievement_Certificate_Model;
+import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class Achievement_Certificate_Action extends ActionSupport 
-		implements ModelDriven<Achievement_Certificate_Model>, ServletContextAware {
+		implements ModelDriven<Achievement_Certificate_Model>, ServletContextAware, SessionAware {
 	
 	private Achievement_Certificate_Model acModel = new Achievement_Certificate_Model();
 	private ServletContext context;
+	private Map<String, Object> userSession;
 	
 	@Override
 	public String execute() throws Exception {
 		
 //		try{
+			Users uModel = new Users();		
 			context = ServletActionContext.getServletContext();
 			String serverPath = context.getRealPath("/");
 			System.out.println(serverPath);
 			acModel.doUpload(serverPath);
+			
+			uModel = (Users) userSession.get(Utilities.user_sessionName);
 		
 		
 //		ProfilingHelper session_Helper = new ProfilingHelper();
@@ -38,6 +47,12 @@ public class Achievement_Certificate_Action extends ActionSupport
 //		}
 		
 		return SUCCESS;
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		// TODO Auto-generated method stub
+		this.userSession = session;
 	}
 
 	@Override

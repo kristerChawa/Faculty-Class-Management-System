@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.helper.UserRoles;
+import com.helper.Utilities;
 import com.model.AccountType;
 import com.model.Password;
 import com.model.ProfessorProfile;
@@ -16,7 +16,7 @@ import com.model.Projects;
 import com.model.Subjects;
 import com.model.Users;
 
-public class DeveloperHelper implements UserRoles {
+public class DeveloperHelper implements Utilities {
 
 	static SessionFactory sessionFactory = null;
 	Session session = null;
@@ -91,10 +91,10 @@ public class DeveloperHelper implements UserRoles {
 			
 			String acType = accountType.getAccountType();
 			
-			if(acType.equals(UserRoles.CHAIRPERSON))
+			if(acType.equals(Utilities.CHAIRPERSON))
 			{
 				query=session.createQuery("From AccountType where accountType=:act");
-				query.setParameter("act", UserRoles.CHAIRPERSON);
+				query.setParameter("act", Utilities.CHAIRPERSON);
 				checkAccountType=query.list();
 				 if (checkAccountType != null && !checkAccountType.isEmpty())
 				 {
@@ -105,11 +105,11 @@ public class DeveloperHelper implements UserRoles {
 					 session.save(accountType);
 				 }
 			}
-			else if(acType.equals(UserRoles.ACADEMIC_ADIVSER))
+			else if(acType.equals(Utilities.ACADEMIC_ADIVSER))
 			{
 		
 				Integer count=(Integer)session.createSQLQuery("select COUNT(*) from AccountType where AccountType=:act")
-						.setString("act", UserRoles.ACADEMIC_ADIVSER).uniqueResult();
+						.setString("act", Utilities.ACADEMIC_ADIVSER).uniqueResult();
 				if(count>=3)
 				{
 					System.out.println("MORE THAN NA PO");

@@ -1,6 +1,8 @@
 package com.helper;
 
-public interface UserRoles {
+public interface Utilities {
+	
+	String user_sessionName = "usersModel";
 	
 	String PROFESSOR = "Professor",
 			CHAIRPERSON = "Chairperson",

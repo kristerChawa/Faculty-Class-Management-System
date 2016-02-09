@@ -44,6 +44,7 @@ public class UploadUserImageModel {
 		
 		try
 		{
+			System.out.println(fileFileName);
 			File tempFile = new File(serverPath, fileFileName);
 			FileUtils.copyFile(file, tempFile);
 			String Url = dbService.uploadUserImage(tempFile.getPath());

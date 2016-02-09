@@ -47,6 +47,12 @@
 				controller: "researchCtrl",
 				controllerAs: "research"
 			})
+			.state("dashboard.profile.resume", {
+				url: "/resume",
+				templateUrl: TEMP_LOC + "profiling/resumeTab.html",
+				controller: "resumeCtrl",
+				controllerAs: "resume"
+			})
 			.state("dashboard.profile.schedule", {
 				url: "/schedule",
 				templateUrl: TEMP_LOC + "profiling/myScheduleTab.html",

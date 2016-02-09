@@ -60,6 +60,8 @@
 			return $http(request)
 				.then(function(response){
 					console.log(response);
+
+					updateSession();
 					return response;
 				})
 				.catch(function(error){
@@ -78,14 +80,15 @@
 				}
 			};
 
-			$http(request)
+			return $http(request)
 				.then(function(response){
 					console.log(response);
 					var responseObj = response.data.user;
-					userService.createSession(responseObj);
+					return userService.createSession(responseObj);
 				})
 				.catch(function(error){
 					console.log(error);	
+					return error;
 				});
 		}
 

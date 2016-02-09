@@ -52,9 +52,9 @@
 
 			fileUpload.on("change", function(event){
 				var selectedFile = event.target.files[0];
-
-				scope.upload(selectedFile, url);
-
+				if(selectedFile){
+					scope.upload(selectedFile, url);
+				}
 			});
 
 

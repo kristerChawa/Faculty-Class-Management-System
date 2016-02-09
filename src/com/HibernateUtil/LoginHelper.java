@@ -3,8 +3,11 @@ package com.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.id.uuid.Helper;
 
+import com.helper.HelperClass;
 import com.model.Users;
 
 public class LoginHelper {
@@ -47,55 +50,65 @@ public class LoginHelper {
 	
 	}
 	
-	public boolean loginUser(String username, String password){
+	public Users loginUser(String username, String password){
 		
-		boolean isAuthenticated = false;
+		Users users = null;
+		Transaction trans = null;
 		try{ 
 			session = sessionFactory.openSession();
-			session.beginTransaction();
+			trans = session.beginTransaction();
 			
 			Query query = session.createQuery("from Users where username = :uName");
 			query.setParameter("uName", username);
-			Users users = (Users) query.uniqueResult();
-			session.getTransaction().commit();
-			session.close();
-			
-			if(users != null){
-				if(users.getUsername().equalsIgnoreCase(username) 
-						&& users.getPassword().get(0).getPassword().equals(password)){
-					isAuthenticated = true;
-				}
+			users = (Users) query.uniqueResult();
+			trans.commit();
+
+			if(users == null){
+				return null;
 			}else{
-				isAuthenticated = false;
+				if(users.getUsername().equalsIgnoreCase(username) 
+						&& users.getPassword().get(0).getPassword().equals(HelperClass.encrypt(password))){					
+					return users;
+				}
 			}
 			
-			
+						
 		}catch(NullPointerException e){
+			if(trans != null){
+				trans.rollback();
+			}
 			e.printStackTrace();
 		}
-		
-		return isAuthenticated;
+		System.out.println(1);
+		session.close();
+		return null;
 	}
 	
-	public Users getUserDetails(String username){
-		Users usersModel = new Users();
-		
+	public Users getUserDetails(int userID){
+		Users usersModel = null;
+		Transaction trans = null;
 		try{
 			session = sessionFactory.openSession();
-			session.beginTransaction();
-		
+			trans = session.beginTransaction();
+			
+			System.out.println(userID);
 			//But I don't want to get the password for security reasons.
-			Query query = session.createQuery("from Users where username = :uName");
-			query.setParameter("uName", username);
+			Query query = session.createQuery("from Users where UserID = :userID");
+			query.setParameter("userID", userID);
 			
 			//Single result
 			usersModel = (Users) query.uniqueResult();
-			session.getTransaction().commit();
-			session.close();
+			
+			trans.commit();
+			
 		}catch(Exception e){
+			if(trans != null){
+				trans.rollback();
+			}
 			e.printStackTrace();
 		}
 		
+		session.close();
 		return usersModel;
 		
 	}

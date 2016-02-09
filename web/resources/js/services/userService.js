@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.service("userService", userService);
 
-	function userService($http, $timeout, $rootScope){
+	function userService($http, $timeout, $rootScope, $q){
 		var self = this;
 
 		self.createSession = createSession;
@@ -10,7 +10,9 @@
 		self.userInfo = {};
 
 		function createSession(responseObj){
-			
+			var defer = $q.defer();
+
+			self.userInfo.userID = responseObj.userID? responseObj.userID: "";
 			self.userInfo.idNo = responseObj.idNo? responseObj.idNo : "";
 			self.userInfo.username = responseObj.username? responseObj.username : "";
 			self.userInfo.firstName = responseObj.firstName? responseObj.firstName : "";
@@ -21,11 +23,16 @@
 								[responseObj.accountType[0].accountType, responseObj.accountType[1].accountType];
 
 			ac = ac.join(", ");
-			console.log(ac);
+			
 			self.userInfo.userRole = responseObj.accountType[0].accountType;
-			self.userInfo.userImage = responseObj.pictureUrl? responseObj.pictureUrl : ""; //resources/img/avatar.png
+			self.userInfo.pictureUrl = {
+				url : ""
+			};
+			self.userInfo.pictureUrl.url = responseObj.pictureUrl? responseObj.pictureUrl : ""; 
 			
 			console.log(self.userInfo);
+			defer.resolve();
+			return defer.promise;
 		}
 		
 		function destroySession(){
