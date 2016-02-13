@@ -15,7 +15,7 @@
 		self.user = userService.userInfo;
 
 		//Init 
-		self.loadSubjects();
+		loadSubjects();
 
 		function loadSubjects(){
 			subjectService.loadSubjects().then(function(response){
@@ -28,7 +28,12 @@
 
 			console.log(self.user);
 			var userObj = {
-				"uModel": self.user,
+				"uModel": {
+					"userID": self.user.userID,
+					"idNo": self.user.idNo,
+					"lastName": self.user.lastName,
+					"firstName": self.user.firstName
+				},
 				"subjects": self.selectedSubjects
 			};
 			console.log(userObj);

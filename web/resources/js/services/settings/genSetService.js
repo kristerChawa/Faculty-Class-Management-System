@@ -5,7 +5,8 @@
 	function genSetService($http){
 		var genSetService = {
 			updateUserProfile: updateUserProfile,
-			updateUserPassword: updateUserPassword
+			updateUserPassword: updateUserPassword,
+			generatePDF: generatePDF
 		};
 		return genSetService;
 
@@ -50,6 +51,23 @@
 				})
 				.catch(function(error){
 					return error;
+				});
+		}
+
+		function generatePDF(){
+			var request = {
+				url: "generatePDF.action",
+				method: "post",
+				headers: {
+					"Content-Type": "application/json",
+					"dataType": "json"
+				}
+			};
+
+			return $http(request)
+				.then(function(response){
+					console.log(response);
+					return response;
 				});
 		}
 	}

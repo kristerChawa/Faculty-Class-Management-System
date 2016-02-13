@@ -12,25 +12,19 @@ import com.model.Users;
 
 public class LoginHelper {
 
-	static SessionFactory sessionFactory = null;
 	Session session = null;
-	static
-	{
-		sessionFactory=new Configuration().configure().buildSessionFactory();
-		
-	}
 	
 	public int getUserID(String username) //Jm was here :)
 	{
 		//Handle the exception when the the username is not found in the database.
 		//Exception: NullPointerException
-		
+		Transaction trans = null;
 		int userID = 0;
 		try
 		{
 			
-			session=sessionFactory.openSession();
-			session.beginTransaction();
+			session=HibernateFactory.getSession();
+			trans = session.beginTransaction();
 			
 			Query query=session.createQuery("from Users where username=:uName");
 			query.setParameter("uName", username);
@@ -38,14 +32,18 @@ public class LoginHelper {
 			Users users=(Users) query.uniqueResult();
 			
 			userID = users.getUserID();
-			session.getTransaction().commit();
-			session.close();
+			trans.commit();
 		}
 		
 		catch(Exception ex)
 		{
+			if(trans != null){
+				trans.rollback();
+			}
 			ex.printStackTrace();
 		}
+		
+		session.close();
 		return userID;
 	
 	}
@@ -55,7 +53,7 @@ public class LoginHelper {
 		Users users = null;
 		Transaction trans = null;
 		try{ 
-			session = sessionFactory.openSession();
+			session = HibernateFactory.getSession();
 			trans = session.beginTransaction();
 			
 			Query query = session.createQuery("from Users where username = :uName");
@@ -79,7 +77,6 @@ public class LoginHelper {
 			}
 			e.printStackTrace();
 		}
-		System.out.println(1);
 		session.close();
 		return null;
 	}
@@ -88,7 +85,7 @@ public class LoginHelper {
 		Users usersModel = null;
 		Transaction trans = null;
 		try{
-			session = sessionFactory.openSession();
+			session = HibernateFactory.getSession();
 			trans = session.beginTransaction();
 			
 			System.out.println(userID);
