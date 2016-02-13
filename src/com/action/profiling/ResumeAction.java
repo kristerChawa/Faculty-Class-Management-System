@@ -42,8 +42,7 @@ public class ResumeAction extends ActionSupport implements ModelDriven<ResumeMod
 		resume.setProfessorProfile(professorProfile);
 		resume.setResumeUrl(rModel.getUrl());
 		
-		session_Helper.addResume(resume);
-		session_Helper.viewResume();
+		session_Helper.addResume(resume, professorProfile);
 		return SUCCESS;
 	}
 	

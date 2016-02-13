@@ -12,7 +12,7 @@
 
 	function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider){
 		const TEMP_LOC = "resources/templates/";
-		cfpLoadingBarProvider.includeSpinner = false;
+		cfpLoadingBarProvider.includeSpinner = '<md-progress-circular md-mode="indeterminate"></md-progress-circular>';
 
 		$urlRouterProvider
 			.when("/dashboard/profile", "dashboard/profile/general")

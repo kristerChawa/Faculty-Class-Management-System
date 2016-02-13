@@ -88,6 +88,21 @@
 				controller: "genSetCtrl",
 				controllerAs: "genSet"
 			})
+			.state("dashboard.settings.miscellaneous", {
+				url: "/miscellaneous",
+				templateUrl: TEMP_LOC + "settings/settings.miscellaneous.html",
+				controller: function($http, genSetService){
+					var self = this;
+					self.pdf = pdf;
+
+					function pdf(){
+						genSetService.generatePDF().then(function(response){
+							console.log(response);
+						});
+					}
+				},
+				controllerAs: "misc"
+			})
 			.state("logout",{
 				url: "/",
 				controller: function($scope, authService){

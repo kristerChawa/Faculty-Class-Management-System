@@ -32,9 +32,6 @@ public class ProjectAction extends ActionSupport implements SessionAware {
 			
 			
 			session_Helper.addProjects(pModel);
-			
-			session_Helper.viewProjects();
-		
 		}
 		catch(Exception e)
 		{
