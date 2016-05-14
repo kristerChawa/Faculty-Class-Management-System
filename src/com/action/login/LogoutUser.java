@@ -2,42 +2,47 @@ package com.action.login;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.HibernateUtil.GenericHelper;
+import com.helper.AuditLogUtil;
 import com.helper.Utilities;
+import com.model.AuditLog;
+import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class LogoutUser extends ActionSupport implements SessionAware, ServletRequestAware {
+public class LogoutUser extends ActionSupport implements SessionAware {
 	
 	private Map<String, Object> userSession;
-	private HttpServletRequest request;
 	
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Trying to logout...");
-		userSession.forEach( (k,v) -> System.out.println("key= " + k + " - " + "value= " + v));
-		userSession.clear();
-		userSession.remove(Utilities.user_sessionName);
-		System.out.println(request.getSession(false).getCreationTime());
+		try {
+			GenericHelper g_helper = new GenericHelper();
+			Users uModel = (Users) userSession.get(Utilities.user_sessionName);
+			
+			if(!uModel.getUsername().equals(Utilities.adminUsername)){
+				AuditLog auditLog = new AuditLog(AuditLogUtil.logoutAction, AuditLogUtil.logoutType, uModel);
+				g_helper.AddAuditLog(auditLog);
+			}
+			
+			
+			userSession.clear();
+			userSession.remove(Utilities.user_sessionName);
+			
+			return SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return INPUT;
+		}
 		
-		request.getSession(false).invalidate();
-		System.out.println(request.getSession(false).getCreationTime());
-		return SUCCESS;
 	}
 	
 	@Override
 	public void setSession(Map<String, Object> session) {
 		// TODO Auto-generated method stub
 		this.userSession = session;
-	}
-	
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		this.request = request;
 	}
 }

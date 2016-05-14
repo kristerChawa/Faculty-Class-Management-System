@@ -1,0 +1,62 @@
+<div layout="column">
+	<md-content layout-padding layout-margin>
+		<div id="seat-map">
+			<div class="front" id="title"></div>
+			<div id="seat-info"></div>
+		</div>
+		<div>
+			<md-content>
+				<md-list layout="row">
+					<md-subheader class="md-no-sticky">Legends</md-subheader>
+					<md-list-item>
+						<div class="seatCharts-seat seatCharts-cell available md-clickable" md-ink-ripple="#ff008c"></div>
+						<span class="seatCharts-legendDescription">Present</span>
+					</md-list-item>
+					<md-list-item>
+						<div class="seatCharts-seat seatCharts-cell absent md-clickable" md-ink-ripple="#ff008c"></div>
+						<span class="seatCharts-legendDescription">Absent</span>
+					</md-list-item>
+					<md-list-item>
+						<div class="seatCharts-seat seatCharts-cell late md-clickable" md-ink-ripple="#ff008c"></div>
+						<span class="seatCharts-legendDescription">Late</span>
+					</md-list-item>
+					<md-list-item>
+						<div class="seatCharts-seat seatCharts-cell unavailable"></div>
+						<span class="seatCharts-legendDescription">Unavailable</span>
+					</md-list-item>
+				</md-list>
+			</md-content>
+			<div layout="row">
+				<div flex="50" layout-margin layout-padding>
+					<h3 class="md-title">Selected seats: {{seatPlanCtrl.selectedSeats.length}}</h3>
+					<md-input-container md-no-float class="md-block" ng-show="seatPlanCtrl.selectedSeats.length > 0">
+					      <!-- Use floating label instead of placeholder -->
+					  <md-icon md-svg-icon="resources/img/svg/search.svg"></md-icon>
+					  <input ng-model="seatPlanCtrl.query" placeholder="Search" type="text">
+					</md-input-container>
+					<md-list>
+						<md-list-item class="md-2-line" ng-repeat="seat in seatPlanCtrl.selectedSeats 
+										| filter: seatPlanCtrl.query">
+							<md-icon md-svg-icon="resources/img/svg/person.svg"></md-icon>
+							<div class="md-list-item-text">
+					        	<h3>{{seat.id}}</h3>
+					        	<p>{{seat.label}}</p>
+					        </div>
+						</md-list-item>
+					</md-list>
+				</div>
+				<div flex="50" layout-padding>
+					<h3 class="md-title">Student selected information:</h3>
+					<p> Total: <span id="total_count" class="md-body-2"></span></p>
+					<p> Student ID: <span id="student_id" class="md-body-2"></span></p>
+					<p> Student Name: <span id="student_name" class="md-body-2"></span></p>
+					<p> Date: <md-datepicker ng-model="seatPlanCtrl.date"
+						md-placeholder="Attendance date">
+					</md-datepicker> </p>
+					<md-button class="md-primary md-raised">Save attendance</md-button>
+				</div>
+			</div>
+			<!-- md-date-filter="seatPlanCtrl.hasScheduleToday" -->
+		</div>
+	</md-content>
+</div>

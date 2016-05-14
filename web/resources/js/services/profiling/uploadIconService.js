@@ -23,6 +23,10 @@
 					console.log(response);
 					return response;
 				})
+				.catch(function(error){
+					console.log(error);
+					return error;
+				})
 		}
 	}
 }());

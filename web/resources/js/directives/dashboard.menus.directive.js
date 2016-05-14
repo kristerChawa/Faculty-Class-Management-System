@@ -3,34 +3,38 @@
 	angular.module("facultyApp")
 		.directive("dashboardMenus", dashboardMenus);
 
-	function dashboardMenus(userService, $q){
+	function dashboardMenus(userService, $q, $state){
 		return {
 			restrict: "E",
+			scope: false,
 			link: function(scope, elem, attrs){
 
 				//Not the same as $scope
-				
-				scope.templateUrlLink = templateUrlLink;
-				$q.when(userService.userInfo.userRole).then(function(response){
-					scope.userType = response;
-				});
-				
+				if($state.$current.self.url == "/dashboard"){
+					scope.templateUrlLink = templateUrlLink;
+					$q.when(userService.userInfo.userRole).then(function(response){
+						scope.userType = response;
+					});
+				}
 
 				function templateUrlLink(){
 					
 					const TEMP_LOC = "resources/templates/";
-
-					switch(scope.userType.toLowerCase()){
+					
+					var userAccountType = userService.getAccountType();
+					switch(userAccountType.toLowerCase()){
 						case "professor":
 							return TEMP_LOC + "professor/professorMenu.html";
+						case "academic adviser":
+							return TEMP_LOC + "acadAdviser/acadAdviserMenu.html";
+						case "chairperson":
+							return TEMP_LOC + "chairProfessor/chairProfessorMenu.html";
 						case "student":
 							return TEMP_LOC + "student/studentMenu.html";
-						case "academicadviser":
-							return TEMP_LOC + "acadAdviser/acadAdviserMenu.html";
 						case "secretary": 
 							return TEMP_LOC + "secretary/secretaryMenu.html";
-						case "chairperson":
-							return TEMP_LOC + "chairperson/chairpersonMenu.html";
+						case "developer": 
+							return TEMP_LOC + "developer/developer.html";
 						default:
 							return TEMP_LOC + "errorPage/error404.html";
 					}	

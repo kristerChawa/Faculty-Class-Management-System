@@ -1,35 +1,32 @@
 <md-content layout="column" layout-padding layout-margin>
-
-	<md-toolbar class="md-table-toolbar md-default">
-	  <div class="md-toolbar-tools">
-	    <span>Schedules</span>
-	  </div>
-	</md-toolbar>
-
-
 	<md-table-container>
 	  <table md-table>
-	    <thead md-head md-order="sched.query.order">
+	    <thead md-head md-order="sched.paginate.order">
 	      <tr md-row>
 	        <th md-column><span>NO.</span></th>
 	        <th md-column md-order-by="courseCode"><span>CourseCode</span></th>
-	        <th md-column><span>Section</span></th>
-	        <th md-column><span>Days</span></th>
-	        <th md-column><span>Hours</span></th>
-	        <th md-column><span>BLDG</span></th>
+	        <th md-column md-order-by="courseCode"><span>Section</span></th>
+	        <th md-column md-order-by="schedule.day"><span>Days</span></th>
+	        <th md-column md-order-by="schedule.time"><span>Hours</span></th>
+	        <th md-column md-order-by="schedule.room"><span>BLDG</span></th>
 	      </tr>
 	    </thead>
 	    <tbody md-body>
-	      <tr md-row md-auto-select ng-repeat="sched in sched.schedule | orderBy: 'sched.query.order'">
-	        <td md-cell>{{sched.NO}}</td>
-	        <td md-cell>{{sched.CourseCode}}</td>
-	        <td md-cell>{{sched.Section}}</td>
-	        <td md-cell>{{sched.Days}}</td>
-	        <td md-cell>{{sched.Hours}}</td>
-	        <td md-cell>{{sched.BLDG}}</td>
+	      <tr md-row md-auto-select ng-repeat="sched in sched.schedule | filter: sched.paginate.query
+	      		| orderBy: sched.paginate.order
+	      		| limitTo: sched.paginate.limit : (sched.paginate.page - 1) * sched.paginate.limit">
+	        <td md-cell>{{$index + 1}}</td>
+	        <td md-cell>{{sched.courseCode}}</td>
+	        <td md-cell>{{sched.schedule.section}}</td>
+	        <td md-cell>{{sched.schedule.day}}</td>
+	        <td md-cell>{{sched.schedule.time}}</td>
+	        <td md-cell>{{sched.schedule.room}}</td>
 	      </tr>
 	    </tbody>
 	  </table>
 	</md-table-container>
-
+	<div layout="row" layout-align="start start" layout-margin>
+		<md-table-pagination md-limit="sched.paginate.limit" md-page="sched.paginate.page"
+		md-total="{{sched.schedule.length}}"></md-table-pagination>
+	</div>
 </md-content>

@@ -4,8 +4,13 @@ import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.HibernateUtil.GenericHelper;
 import com.HibernateUtil.LoginHelper;
+import com.helper.AuditLogUtil;
+import com.helper.HelperClass;
 import com.helper.Utilities;
+import com.model.AuditLog;
+import com.model.Password;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,28 +26,36 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		// TODO Auto-generated method stub
 		userSession.clear();
 		userSession.remove(Utilities.user_sessionName);
-		
 		LoginHelper loginHelper = new LoginHelper();
+		GenericHelper g_helper = new GenericHelper();
 		try{
-			String username = usersModel.getUsername(),
-					password = usersModel.getPassword().get(0).getPassword();
+			
+			String username = usersModel.getUsername();
+			String password = "";
+			for(Password p : usersModel.getPassword()){
+				password = p.getPassword();
+			}
 
 			usersModel = loginHelper.loginUser(username, password);
 			
 			if(usersModel == null){
 				return INPUT;
 			}
-//			loginHelper.getUserDetails(usersModel.getUserID());
 			
 			userSession.put(Utilities.user_sessionName, usersModel);
+			
+			if(!username.equals(Utilities.adminUsername)){
+				AuditLog auditLog = new AuditLog(AuditLogUtil.loginAction, AuditLogUtil.loginType, usersModel);
+				g_helper.AddAuditLog(auditLog);
+			}
+		
+			
 			return SUCCESS;
 		}catch(Exception e){
 			return INPUT;
 		}
 	
 	}
-	
-	
 	
 	@Override
 	public void setSession(Map<String, Object> session) {

@@ -6,10 +6,7 @@ import com.dropbox.core.v2.Files.Metadata;
 
 public interface DropboxApi {
 	
-	final String dropBoxToken = "nuVzW0pOwgIAAAAAAAAAZs2Kt5n3C5JgW8-UoCsS0wvqk8HC3gZlCPZhTHvKr3Me",
-	appKey = "wqsnwjh11qeavi5",
-	appSecret = "qtiwme041b1otfk",
-	appName = "Faculty Class Management System",
+	final String appName = "Faculty Class Management System",
 	folderPath = "/Faculty Class Management System/",
 	locale = "en_US";
 	

@@ -45,11 +45,14 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
+        <!-- Echo all executed SQL to console -->
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
+
+	<!-- 	<property name="hibernate.enable_lazy_load_no_trans">true"</property> -->
+	
 
         <!-- Names the annotated entity class -->
 				  <!-- ACCOUNTS -->
@@ -73,7 +76,8 @@
 			
 							<!-- ATTENDANCE -->
 			<mapping class="com.model.Classlist"/>
-			<mapping class="com.model.Attendance"/>					
+			<mapping class="com.model.Attendance"/>	
+			
+			<mapping class="com.model.AuditLog"/>				
     </session-factory>
-
 </hibernate-configuration>

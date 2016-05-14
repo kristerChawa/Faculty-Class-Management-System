@@ -8,7 +8,8 @@
 			loadProfessors: loadProfessors,
 			addAccountType: addAccountType,
 			uploadSubjects: uploadSubjects,
-			loadSubjects: loadSubjects
+			loadSubjects: loadSubjects,
+			viewAuditLogs: viewAuditLogs
 		};
 
 		return service;
@@ -22,16 +23,19 @@
 
 		function saveProfessors(data){
 
-			JSON.stringify(data);
+			console.log(data);
+
 			var request = {
-				method: "post",
 				url: "saveProfessors.action",
+				method: "post",
 				data: data,
 				headers: {
 					"Content-Type": "application/json",
 					"dataType": "json"
 				}
 			};
+
+			console.log(request);
 			
 			return $http(request)
 				.then(function(response){
@@ -60,7 +64,7 @@
 		function addAccountType(usersObjList){
 			
 			var usersObj = {
-					"users": []
+				"users": []
 			};
 			
 			for(var ids in usersObjList){
@@ -73,9 +77,6 @@
 				};
 				usersObj.users.push(obj);
 			}
-			console.log(usersObj);
-			
-
 			var request = {
 					method: "post",
 					url: "addAccountType.action",
@@ -84,11 +85,7 @@
 						"Content-Type": "application/json",
 						"dataType": "json"
 					}
-			};
-			
-			//Should I stringify it or let the header parse it to json? hmm
-			//Answer is no need.
-			
+			};		
 			return $http(request)
 				.then(function(response){
 					console.log(response);
@@ -148,6 +145,21 @@
 				.catch(function(error){
 					return error;
 				});
+		}
+
+		function viewAuditLogs(){
+			var request = {
+				url: "viewAuditLogs.action",
+				method: "post"
+			};
+
+			return $http(request).then(function(response){
+				console.log(response);
+				return response.data;
+			})
+			.catch(function(error){
+				return error;
+			});
 		}
 	}
 }());

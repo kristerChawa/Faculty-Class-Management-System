@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Attendance {
@@ -22,19 +23,29 @@ public class Attendance {
 	@Column(name="Date",length=15)
 	private String date;
 	
-	@Column(name="Remarks",length=40)
+	@Column(name="Remarks",length=40, columnDefinition="varchar(40) default 'None'")
 	private String remarks;
 	
 	@ManyToOne
 	@JoinColumn(name="ClassID")
 	private Classlist classlist;
+
+	@Transient
+	private double noOfLives;
+
+	@Transient
+	private int noOfLates;
 	
-	@ManyToOne
-	@JoinColumn(name="UserID")
-	private Users users;
-	
-	
-	
+
+	@Transient
+	private int noOfAbsences;
+	public double getNoOfLives() {
+		return noOfLives;
+	}
+
+	public void setNoOfLives(double noOfLives) {
+		this.noOfLives = noOfLives;
+	}
 
 	public int getAttendID() {
 		return attendID;
@@ -75,25 +86,31 @@ public class Attendance {
 	public void setClasslist(Classlist classlist) {
 		this.classlist = classlist;
 	}
-
-	public Users getUsers() {
-		return users;
+	public int getNoOfLates() {
+		return noOfLates;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setNoOfLates(int noOfLates) {
+		this.noOfLates = noOfLates;
+	}
+
+	public int getNoOfAbsences() {
+		return noOfAbsences;
+	}
+
+	public void setNoOfAbsences(int noOfAbsences) {
+		this.noOfAbsences = noOfAbsences;
 	}
 	
 	
 	public Attendance(){}
 	
-	public Attendance(String attendance,String date,String remarks,Classlist classlist,Users users)
-	{
+	public Attendance(String attendance,String date,String remarks,Classlist classlist){
 		setAttendance(attendance);
 		setDate(date);
 		setRemarks(remarks);
 		setClasslist(classlist);
-		setUsers(users);
 	}
+	
 
 }

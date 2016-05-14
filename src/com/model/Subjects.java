@@ -1,11 +1,10 @@
 package com.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,11 +28,11 @@ public class Subjects {
 	private String units;
 	
 	
-	@OneToMany(mappedBy="subjects",cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Schedule> schedule;
+	@OneToMany(mappedBy="subjects", cascade=CascadeType.ALL)
+	private Set<Schedule> schedule;
 	
-	@OneToMany(mappedBy="subjects", fetch = FetchType.EAGER)
-	private List<Expertise> expertise;
+	@OneToMany(mappedBy="subjects")
+	private Set<Expertise> expertise;
 	
 	
 	public Subjects(){}
@@ -46,18 +45,6 @@ public class Subjects {
 	}
 	
 	
-	public List<Expertise> getExpertise() {
-		return expertise;
-	}
-	public void setExpertise(List<Expertise> expertise) {
-		this.expertise = expertise;
-	}
-	public List<Schedule> getSchedule() {
-		return schedule;
-	}
-	public void setSchedule(List<Schedule> schedule) {
-		this.schedule = schedule;
-	}
 	public int getSubjID() {
 		return subjID;
 	}
@@ -82,5 +69,28 @@ public class Subjects {
 	public void setUnits(String units) {
 		this.units = units;
 	}
+
+	public Set<Schedule> getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Set<Schedule> schedule) {
+		this.schedule = schedule;
+	}
+
+	public Set<Expertise> getExpertise() {
+		return expertise;
+	}
+
+	public void setExpertise(Set<Expertise> expertise) {
+		this.expertise = expertise;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return courseCode;
+	}
+	
 	
 }

@@ -1,12 +1,16 @@
 package com.HibernateUtil;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.hibernate.HibernateException;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.transform.Transformers;
 
 import com.model.Achievements;
 import com.model.Expertise;
@@ -19,95 +23,99 @@ import com.model.Users;
 
 public class ProfilingHelper {
 
-	static SessionFactory sessionFactory = null;
-	Session session = null;
-	static
-	{
-		sessionFactory=new Configuration().configure().buildSessionFactory();
-	}
-	
-	public void addResearches(Researches researches)
-	{
-		try
-		{
-			session=sessionFactory.openSession();
+	public void addResearches(Researches researches){
+		try{
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(researches);
 			session.getTransaction().commit();
 			session.close();
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}
 	
 	
 	
-	public void addProjects(Projects projects)
-	{
+	public void addProjects(Projects projects){
 	
-		try
-		{
-			session=sessionFactory.openSession();
+		try{
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(projects);
 			session.getTransaction().commit();
 			session.close();
-		}
-		catch(Exception ex)
-		{
+		}catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}
 	
 	
-	public void addAchievements(Achievements achievements)
-	{
-		try
-		{
-			session=sessionFactory.openSession();
+	public void addAchievements(Achievements achievements){
+		try{
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
 			session.save(achievements);
 			session.getTransaction().commit();
 			session.close();
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			ex.printStackTrace();
 		}
 	}
 	
-	public void addResume(Resume resume)
+	public void addResume(Resume resume, ProfessorProfile profile)
 	{
+		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=sessionFactory.openSession();
-			session.beginTransaction();
-			session.save(resume);
-			session.getTransaction().commit();
-			session.close();
+			Set<Resume> resumeSet = null;
+			session=HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			int PPID = profile.getPpID();
+			profile = (ProfessorProfile) session.get(ProfessorProfile.class, PPID);
+			resumeSet = profile.getResume();
+			
+			if(resumeSet.isEmpty() || resumeSet == null){
+				session.save(resume);
+			}else{
+				
+				int resumeID = resumeSet.stream().collect(Collectors.toList()).get(0).getRID();
+				
+				Resume rObj = (Resume) session.get(Resume.class, resumeID);
+				rObj.setResumeUrl(resume.getResumeUrl());
+				session.update(rObj);
+			}
+			
+			trans.commit();
 		}
 		catch(Exception ex)
 		{
+			if(trans != null){
+				trans.rollback();
+			}
 			ex.printStackTrace();
 		}
+		session.close();
 	}
 	
 	public void updatePicture(Users users)
 	{
 		
 		Transaction trans = null;
+		Session session = null;
 		try
 		{
-			session=sessionFactory.openSession();
-		
+			session=HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
+			
 			Users updateUser=(Users)session.get(Users.class, users.getUserID());
 			updateUser.setPictureUrl(users.getPictureUrl());
 			
 			session.update(updateUser);
-			
 			trans.commit();
 			
 		}
@@ -123,39 +131,41 @@ public class ProfilingHelper {
 	
 	public void updateUserProfile(Users user)
 	{
-		
-		try
-		{
-			session = sessionFactory.openSession();
-			session.beginTransaction();
-			
-			LoginHelper login_helper = new LoginHelper();
+		LoginHelper login_helper = new LoginHelper();
+		Transaction trans = null;
+		Session session = null;
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
 			
 			int userID = login_helper.getUserID(user.getUsername());
-			System.out.println(userID);
 			
 			Users uModel = (Users) session.get(Users.class , userID);
 			uModel.setFirstName(user.getFirstName());
 			uModel.setLastName(user.getLastName());
 			
 			session.update(uModel);
-			session.getTransaction().commit();
-			session.close();
+			trans.commit();
+			
 		}
 		catch(Exception e)
-		{
+		{	
+			if(trans != null){
+				trans.rollback();
+			}
 			e.printStackTrace();
 		}
-		
+		session.close();
 	}
 	
 	public void updatePassword(Password password, Users users)
 	{
-		try
-		{
-			LoginHelper login_helper=new LoginHelper();
-			session=sessionFactory.openSession();
-			session.beginTransaction();
+		Transaction trans = null;	
+		Session session = null;
+		try{
+			
+			session=HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
 			
 			int userID = users.getUserID();
 			
@@ -166,9 +176,167 @@ public class ProfilingHelper {
 			updatePassword.setNewPassword_Verify(password.getNewPassword_Verify());
 			
 			session.update(updatePassword);
+			trans.commit();
+			
+		}
+		catch(Exception ex){
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		session.close();
+	}
+	
+	
+	
+	
+	public Set<Researches> viewResearches (ProfessorProfile professor){
+		
+		Session session = null;
+		Transaction trans = null;
+		Set<Researches> list = new HashSet<Researches>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) 
+						session.get(ProfessorProfile.class, professor.getPpID());
+			list = professorProfile.getResearches();
+			Hibernate.initialize(list);
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	public Set<Projects> viewProjects(ProfessorProfile profile){
+		
+		
+		Session session = null;
+		Transaction trans = null;
+		Set<Projects>list = new HashSet<Projects>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list = professorProfile.getProjects();
+			Hibernate.initialize(list);
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	public List<Projects> viewOrderedProjects(ProfessorProfile profile){
+		
+		
+		Session session = null;
+		Transaction trans = null;
+		List<Projects>list = new ArrayList<Projects>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			Query query = session.createQuery("From Projects where ppid=:ppid order by date")
+					.setParameter("ppid", profile.getPpID());
+			
+			//ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list = query.list();
+			Hibernate.initialize(list);
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return list;
+	}
+	
+	
+	public Set<Resume>viewResume(ProfessorProfile profile)   //overload id from loginHelper
+	{
+		Session session = null;
+		Transaction trans = null;
+		Set<Resume> list = new HashSet<Resume>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list = professorProfile.getResume();
+			Hibernate.initialize(list);
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return list;
+		
+	}
+	public Set<Achievements>viewAchievements(ProfessorProfile profile){
+		
+		Session session = null;
+		Transaction trans = null;
+		Set<Achievements> list = new HashSet<Achievements>();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, profile.getPpID());
+			list=professorProfile.getAchievements();
+			Hibernate.initialize(list);
+			
+			
+			
+			
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
+			session.close();
+		}
+		return list;
+	}
+	
+	
+	public void deleteResearches(Researches researches)
+	{
+
+		try
+		{
+			Session session = HibernateFactory.getSession().openSession();
+			session.beginTransaction();
+			
+			Researches rObj=(Researches)session.get(Researches.class, researches.getrID());
+			session.delete(rObj);
 			session.getTransaction().commit();
 			session.close();
-			
 		}
 		catch(Exception ex)
 		{
@@ -176,75 +344,123 @@ public class ProfilingHelper {
 		}
 	}
 	
-	
-	
-	
-	public List<Researches>viewResearches(ProfessorProfile professor) //overload id from loginHelper
+	public void deleteAchievements(Achievements achievements)
 	{
-		session=sessionFactory.openSession();
-		session.beginTransaction();
-		List<Researches> list = null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, professor.getPpID());
-		list = professorProfile.getResearches();
-		list.forEach(i -> System.out.println(i.getResearchName()));
-		session.getTransaction().commit();
+		Transaction trans = null;
+		Session session = null;
+		try
+		{
+			session=HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			
+			Achievements aObj=(Achievements)session.get(Achievements.class, achievements.getaID());
+			session.delete(aObj);
+			trans.commit();
+			
+		}
+		catch(Exception ex)
+		{
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
 		session.close();
-		return list;
+	}
+	
+	public void deleteProjects(Projects projects)
+	{
+		Transaction trans = null;
+		Session session = null;
+		try
+		{
+			session=HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			Projects pObj=(Projects)session.get(Projects.class, projects.getPrID());
+			session.delete(pObj);
+			
+			trans.commit();
+			
+		}
+		catch(Exception ex)
+		{
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		session.close();
+	}
+	
+	public void deleteResume(Resume resume)
+	{
+		Transaction trans = null;
+		Session session = null;
+		try
+		{
+			session=HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			Resume rObj = (Resume) session.get(Resume.class, resume.getRID());
+			session.delete(rObj);
+			
+			trans.commit();
+			
+		}
+		catch(Exception ex)
+		{
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		session.close();
 		
 	}
 	
-	public List<Projects>viewProjects() //overload id from loginHelper
+	public Set<Expertise> viewExpertise(ProfessorProfile professor)
 	{
-		session=sessionFactory.openSession();
-		session.beginTransaction();
+		Session session = null;
+		Transaction trans = null;
+		Set<Expertise> list = null;
 		
-		List<Projects>list=null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, 1);
-		
-		list=professorProfile.getProjects();
-		list.forEach(i -> System.out.println(i.getProjectName()));
-		
-		
-		session.getTransaction().commit();
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			ProfessorProfile professorProfile = (ProfessorProfile)session.get(ProfessorProfile.class, professor.getPpID());
+			list = professorProfile.getExpertise();
+			Hibernate.initialize(list);
+//			list.forEach(i -> i.getSubjects().getCourseCode());
+			
+			trans.commit();
+			
+		} catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		}
+
 		session.close();
 		return list;
 	}
 	
-	public List<Resume>viewResume()   //overload id from loginHelper
-	{
-		session=sessionFactory.openSession();
-		session.beginTransaction();
-		List<Resume>list=null;
-		ProfessorProfile professorProfile = (ProfessorProfile) session.get(ProfessorProfile.class, 1);
-		list=professorProfile.getResume();
-		list.forEach(i -> System.out.println(i.getResumeUrl()));
-		session.getTransaction().commit();
-		session.close();
-		return list;
-		
-	}
-	public List<Achievements>viewAchievements()  //overload id from loginHelper
-	{
-		session=sessionFactory.openSession();
-		session.beginTransaction();
-		List<Achievements>list=null;
-		ProfessorProfile professorProfile=(ProfessorProfile) session.get(ProfessorProfile.class, 1);
-		list=professorProfile.getAchievements();
-		list.forEach(i -> System.out.println(i.getAttachmentUrl()));
-		session.getTransaction().commit();
-		session.close();
-		return list;
-	}
-	
-	
-	
-	public void addExpertise(Expertise expertise)
+	public void addExpertise(Expertise expertise,ProfessorProfile professor)
 	{
 		try
 		{
-			session = sessionFactory.openSession();
+			Session session = HibernateFactory.getSession().openSession();
 			session.beginTransaction();
-			session.save(expertise);
+			int count= (int) session.createSQLQuery("select COUNT(*) from Expertise where SubjID=:subj and PPID=:pp")
+					.setInteger("subj", expertise.getSubjects().getSubjID())
+				.setInteger("pp", professor.getPpID()).uniqueResult();
+
+			if(count <= 0){
+				session.save(expertise);
+			}
 			session.getTransaction().commit();
 			session.close();
 		}
@@ -253,5 +469,39 @@ public class ProfilingHelper {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteExpertise(Expertise expertise)
+	{
+		Transaction trans = null;
+		Session session = null;
+		try
+		{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			
+			System.out.println(expertise.getProfessorProfile().getPpID());
+			System.out.println(expertise.getSubjects().getSubjID());
+			
+			Integer id =(Integer)session.createSQLQuery("select expertID from Expertise where PPID=:ppid and subjID=:subjID")
+					.setInteger("ppid", expertise.getProfessorProfile().getPpID()).
+					setInteger("subjID", expertise.getSubjects().getSubjID()).uniqueResult();
+			
+
+			Expertise eObj=(Expertise)session.get(Expertise.class, id);
+			session.delete(eObj);
+			
+			trans.commit();
+			
+		}
+		catch(Exception ex)
+		{
+			if(trans != null){
+				trans.rollback();
+			}
+			ex.printStackTrace();
+		}
+		session.close();
+	}
+	
 	
 }

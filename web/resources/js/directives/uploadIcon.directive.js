@@ -8,36 +8,60 @@
 			scope: {
 				icon: "@", //Enable this to acquire it from the template. See below
 				fileData: "=",
-				url: "="
+				url: "=",
+				requestObj: "=",
+				class: "@",
+				tooltipMsg: "@",
+				tooltipPos: "@",
+				style: "@"
 			},
-			controller: function($scope, $timeout, uploadIconService){
-				$scope.upload = upload;
+			controller: uploadIconCtrl,
+			link: linker,
+			template: '<md-button class="{{class}}" aria-label="icon" style="{{style}}">' +
+						'<md-tooltip md-direction="{{tooltipPos}}"> {{tooltipMsg}} </md-tooltip>' +
+							'<md-icon md-svg-src="{{icon}}"></md-icon>' +
+							'<input type="file">' +
+						'</md-button>'
+	 									
+		}
 
-				function upload(file, url){
-					var formdata = new FormData();
-					formdata.append("file", file);
-					
-					uploadIconService.upload(formdata, url).then(function(response){
-						console.log(response);
+		function uploadIconCtrl($scope, $timeout, uploadIconService, $mdToast){
+			$scope.upload = upload;
+
+			function upload(file, url){
+				var formdata = new FormData();
+				formdata.append("file", file);
+				if($scope.requestObj){
+					formdata.append("request", $scope.requestObj);
+				}
+				
+				uploadIconService.upload(formdata, url).then(function(response){
+					if(response.status == 200){
 						var obj = {
 							name: response.data.fileFileName,
-							url: response.data.url 
+							url: response.data.url,
+							response: response.data.response
 						};
 						
 						//Best practice compared to $scope.$apply
 						$timeout(function(){
 							$scope.fileData = obj;
+							displayToast("Your file has been successfully uploaded.");
 						});
-					
-					});
+					}else{
+						displayToast("An error has occured. Please try again.");
+					}
+				});
+
+				function displayToast(message){
+					$mdToast.show(
+						$mdToast.simple()
+							.textContent(message)
+							.position("top right")
+							.hideDelay(2000)
+					);
 				}
-			},
-			link: linker,
-			template: '<md-button class="md-icon-button" aria-label="icon">' +
-							'<md-icon md-svg-src="{{icon}}"></md-icon>' +
-							'<input type="file">' +
-							'</md-button>'
-	 									
+			}
 		}
 
 		function linker(scope, elem, attrs){
@@ -56,8 +80,6 @@
 					scope.upload(selectedFile, url);
 				}
 			});
-
-
 		}
 	}
 }());

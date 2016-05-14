@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity(name="Users")
 public class Users {
@@ -21,65 +20,73 @@ public class Users {
 	
 	@Column(length=25,name="IDNo")
 	private String idNo;
+	
 	@Column(length=25,name="FirstName")
 	private String firstName;
+	
 	@Column(length=25,name="LastName")
 	private String lastName;
+	
+	@Column(length=25,name="MiddleName")
+	private String middleName;
+	
+	public String getMiddleName() {
+		return middleName;
+	}
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
 	@Column(length=25,name="UserName")
 	private String username;
 	
-	//make this one default value: resources/img/avatar.png 
 	@Column(name="PictureUrl",insertable=false, updatable = true, nullable = false,
 	columnDefinition="varchar(250) default 'resources/img/avatar.png'")
 	private String pictureUrl;
 	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<AccountType> accountType;
 
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<AccountType> accountType;
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<Password> password;
+	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<ProfessorProfile> professorProfile;
+	
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<Classlist> ClassList;
 
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Password> password;
+	@OneToMany(mappedBy="users", fetch = FetchType.LAZY)
+	private Set<AuditLog> auditLog;
 	
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<ProfessorProfile> professorProfile;
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Classlist> ClassList;
-	
-	@OneToMany(mappedBy="users", fetch = FetchType.EAGER)
-	private List<Attendance> attendance;
-	
-	
-	
-	public List<Attendance> getAttendance() {
-		return attendance;
+	public Set<AuditLog> getAuditLog() {
+		return auditLog;
 	}
-	public void setAttendance(List<Attendance> attendance) {
-		this.attendance = attendance;
+	public void setAuditLog(Set<AuditLog> auditLog) {
+		this.auditLog = auditLog;
 	}
-	public List<Classlist> getClassList() {
+	public Set<Classlist> getClassList() {
 		return ClassList;
 	}
-	public void setClassList(List<Classlist> ClassList) {
+	public void setClassList(Set<Classlist> ClassList) {
 		this.ClassList = ClassList;
 	}
-	public List<ProfessorProfile> getProfessorProfile() {
+	public Set<ProfessorProfile> getProfessorProfile() {
 		return professorProfile;
 	}
-	public void setProfessorProfile(List<ProfessorProfile> professorProfile) {
+	public void setProfessorProfile(Set<ProfessorProfile> professorProfile) {
 		this.professorProfile = professorProfile;
 	}
-	public List<Password> getPassword() {
+	public Set<Password> getPassword() {
 		return password;
 	}
-	public void setPassword(List<Password> password) {
+	public void setPassword(Set<Password> password) {
 		this.password = password;
 	}
-	public List<AccountType> getAccountType() {
+	public Set<AccountType> getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(List<AccountType> accountType) {
+	public void setAccountType(Set<AccountType> accountType) {
 		this.accountType = accountType;
 	}
 	public int getUserID() {
@@ -88,6 +95,7 @@ public class Users {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	
 	public String getIdNo() {
 		return idNo;
 	}
@@ -113,8 +121,6 @@ public class Users {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
 	public String getPictureUrl() {
 		return pictureUrl;
 	}
@@ -125,18 +131,26 @@ public class Users {
 	
 	public Users(){}
 	
-	public Users(String idNo,String firstName,String lastName,String userName)
-	{
+	public Users(String idNo,String firstName,String lastName,String userName,String middleName){
 		setIdNo(idNo);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setUsername(userName);
+		setMiddleName(middleName);
 	}
-	
-	public Users(String pictureUrl,int id)
-	{
+	public Users(String idNo,String firstName,String lastName,String middleName){
+		setIdNo(idNo);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setMiddleName(middleName);
+	}
+	public Users(String pictureUrl,int id){
 		setPictureUrl(pictureUrl);
 		setUserID(id);
+	}
+	
+	public Users(String username){
+		setUsername(username);
 	}
 
 

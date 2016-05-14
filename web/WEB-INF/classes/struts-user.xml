@@ -17,7 +17,14 @@
 	   	
   		<action name="userLogin" class="com.action.login.LoginAction">
   			<interceptor-ref name="myStack"/>
-  			<result name="success" type="json"/>
+  			<result name="success" type="json">
+  				<param name="excludeProperties">
+  					usersModel\.attendance,
+  					usersModel\.classList,
+  					usersModel\.password,
+  					usersModel\.professorProfile
+  				</param>
+  			</result>
   			<result name="input" type="json">
 	  			<param name="statusCode">500</param>
 	  			<param name="errorCode">500</param>
@@ -41,6 +48,24 @@
 	  			<param name="errorCode">500</param>
 	  		</result>
   		</action>
+  		
+  		<action name="updateCurrentSession" class="com.action.login.Update_CurrentSessionAction">
+	  			<interceptor-ref name="myStack"/>
+	  			<result name="success" type="json">
+	  				<param name="excludeNullProperties">true</param>
+	  				<param name="excludeProperties">
+	  					user\.classList,
+	  					user\.password,
+	  					user\.professorProfile,
+	  					user\.accountType\[\d+\]\.users,
+	  					user\.auditLog
+	  				</param>	
+	  			</result>
+	  			<result name="input" type="json">
+		  			<param name="statusCode">500</param>
+		  			<param name="errorCode">500</param>
+		  		</result>
+	  		</action>
 	  		
   	</package>
    </struts>

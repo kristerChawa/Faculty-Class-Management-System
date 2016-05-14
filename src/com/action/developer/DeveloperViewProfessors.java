@@ -15,16 +15,28 @@ public class DeveloperViewProfessors extends ActionSupport {
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		DeveloperHelper session_Helper = new DeveloperHelper();
-		users = session_Helper.viewAllProfessors();
-		return SUCCESS;
+		try {
+			users = session_Helper.viewAllProfessors();
+			return SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return INPUT;
+		}
+		
+		
+		
+		
+		
 	}
-	
+
 	public List<Users> getUsers() {
 		return users;
 	}
+
 	public void setUsers(List<Users> users) {
 		this.users = users;
 	}
+	
 	
 	
 }

@@ -7,6 +7,7 @@
 			login: login,
 			checkOnlineUser: checkOnlineUser,
 			updateSession: updateSession,
+			isAuthorized: isAuthorized,
 			logoutUser: logoutUser
 		};
 
@@ -24,8 +25,8 @@
 			};
 
 			var request = {
-				method: "post",
 				url: "userLogin.action",
+				method: "post",
 				data: userObj,
 				headers: {
 					"Content-Type": "application/json",
@@ -36,7 +37,6 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
 					var responseObj = response.data.usersModel;
 					userService.createSession(responseObj);
 					return response;
@@ -54,14 +54,10 @@
 					"Content-Type": "application/json",
 					"dataType": "json"
 				}
-					
 			};
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
-
-					updateSession();
 					return response;
 				})
 				.catch(function(error){
@@ -87,9 +83,18 @@
 					return userService.createSession(responseObj);
 				})
 				.catch(function(error){
-					console.log(error);	
 					return error;
 				});
+		}
+
+		function isAuthorized(arrayOfRoles){
+			var userAccountType = userService.getAccountType().trim();
+			if(userAccountType){
+				if(arrayOfRoles.indexOf(userAccountType.toLowerCase()) > -1){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		function logoutUser(){
@@ -105,7 +110,7 @@
 
 			return $http(request)
 				.then(function(response){
-					console.log(response);
+					userService.destroySession();
 					return response;
 				})
 				.catch(function(error){

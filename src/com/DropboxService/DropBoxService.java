@@ -12,7 +12,7 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.Files;
 import com.dropbox.core.v2.Files.ListFolderException;
 import com.dropbox.core.v2.Files.Metadata;
-import com.fasterxml.jackson.core.JsonFactory;
+import com.helper.HelperClass;
 
 public class DropBoxService implements DropboxApi {
 
@@ -21,7 +21,7 @@ public class DropBoxService implements DropboxApi {
 	private static DbxClientV2 initializeDropBox(){
 		
 		DbxRequestConfig config = new DbxRequestConfig("dropbox", DropboxApi.locale);
-		DbxClientV2 DBinstance = new DbxClientV2(config, DropboxApi.dropBoxToken);		
+		DbxClientV2 DBinstance = new DbxClientV2(config, HelperClass.getKeyPropertyFile("dropBoxToken"));		
 		return DBinstance;
 	}
 	

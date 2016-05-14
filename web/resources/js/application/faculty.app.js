@@ -1,13 +1,14 @@
 (function(){
-	
 	angular.module("facultyApp", [
 			"ui.router", 
 			"ngMaterial", 
 			"md.data.table", 
 			"angular-loading-bar",
-			"profileModule", 
-			"developerApp"
-			]);
+			"events",
+			"profileModule",
+			"developerApp",
+			"secretaryApp"
+		]);
 }());
 
 (function(){
@@ -16,12 +17,12 @@
 		.config(facultyAppConfig)
 		.run(function($rootScope, $state){
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
-				// event.preventDefault();
+				console.log("Error occured");
 				$state.go("index");
 			});
 		});
 
-	function facultyAppConfig($stateProvider, $urlRouterProvider){
+	function facultyAppConfig($stateProvider, $urlRouterProvider, USER_ROLES){
 
 		const TEMP_LOC = "resources/templates/";
 		
@@ -42,45 +43,38 @@
 				controller: "dashboardCtrl",
 				controllerAs: "dash",
 				resolve:{
-					"userObj": function(authService, userService, $q, $state, AUTH_EVENTS){
+					"userObj": function(authService, userService, $q, $state){
 						var deferred = $q.defer();
 						console.log(userService.userInfo.username);
 
 						//This one solves for refreshing the page
 						if(userService.userInfo.username == undefined){
 							authService.checkOnlineUser().then(function(response){
+								console.log(response);
 								if(response.data.has_User == true){
 									authService.updateSession().then(function(){
 										deferred.resolve(userService.userInfo);
-									})
-									// userService.createSession(response.data.usersModel);
+									});
 								}else{
-									deferred.reject(AUTH_EVENTS.notAuthenticated);
+									deferred.reject();
 								}
-								// 
-								
-								//Paano kung wala talagang sessionUser..
-
-								
-								
-								
 							});
 						}else{
 							deferred.resolve(userService.userInfo);
 						}
-						
 						return deferred.promise;
 					}
 				}
-				
 			})
 			.state("dashboard.settings", {
 				url: "/settings",
 				templateUrl: TEMP_LOC + "/settings/settings.html",
+				data:{
+					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson, USER_ROLES.student]
+				},
 				controller: function($state){
 					$state.go("dashboard.settings.general");
 				}
-				
 			})
 			.state("dashboard.settings.general", {
 				url: "/general",
@@ -88,17 +82,23 @@
 				controller: "genSetCtrl",
 				controllerAs: "genSet"
 			})
+			.state("dashboard.settings.miscellaneous", {
+				url: "/miscellaneous",
+				templateUrl: TEMP_LOC + "settings/settings.miscellaneous.html",
+				controller: "miscCtrl",
+				controllerAs: "misc"
+			})
+			.state("forgotPwd", {
+				url: "/forgotPwd",
+				templateUrl: TEMP_LOC + "forgotpwd.html",
+				controller: "forgotpwdCtrl",
+				controllerAs: "forgotpwdCtrl"
+			})
 			.state("logout",{
 				url: "/",
-				controller: function($scope, authService){
-					
-					$scope.init = function(){
-						authService.logoutUser();
-					}();
-					
+				controller: function(authService){
+					authService.logoutUser();
 				}
 			});
-			
 	}
-
 }());

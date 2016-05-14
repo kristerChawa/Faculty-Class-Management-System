@@ -2,10 +2,16 @@
 	angular.module("facultyApp")
 		.controller("dashboardCtrl", dashboardCtrl);
 
-	function dashboardCtrl($state, $scope, userObj){
+	function dashboardCtrl($state, $scope, userObj, userService){
 		var self = this;
-
 		self.user = userObj;
-		console.log(self.user);
+		
+		self.userRole = userService.userInfo.userRole;
+		getAccountType();
+
+		function getAccountType(){
+			var ac = self.userRole;
+			self.hasAuth = (ac == 'Student' || ac == 'Developer') ? true : false;
+		}
 	}
 }());
