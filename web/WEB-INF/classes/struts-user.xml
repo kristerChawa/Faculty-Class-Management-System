@@ -22,7 +22,8 @@
   					usersModel\.attendance,
   					usersModel\.classList,
   					usersModel\.password,
-  					usersModel\.professorProfile
+  					usersModel\.professorProfile,
+  					usersModel\.auditLog
   				</param>
   			</result>
   			<result name="input" type="json">
@@ -54,11 +55,11 @@
 	  			<result name="success" type="json">
 	  				<param name="excludeNullProperties">true</param>
 	  				<param name="excludeProperties">
-	  					user\.classList,
-	  					user\.password,
-	  					user\.professorProfile,
-	  					user\.accountType\[\d+\]\.users,
-	  					user\.auditLog
+	  					usersModel\.classList,
+	  					usersModel\.password,
+	  					usersModel\.professorProfile,
+	  					usersModel\.accountType\[\d+\]\.users,
+	  					usersModel\.auditLog
 	  				</param>	
 	  			</result>
 	  			<result name="input" type="json">

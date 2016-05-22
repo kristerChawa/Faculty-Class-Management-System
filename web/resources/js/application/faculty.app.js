@@ -4,6 +4,7 @@
 			"ngMaterial", 
 			"md.data.table", 
 			"angular-loading-bar",
+			"ngCookies",
 			"events",
 			"profileModule",
 			"developerApp",
@@ -17,16 +18,21 @@
 		.config(facultyAppConfig)
 		.run(function($rootScope, $state){
 			$rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error){
-				console.log("Error occured");
 				$state.go("index");
 			});
 		});
 
-	function facultyAppConfig($stateProvider, $urlRouterProvider, USER_ROLES){
+	function facultyAppConfig($stateProvider, $urlRouterProvider, $mdThemingProvider, $cookiesProvider, USER_ROLES){
 
 		const TEMP_LOC = "resources/templates/";
+
+		$mdThemingProvider.theme("default")
+			.primaryPalette("indigo")
+			.accentPalette("pink")
+			.warnPalette("red");		
+
 		
-		 $urlRouterProvider
+		$urlRouterProvider
 		 	.when("/dashboard/", "/dashboard")
 			 .otherwise("/");
 		
@@ -43,21 +49,20 @@
 				controller: "dashboardCtrl",
 				controllerAs: "dash",
 				resolve:{
-					"userObj": function(authService, userService, $q, $state){
+					"userObj": function(authService, userService, $q, $state, cookieService){
 						var deferred = $q.defer();
-						console.log(userService.userInfo.username);
+						console.log(userService.userInfo);
 
 						//This one solves for refreshing the page
-						if(userService.userInfo.username == undefined){
-							authService.checkOnlineUser().then(function(response){
+						// if(cookieService.getCookie("user"))
+						console.log(cookieService.getCookie("user"));
+						if(Object.getOwnPropertyNames(userService.userInfo).length === 0){
+							authService.updateSession().then(function(response){
 								console.log(response);
-								if(response.data.has_User == true){
-									authService.updateSession().then(function(){
-										deferred.resolve(userService.userInfo);
-									});
-								}else{
+								if(response.status == 200)
+									deferred.resolve(userService.userInfo);
+								else
 									deferred.reject();
-								}
 							});
 						}else{
 							deferred.resolve(userService.userInfo);

@@ -1,4 +1,4 @@
-<div layout="column" layout-align="center center" layout-padding>
+<!-- <div layout="column" layout-align="center center" layout-padding>
 		<md-content layout-padding>
 			<md-card class="md-whiteframe-5dp">
 				<md-card-header>
@@ -41,4 +41,42 @@
 				</md-card-content>
 			</md-card>
 		</md-content>
+</div> -->
+
+<div layout="column" layout-padding>
+	<div layout="row" layout-align="center center">
+		<md-content layout-padding style="background-color: #fafafa;">
+			<md-card style="width: 400px; height: 100%;" class="md-whiteframe-5dp">
+				<div layout="column" layout-align="center center">
+					<img ng-src="resources/img/DLS-CSB_Seal.png" 
+						class="md-card-image" style="width: 50px; height: 50px;">
+					<span class="md-caption">Faculty Class Management System</span>
+				</div>
+			 <md-card-content>
+			 	<form name="loginForm" ng-submit="login.login(login.credentials)">
+			  		<div layout="column">
+				   		<md-input-container>
+				   			<label>Username</label>
+				   			<input ng-model="login.credentials.username" required />
+				   		</md-input-container>
+				   		<md-input-container>
+				   			<label>Password</label>
+				   			<input type="password" ng-model="login.credentials.password" required />
+				   		</md-input-container>
+			   			<div>
+			   				<span class="md-caption"><a ui-sref="forgotPwd">Forgot your password?</a></span>
+			   			</div>
+				   		<div layout="row" layout-align="end end">
+				   			<div>
+				   				<md-button class="md-primary md-raised" type="submit" ng-disabled="login.hideButton">
+				   					<span class="md-body-1">Login</span>
+				   				</md-button>
+				   			</div>
+				   		</div>
+			   		</div>
+			   </form>
+			 </md-card-content>
+			</md-card>
+		</md-content>
+	</div>
 </div>

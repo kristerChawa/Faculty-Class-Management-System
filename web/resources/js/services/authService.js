@@ -32,18 +32,16 @@
 					"Content-Type": "application/json",
 					"dataType": "json"
 				}
-					
 			};
 
 			return $http(request)
 				.then(function(response){
-					var responseObj = response.data.usersModel;
-					userService.createSession(responseObj);
+					userService.createSession(response);
 					return response;
 				})
 				.catch(function(error){
 					return error;
-			});
+				});
 		}
 
 		function checkOnlineUser(){
@@ -79,8 +77,8 @@
 			return $http(request)
 				.then(function(response){
 					console.log(response);
-					var responseObj = response.data.user;
-					return userService.createSession(responseObj);
+					userService.createSession(response);
+					return response;
 				})
 				.catch(function(error){
 					return error;

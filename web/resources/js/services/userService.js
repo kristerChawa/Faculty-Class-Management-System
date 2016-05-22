@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.service("userService", userService);
 
-	function userService($http, $timeout, $rootScope, $q){
+	function userService($http, $timeout, $q, cookieService){
 		var self = this;
 
 		self.createSession = createSession;
@@ -10,14 +10,11 @@
 		self.getAccountType = getAccountType;
 		self.userInfo = {};
 
-		function createSession(responseObj){
+		function createSession(response){
 
-			//Too much query. Lessen the query to userID, id, username, fn, ln, ac, and pic only.
-			console.log(responseObj);
 			var defer = $q.defer();
+			var responseObj = response.data.usersModel;
 
-			self.userInfo.userID = responseObj.userID? responseObj.userID: "";
-			self.userInfo.idNo = responseObj.idNo? responseObj.idNo : "";
 			self.userInfo.username = responseObj.username? responseObj.username : "";
 			self.userInfo.firstName = responseObj.firstName? responseObj.firstName : "";
 			self.userInfo.lastName = responseObj.lastName? responseObj.lastName : "";
@@ -33,19 +30,25 @@
 			};
 			self.userInfo.pictureUrl.url = responseObj.pictureUrl? responseObj.pictureUrl : ""; 
 			
-			// console.log(self.userInfo);
+
+			cookieService.setCookie("user", response.data.JSESSIONID);
+
 			defer.resolve();
 			return defer.promise;
 		}
 
 		function getAccountType(){
 			var accountType = "";
-			if(Object.keys(self.userInfo).length > 1){
-				accountType = self.userInfo.userRole.toLowerCase().trim().split(",");
-				if(accountType.length > 1){
-					accountType = accountType[0].trim() == 'professor' ? accountType[1] : accountType[0];
+
+			if(Object.getOwnPropertyNames(self.userInfo).length !== 0){
+				var acTemp = self.userInfo.userRole.toLowerCase().trim().split(",");
+				if(acTemp.length > 1){
+					if(acTemp[0] == 'professor')
+						accountType = acTemp[1];
+					else
+						accountType = acTemp[0];
 				}else{
-					accountType = accountType[0];
+					accountType = acTemp[0];
 				}
 			}
 			return accountType.trim();
@@ -54,6 +57,5 @@
 		function destroySession(){
 			self.userInfo = {};
 		}
-
 	}
 }());

@@ -12,22 +12,24 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class Update_CurrentSessionAction extends ActionSupport implements SessionAware{
 	 
-	private Users uModel = new Users();
+	private Users usersModel = new Users();
+	private String JSESSIONID;
 	private Map<String, Object> userSession;
 	
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			uModel = (Users) userSession.get(Utilities.user_sessionName);
+			usersModel = (Users) userSession.get(Utilities.user_sessionName);
 			LoginHelper loginHelper = new LoginHelper();
 			
-			if(uModel.getUsername().equals(Utilities.adminUsername)){
-				uModel = HelperClass.Admin();
-			}else if(uModel.getUsername().equals(Utilities.secUsername)){
-				uModel = HelperClass.Secretary();
+			if(usersModel.getUsername().equals(Utilities.adminUsername)){
+				usersModel = HelperClass.Admin();
+			}else if(usersModel.getUsername().equals(Utilities.secUsername)){
+				usersModel = HelperClass.Secretary();
 			}else{
-				uModel = loginHelper.getUserDetails(uModel.getUserID());
+				usersModel = loginHelper.getUserDetails(usersModel.getUserID());
+				JSESSIONID = HelperClass.setJSESSIONID(userSession);
 			}
 		}catch(Exception e){
 			return INPUT;
@@ -35,12 +37,11 @@ public class Update_CurrentSessionAction extends ActionSupport implements Sessio
 		return SUCCESS;
 	}
 	
-	
-	public Users getUser() {
-		return uModel;
+	public Users getUsersModel() {
+		return usersModel;
 	}
-	public void setUser(Users user) {
-		this.uModel = user;
+	public void setUsersModel(Users usersModel) {
+		this.usersModel = usersModel;
 	}
 	
 	@Override
@@ -48,5 +49,11 @@ public class Update_CurrentSessionAction extends ActionSupport implements Sessio
 		// TODO Auto-generated method stub
 		this.userSession = session;
 	}
+	
+	public String getJSESSIONID() {
+		return JSESSIONID;
+	}
+	
+	
 	
 }

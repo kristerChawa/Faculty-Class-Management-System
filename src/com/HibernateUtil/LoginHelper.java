@@ -10,22 +10,22 @@ import com.model.Password;
 import com.model.Users;
 
 public class LoginHelper {
-	
+
 	public int getID(String username){
-		
+
 		Session session = null;
 		Transaction trans = null;
 		int id = 0;
-		 
+
 		try {
 			session = HibernateFactory.getSession().openSession();
 			trans = session.beginTransaction();
 			Users user = (Users) session.createQuery("from Users where username = :un")
-				.setParameter("un", username)
-				.uniqueResult();
-			
+					.setParameter("un", username)
+					.uniqueResult();
+
 			id = user.getUserID();
-			
+
 			trans.commit();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -33,7 +33,7 @@ public class LoginHelper {
 				trans.rollback();
 			e.printStackTrace();
 		}
-		
+
 		return id;
 	}
 
@@ -64,6 +64,41 @@ public class LoginHelper {
 		session.close();
 		return userID;
 
+	}
+
+	public Users loginUser(Users userModel){
+
+		Users user = null;
+		Transaction trans = null;
+		Session session = null;
+		try {
+
+			if(HelperClass.isAdmin(userModel))
+				user = HelperClass.Admin();
+			else if(HelperClass.isSecretary(userModel))
+				user = HelperClass.Secretary();
+			else{
+
+				session = HibernateFactory.getSession().openSession();
+				trans = session.beginTransaction();
+				Query query = session.createQuery("from Users u where username = :un")
+						.setParameter("un", userModel.getUsername());
+				Users dbResult = (Users)query.uniqueResult();
+				
+				user = HelperClass.validateUser(userModel, dbResult);
+
+
+
+				trans.commit();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null)
+				trans.rollback();
+			e.printStackTrace();
+		}
+
+		return user;
 	}
 
 	public Users loginUser(String username, String password){

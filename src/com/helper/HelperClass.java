@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -22,6 +21,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.model.AccountType;
+import com.model.Password;
 import com.model.Users;
 
 public class HelperClass {
@@ -45,6 +45,16 @@ public class HelperClass {
 	public static boolean isAdmin(String username, String password){
 		return (username.equals(Utilities.adminUsername) && password.equals(Utilities.adminPassword)) ? true : false;
 	}
+	public static boolean isAdmin(Users user){
+		
+		String password = "";
+		
+		for(Password p : user.getPassword()){
+			password = p.getPassword();
+		}
+		
+		return (user.getUsername().equals(Utilities.adminUsername) && password.equals(Utilities.adminPassword)) ? true : false;
+	}
 	
 	public static Users Admin(){
 		Users users = new Users();
@@ -60,13 +70,20 @@ public class HelperClass {
 
 		return users;
 	}
-
-	//	public static boolean isSecretary(Users user){
-	//		return (user.getUsername().equals(Utilities.secUsername) && 
-	//				((Password)user.getPassword().toArray()[0]).getPassword().equals(Utilities.secPassword)) ? true : false;
-	//	}
+	
 	public static boolean isSecretary(String username, String password){
 		return (username.equals(Utilities.secUsername) && password.equals(Utilities.secPassword)) ? true : false;
+	}
+	
+	public static boolean isSecretary(Users user){
+		
+		String password = "";
+		
+		for(Password p : user.getPassword()){
+			password = p.getPassword();
+		}
+		
+		return (user.getUsername().equals(Utilities.secUsername) && password.equals(Utilities.secPassword)) ? true : false;
 	}
 
 	public static Users Secretary(){
@@ -195,5 +212,28 @@ public class HelperClass {
 		
 		return result;
 		
+	}
+	
+	public static Users validateUser(Users user, Users dbResult){
+		
+		String password = "";
+		Users userModel = null;
+		
+		for(Password p : user.getPassword()){
+			password = p.getPassword();
+		}
+		
+		for(Password p : dbResult.getPassword()){
+			if( (p.getPassword().equals(HelperClass.encrypt(password)) && 
+					(dbResult.getUsername().equalsIgnoreCase(user.getUsername())))){
+				userModel = dbResult;
+			}
+		}
+		
+		return userModel;
+	}
+	
+	public static String setJSESSIONID(Map<String, Object> userSession){
+		return HelperClass.encrypt(((Users)userSession.get(Utilities.user_sessionName)).getUsername());
 	}
 }

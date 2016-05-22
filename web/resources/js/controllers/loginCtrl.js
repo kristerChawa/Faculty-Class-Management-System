@@ -2,7 +2,7 @@
 	angular.module("facultyApp")
 		.controller("loginCtrl", loginCtrl);
 
-	function loginCtrl(authService, $state, $timeout, $mdDialog){
+	function loginCtrl(authService, $state, $timeout, cookieService){
 		var self = this;
 		self.hasError = false;
 		self.hideButton = false;

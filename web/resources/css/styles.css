@@ -1,3 +1,7 @@
+body{
+	background-color: #fafafa;
+}
+
 .toolbar-profile-bg{
 	background-image: url("../img/svg/pattern.svg");
 }
