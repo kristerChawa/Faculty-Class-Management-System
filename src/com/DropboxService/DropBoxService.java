@@ -21,7 +21,7 @@ public class DropBoxService implements DropboxApi {
 	private static DbxClientV2 initializeDropBox(){
 		
 		DbxRequestConfig config = new DbxRequestConfig("dropbox", DropboxApi.locale);
-		DbxClientV2 DBinstance = new DbxClientV2(config, HelperClass.getKeyPropertyFile("dropBoxToken"));		
+		DbxClientV2 DBinstance = new DbxClientV2(config, HelperClass.getPropertyFile("dropbox", "dropBoxToken"));		
 		return DBinstance;
 	}
 	

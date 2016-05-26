@@ -1,8 +1,28 @@
 <md-dialog aria-label="Load attendance">
 	<md-dialog-content layout-padding layout-margin>
-		<span class="md-title">Date: <md-datepicker ng-model="loadDialogCtrl.date" 
-			md-placeholder="Attendance date">
-		</md-datepicker></span>
+		<div>
+			<!-- <div flex> -->
+				<!-- <md-subheader class="md-no-sticky">Attendance Records</md-subheader>
+			     	<md-list-item class="md-2-line" ng-repeat="date in loadDialogCtrl.attendanceDates" ng-model="loadDialogCtrl.date">
+				      	<md-icon md-svg-icon="resources/img/svg/load.svg"></md-icon>
+				        <div class="md-list-item-text">
+				          <h5 class="md-caption">{{date}}</h5>
+				        </div>
+			      	</md-list-item> -->
+      		<div layout-margin>
+			 	<h5 class="md-subhead">Select a date below in order to load attendance</h5>
+			</div>
+			<md-input-container class="md-block">
+			    <label>Attendance Records</label>
+			    <md-select ng-model="loadDialogCtrl.date" aria-label="select" layout-margin> 
+			        <md-optgroup label="Attendance Records">
+			            <md-option ng-value="date" ng-model="date" ng-repeat="date in loadDialogCtrl.attendanceDates" layout-padding>
+			                <span>{{date}}</span>
+			            </md-option>
+			        </md-optgroup>
+			    </md-select>
+			</md-input-container>
+		</div>
 	</md-dialog-content>
 	<md-dialog-actions>
 		<md-content layout-padding layout-margin>

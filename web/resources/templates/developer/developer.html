@@ -1,5 +1,4 @@
 <div layout="column">
-<md-content layout="column">
 	<md-grid-list 
 		md-cols-xs="1" md-cols-gt-xs="1" md-cols-sm="2" md-cols-gt-sm="2"
 		md-cols-gt-md="3" md-cols-lg="3" md-cols="3"
@@ -8,7 +7,7 @@
 		md-row-height="2:2">
 
 		<md-grid-tile>
-			<md-content layout-xs="column" layout-sm="column" layout="row">
+			<div layout-xs="column" layout-sm="column" layout="row">
 				<md-card ui-sref="dashboard.userManagement" class="md-whiteframe-5dp" card-Hover>
 					<md-card-avatar>
 					    <img src="resources/img/icons/users.png" class="md-user-avatar" alt="Avatar">
@@ -17,11 +16,11 @@
 						<span class="md-headline">Users Management</span>
 					</md-card-content>
 				</md-card>
-			</md-content>
+			</div>
 		</md-grid-tile>
 
 		<md-grid-tile>
-			<md-content layout-xs="column" layout-sm="column" layout="row">
+			<div layout-xs="column" layout-sm="column" layout="row">
 				<md-card ui-sref="dashboard.subjManagement" class="md-whiteframe-5dp" card-Hover>
 					<md-card-avatar>
 					    <img src="resources/img/icons/subjects.png" class="md-user-avatar" alt="Avatar">
@@ -30,11 +29,11 @@
 						<span class="md-headline">Subjects Management</span>
 					</md-card-content>
 				</md-card>
-			</md-content>
+			</div>
 		</md-grid-tile>
 
 		<md-grid-tile>
-			<md-content layout-xs="column" layout-sm="column" layout="row">
+			<div layout-xs="column" layout-sm="column" layout="row">
 				<md-card ui-sref="dashboard.auditLogs" class="md-whiteframe-5dp" card-Hover>
 					<md-card-avatar>
 					    <img src="resources/img/icons/subjects.png" class="md-user-avatar" alt="Avatar">
@@ -43,7 +42,7 @@
 						<span class="md-headline">Audit Logs</span>
 					</md-card-content>
 				</md-card>
-			</md-content>
+			</div>
 		</md-grid-tile>
 	</md-grid-list>
-</md-content>
+</div>

@@ -5,13 +5,14 @@
 	function loginCtrl(authService, $state, $timeout, cookieService){
 		var self = this;
 		self.hasError = false;
-		self.hideButton = false;
+		self.disableButton = false;
 		self.credentials = {};
 		self.login = login;
 		
 		function login(credentials){
 			if(credentials.username != '' || credentials.password != ''){
-				self.hideButton = true;
+			    self.disableButton = true;
+			    // $state.go("dashboard");
 				authService.login(credentials).then(function(response){
 					console.log(response);
 					if(response.status == 200){
@@ -20,7 +21,7 @@
 						self.hasError = true;
 						$timeout(function(){
 							self.hasError = false;
-							self.hideButton = false;
+							self.disableButton = false;
 						}, 1200);
 					}
 				});

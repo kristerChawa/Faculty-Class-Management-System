@@ -3,8 +3,7 @@
 			"lazyLoadingApp",
 			"events",
 			"schedulingModule",
-			"attendanceModule",
-
+			"attendanceModule"
 		]);
 }());
 
@@ -26,8 +25,8 @@
 			});
 		});
 
-	function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, USER_ROLES){
-		const TEMP_LOC = "resources/templates/";
+	function config($stateProvider, $urlRouterProvider, cfpLoadingBarProvider, TEMP_LOC, USER_ROLES){
+		
 		cfpLoadingBarProvider.includeSpinner = '<md-progress-circular md-mode="indeterminate"></md-progress-circular>';
 
 		$urlRouterProvider
@@ -37,71 +36,79 @@
 		$stateProvider
 			.state("dashboard.profile", {
 				url: "/profile",
-				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
-				},
-				templateUrl: TEMP_LOC + "profile.html"
+				templateUrl: TEMP_LOC.PATH + "profile.html",
+				data: {
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "Profile"
+				}
 			})
 			.state("dashboard.profile.general", {
 				url: "/general",
-				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				templateUrl: TEMP_LOC.PATH + "profiling/generalTab.html",
+				data: {
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "Overview"
 				},
-				templateUrl: TEMP_LOC + "profiling/generalTab.html",
 				controller: "generalCtrl",
 				controllerAs: "general"
 			})
 			.state("dashboard.profile.achievements", {
 				url: "/achievements",
-				templateUrl: TEMP_LOC + "profiling/achievementsTab.html",
+				templateUrl: TEMP_LOC.PATH + "profiling/achievementsTab.html",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+				    stateName: "Achievements"
 				},
 				controller: "achievementsCtrl",
 				controllerAs: "achieve"
 			})
 			.state("dashboard.profile.projects", {
 				url: "/projects",
+				templateUrl: TEMP_LOC.PATH + "profiling/projectsTab.html",
 				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "Projects"
 				},
-				templateUrl: TEMP_LOC + "profiling/projectsTab.html",
 				controller: "projectsCtrl",
 				controllerAs: "project"
 			})
 			.state("dashboard.profile.research", {
 				url: "/researches",
-				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				templateUrl: TEMP_LOC.PATH + "profiling/researchTab.html",
+				data: {
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "Researches"
 				},
-				templateUrl: TEMP_LOC + "profiling/researchTab.html",
 				controller: "researchCtrl",
 				controllerAs: "research"
 			})
 			.state("dashboard.profile.resume", {
 				url: "/resume",
-				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				templateUrl: TEMP_LOC.PATH + "profiling/resumeTab.html",
+				data: {
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "Resume"
 				},
-				templateUrl: TEMP_LOC + "profiling/resumeTab.html",
 				controller: "resumeCtrl",
 				controllerAs: "resume"
 			})
 			.state("dashboard.profile.schedule", { /** This controller is on the scheduling **/
 				url: "/schedule",
-				data:{
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
+				templateUrl: TEMP_LOC.PATH + "profiling/myScheduleTab.html",
+				data: {
+				    authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "My Schedule"
 				},
-				templateUrl: TEMP_LOC + "profiling/myScheduleTab.html",
 				controller: "scheduleCtrl",
 				controllerAs: "sched"
 			})
 			.state("dashboard.profile.myActivityLog", {
 				url: "/allActivity",
-				data: {
-					authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson]
-				},
-				templateUrl: TEMP_LOC + "/profiling/myActivityLog.html",
+				templateUrl: TEMP_LOC.PATH + "/profiling/myActivityLog.html",
+			    data: {
+			        authorizedRoles: [USER_ROLES.professor, USER_ROLES.acadAdviser, USER_ROLES.chairperson],
+                    stateName: "My Activity"
+			    },
 				controller: "myActivityLogCtrl",
 				controllerAs: "act"
 			});

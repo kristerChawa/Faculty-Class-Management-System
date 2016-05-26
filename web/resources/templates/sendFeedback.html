@@ -1,0 +1,36 @@
+﻿<md-dialog aria-label="Send Feedback">
+    <md-dialog-content style="width: 500px;">
+        <div layout-padding layout-margin>
+            <h5 class="md-title">Send Feedback</h5>
+            <div layout="column" layout-margin>
+                <form name="feedbackForm">
+                    <md-input-container class="md-block">
+                        <label>Feedback message</label>
+                        <textarea name="feedbackMsg" ng-model="vm.feedbackMsg" 
+                                md-maxlength="150" rows="5" md-select-on-focus required></textarea>
+                        <div ng-messages="feedbackForm.feedbackMsg.$error" role="alert">
+                            <div ng-message="md-maxlength">
+                                Kindly be specific with your message.
+                            </div>
+                            <div ng-message="required">
+                                This field is required.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </form>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <div layout-padding layout-margin>
+            <md-button class="md-primary md-raised" ng-click="vm.cancelDialog()">
+                Cancel
+            </md-button>
+            <md-button class="md-primary md-raised"
+                       ng-click="vm.sendFeedback()" form-error-watcher error-Object="feedbackForm.feedbackMsg.$error" 
+                       ng-disabled="vm.isProcessing">
+                Send Feedback
+            </md-button>
+        </div>
+    </md-dialog-actions>
+</md-dialog>

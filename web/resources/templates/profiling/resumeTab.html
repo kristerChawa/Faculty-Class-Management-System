@@ -1,11 +1,11 @@
 <div layout="column" layout-padding layout-margin ng-show="resume.displayContent">
-	<md-content layout="column" layout-align="center center" ng-hide="resume.hasFiles">
+	<div layout="column" layout-align="center center" ng-hide="resume.hasFiles">
 		<h5 class="md-title">No resume</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Help the department manage your profiles for the PAASCU.</p>
-	</md-content>
+	</div>
 
-	<md-content layout="column" layout-align="center center" layout-padding ng-show="resume.hasFiles">
+	<div layout="column" layout-align="center center" layout-padding ng-show="resume.hasFiles">
 		<md-card class="md-whiteframe-5dp resumeCard">
 			<md-card-content layout="row" layout-align="end end">
 				<md-menu>
@@ -35,7 +35,7 @@
 		        
 			</md-card-content>
 		</md-card>
-    </md-content>
+    </div>
 	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="resume.showUploadDialog($event)"
         style="position: fixed;">
         <md-tooltip md-direction="left"> Upload resume </md-tooltip>

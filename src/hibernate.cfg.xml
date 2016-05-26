@@ -78,6 +78,7 @@
 			<mapping class="com.model.Classlist"/>
 			<mapping class="com.model.Attendance"/>	
 			
-			<mapping class="com.model.AuditLog"/>				
+			<mapping class="com.model.AuditLog"/>
+			<mapping class="com.model.Feedback"/>				
     </session-factory>
 </hibernate-configuration>

@@ -9,6 +9,8 @@
 		self.uploadSubjects = uploadSubjects;
 		self.listOfSubjects = [];
 
+		loadSubjects();
+		
 		function loadSubjects(){
 			developerService.loadSubjects().then(function(response){
 				self.displaySubjectsTable = true;

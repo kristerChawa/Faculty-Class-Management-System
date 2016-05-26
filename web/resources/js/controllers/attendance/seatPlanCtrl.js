@@ -45,14 +45,16 @@
 				templateUrl: TEMP_LOC.PATH + "attendance/seatPlan.loadAttendanceDialog.html",
 				controller: loadDialogCtrl,
 				controllerAs: "loadDialogCtrl",
-				clickOutsideToClose: true
+				clickOutsideToClose: false
 		   });
 		}
 
 		function loadDialogCtrl($mdDialog, seatPlanService, $stateParams){
 			var self = this;
 			self.loadAttendance = loadAttendance;
+			self.displayAttendanceDates = displayAttendanceDates;
 			self.cancelDialog =  cancelDialog;
+			self.attendanceDates = [];
 			self.date = new Date(); //Datepicker init
 			self.class = {
 				"schedObj": {
@@ -65,12 +67,23 @@
 				"date": ""
 			};
 
+			displayAttendanceDates();
+
 			function loadAttendance(){
-				self.class.date = seatPlanService.getDate_Helper().formatDate(self.date);
+				// self.class.date = seatPlanService.getDate_Helper().formatDate(self.date);
+				self.class.date = self.date;
 				var schedObj = self.class;
 				seatPlanService.viewAttendance(schedObj).then(function(response){
 					seatPlanService.date = schedObj.date;
 					cancelDialog();
+				});
+			}
+
+			function displayAttendanceDates(){
+				var schedObj = self.class;
+				seatPlanService.viewAttendanceDates(schedObj).then(function(response){
+					console.log(response);
+					self.attendanceDates = response.data.aList;
 				});
 			}
 

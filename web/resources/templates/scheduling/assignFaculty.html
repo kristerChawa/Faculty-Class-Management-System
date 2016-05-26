@@ -1,68 +1,73 @@
-<md-content layout="column" layout-padding layout-margin>
-	<md-content layout="column" layout-align="center center" ng-hide="assignFaculty.hasList">
+<div layout="column" style="background-color: #fafafa;">
+	<div layout="column" layout-align="center center" ng-hide="assignFaculty.hasList">
 		<h5 class="md-title">Assign Faculty</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Let's get started by uploading the subjects with schedules from the registrar.</p>
-	</md-content>
-	<div ng-show="assignFaculty.hasList">
-
-		<md-input-container>
-			<label>Sort by: </label>
-			<md-select ng-model="assignFaculty.sorting">
-				<md-option ng-repeat="sort in assignFaculty.sortList" value="{{sort.value}}">
-		           {{sort.category}}
-		         </md-option>
-			</md-select>
-		</md-input-container>
-
-
-		<md-grid-list
-				md-cols-xs="1" md-cols-gt-xs="1" md-cols-sm="2" md-cols-gt-sm="2"
-				md-cols-gt-md="3" md-cols-lg="3" md-cols="3"
-				md-row-height-xs="3:6" md-row-height-gt-xs="1:1" md-row-height-gt-sm="1:1"
-				md-row-height-sm="2:3" md-row-height-gt-md="3:2" md-row-height-lg="2:2"
-				md-row-height="2:2" ng-show="assignFaculty.hasList">
-
-			<md-grid-tile ng-repeat="subj in assignFaculty.data | orderBy: assignFaculty.sorting">
-				<md-content>
-					<md-card class="md-whiteframe-5dp">
-						<md-card-header>
-							<md-card-header-text layout-align="center center">
-								<span class="md-title">
-									{{subj.subject.courseCode}} 
-								</span>
-								<span class="md-subhead">{{subj.subject.description}}</span>
-								<span class="md-subhead">{{subj.sched.time}} {{subj.sched.day}}</span>
-								<span class="md-subhead">{{subj.sched.section}} {{subj.sched.room}}</span>
-							</md-card-header-text>
-						</md-card-header>
-						<md-divider></md-divider>
-
-						<md-card-content layout="column">
-							<md-subheader class="md-no-sticky">Preferred professors</md-subheader>
-							<md-list>
-								<md-list-item ng-repeat="user in subj.users">
-								  <img alt="" bn-lazy-src="{{user.pictureUrl}}" width="40px" height="40px" class="md-avatar" />
-								  <p>{{user.firstName}} {{user.lastName}}</p>
-								  <md-radio-group ng-model="assignFaculty.selected[subj.$$hashKey]" layout-margin >
-								        <md-radio-button ng-value="user.username" 
-								        	schedule-Conflict
-								        	user-Data="user.username" subject-Data="subj"
-								        	has-Conflict="assignFaculty.hasConflict"
-								        	aria-label="radio">
-								        </md-radio-button>
-								   </md-radio-group>   
-								</md-list-item>
-							</md-list>
-						</md-card-content>
-					</md-card>
-				</md-content>
-			</md-grid-tile>
-		</md-grid-list>
+	</div>
+	<div ng-show="assignFaculty.hasList" layout-padding layout-margin>
+     	<md-table-container>
+     		<table md-table>
+     	    	<thead md-head md-order="assignFaculty.paginate.order">
+     	    		<tr md-row>
+     	    			<th md-column><span>NO.</span></th>
+     	    			<th md-column md-order-by="subject.courseCode"><span>Course Code</span></th>
+     	    			<th md-column><span>Description</span></th>
+                        <th md-column md-order-by="sched.section"><span>Section</span></th>
+     	    		    <th md-column md-order-by="sched.time"><span>Time</span></th>
+                        <th md-column md-order-by="sched.day"><span>Day</span></th>
+                        <th md-column md-order-by="sched.room"><span>Room</span></th>   
+                        <th md-column><span>Preferred Professors</span></th>
+     	    		</tr>
+     	    	</thead>
+     	    	<tbody md-body>
+     	    		<tr md-row md-auto-select ng-repeat="subj in assignFaculty.data | orderBy: assignFaculty.paginate.order |
+                                filter: assignFaculty.paginate.query | 
+                                limitTo: assignFaculty.paginate.limit : (assignFaculty.paginate.page - 1) * assignFaculty.paginate.limit">
+     	    			<td md-cell>{{$index + 1}}</td>
+     	    			<td md-cell>{{subj.subject.courseCode}}</td>
+     	    			<td md-cell>{{subj.subject.description}}</td>
+     	    			<td md-cell>{{subj.sched.section}}</td>
+                        <td md-cell>{{subj.sched.time}}</td>
+                        <td md-cell>{{subj.sched.day}}</td>
+                        <td md-cell>{{subj.sched.room}}</td>
+                        <td md-cell>
+                            <div>
+                                <md-input-container class="md-block">
+                                    <label>Select a professor</label>
+                                    <md-select ng-model="assignFaculty.selected[subj.$$hashKey]" aria-label="select" layout-margin> 
+                                        <md-optgroup label="Professors">
+                                            <md-option ng-value="user.username" ng-repeat="user in subj.users" layout-padding>
+                                                <img alt="" ng-src="{{user.pictureUrl}}" 
+                                                    width="40px" height="40px" class="md-avatar" />
+                                                <span>{{user.firstName}} {{user.lastName}}</span>
+                                            </md-option>
+                                        </md-optgroup>
+                                            <!-- <p>{{user.firstName}} {{user.lastName}}</p> -->
+                                            <!-- <md-radio-group ng-model="assignFaculty.selected[subj.$$hashKey]" layout-margin>
+                                                <md-radio-button ng-value="user.username"
+                                                                 schedule-Conflict
+                                                                 user-Data="user.username" subject-Data="subj"
+                                                                 has-Conflict="assignFaculty.hasConflict"
+                                                                 aria-label="radio">
+                                                </md-radio-button>
+                                            </md-radio-group> -->
+                                        <!-- </md-option> -->
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                        </td>
+     	    		</tr>
+     	    	</tbody>
+     	    </table>
+     	</md-table-container>
+        <div layout="row" layout-align="start start" layout-margin>
+            <md-table-pagination md-limit="assignFaculty.paginate.limit" md-page="assignFaculty.paginate.page"
+            md-total="{{assignFaculty.data.length}}"></md-table-pagination>
+     </div>
 		<md-button class="md-primary md-raised" ng-click="assignFaculty.saveChanges()" 
 				ng-disabled="assignFaculty.hasConflict">Save changes</md-button>
 	</div>
-</md-content>
+</div>
 <div>
 	<upload-Icon 
     	class="md-primary md-fab md-fab-bottom-right"

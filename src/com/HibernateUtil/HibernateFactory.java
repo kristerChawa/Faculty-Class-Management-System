@@ -13,7 +13,8 @@ public class HibernateFactory {
 			sessionFactory = new Configuration().configure().buildSessionFactory();
 		} catch (HibernateException e) {
 			// TODO: handle exception
-			 System.out.println("Failed to create sessionFactory object." + e);
+			System.out.println("Failed to create sessionFactory object." + e);
+			throw new HibernateException(e);
 		}
 	}
 	

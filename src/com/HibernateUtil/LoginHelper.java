@@ -86,15 +86,14 @@ public class LoginHelper {
 				Users dbResult = (Users)query.uniqueResult();
 				
 				user = HelperClass.validateUser(userModel, dbResult);
-
-
-
+				
 				trans.commit();
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			if(trans != null)
 				trans.rollback();
+			System.out.println("Invalid username/password.");
 			e.printStackTrace();
 		}
 

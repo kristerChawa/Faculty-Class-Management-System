@@ -1,6 +1,6 @@
 <div layout="column" layout-padding layout-margin>
 	
-		<md-content layout="row" layout-align="center center">
+		<div layout="row" layout-align="center center">
 			<form name="basicInformation" layout="column" flex="50">
 			<h5 class="md-title">Basic Information</h5>
 		     
@@ -18,7 +18,7 @@
 		        <label>Username (disabled)</label>
 		        <input ng-model="genSet.user.username" disabled="true">
 		      </md-input-container>
-		      <md-content layout-padding ng-hide="genSet.isNotAuthorized">
+		      <div layout-padding ng-hide="genSet.isNotAuthorized">
 		      	<md-chips ng-model="genSet.selectedSubjects"
 		      		 	 md-require-match="true" md-on-remove="genSet.delete_subject($chip)"
 		      		 	 md-on-add="genSet.validateChips($chip)">
@@ -36,19 +36,19 @@
 		      			</span>
 		      		</md-chip-template>
 		      	</md-chips>
-		      </md-content>
-		        <md-content>
+		      </div>
+		        <div>
 			      <md-button class="md-primary md-raised md-fab" ng-click="genSet.showDialogPassword($event)" aria-label="button">
 			      	<md-icon md-svg-icon="resources/img/svg/report.svg"></md-icon>
 			      </md-button>
 			      <span>Request for a password change</span>
-		        </md-content>
+		        </div>
 		    </form>
-		</md-content>	
+		</div>	
 
-		<md-content layout="row" layout-align="center center">
+		<div layout="row" layout-align="center center">
 			<md-button class="md-primary md-raised" ng-click="genSet.saveChanges()">
 			    Save changes
 			</md-button>
-		</md-content>
+		</div>
 </div>

@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
-import com.HibernateUtil.GenericHelper;
 import com.helper.SendEmail;
 import com.model.Users;
 import com.opensymphony.xwork2.ActionSupport;

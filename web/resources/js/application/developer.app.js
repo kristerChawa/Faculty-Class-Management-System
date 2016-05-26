@@ -3,12 +3,10 @@
 }());
 
 (function(){
-	angular.module("developerApp")
-		.config(developerAppConfig)
+    angular.module("developerApp")
+		.config(developerAppConfig);
 
-	function developerAppConfig($stateProvider, $urlRouterProvider, USER_ROLES){
-
-		const TEMP_LOC = "resources/templates/";
+	function developerAppConfig($stateProvider, $urlRouterProvider, TEMP_LOC, USER_ROLES){
 
 		$urlRouterProvider
 			.otherwise("/dashboard");
@@ -19,7 +17,7 @@
 				data:{
 					authorizedRoles: [USER_ROLES.developer]
 				},
-				templateUrl: TEMP_LOC + "developer/users_manage.html",
+				templateUrl: TEMP_LOC.PATH + "developer/users_manage.html",
 				controller: "usersManageCtrl",
 				controllerAs: "um"
 			})
@@ -28,7 +26,7 @@
 				data:{
 					authorizedRoles: [USER_ROLES.developer]
 				},
-				templateUrl: TEMP_LOC + "developer/subj_manage.html",
+				templateUrl: TEMP_LOC.PATH + "developer/subj_manage.html",
 				controller: "subjManageCtrl",
 				controllerAs: "sm"
 			})
@@ -37,7 +35,7 @@
 				data: {
 					authorizedRoles: [USER_ROLES.developer]
 				},
-				templateUrl: TEMP_LOC + "developer/auditLogs.html",
+				templateUrl: TEMP_LOC.PATH + "developer/auditLogs.html",
 				controller: "auditLogsCtrl",
 				controllerAs: "al"
 			});

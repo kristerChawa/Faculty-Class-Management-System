@@ -8,8 +8,7 @@
 	angular.module("secretaryApp")
 		.config(secretaryAppConfig);
 
-	function secretaryAppConfig($stateProvider, $urlRouterProvider, USER_ROLES){
-		const TEMP_LOC = "resources/templates/";
+	function secretaryAppConfig($stateProvider, $urlRouterProvider, TEMP_LOC, USER_ROLES){
 
 		$urlRouterProvider
 			.otherwise("/dashboard");
@@ -18,9 +17,10 @@
 			.state("dashboard.downloadProfiles", {
 				url: "/downloadProfiles",
 				data:{
-					authorizedRoles: [USER_ROLES.secretary]
+				    authorizedRoles: [USER_ROLES.secretary],
+                    stateName: "Download Profiles"
 				},
-				templateUrl: TEMP_LOC + "secretary/downloadProfiles.html",
+				templateUrl: TEMP_LOC.PATH + "secretary/downloadProfiles.html",
 				controller: "downloadProfilesCtrl",
 				controllerAs: "dp"
 			});

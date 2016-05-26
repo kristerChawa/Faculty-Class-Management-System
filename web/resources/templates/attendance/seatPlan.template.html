@@ -1,13 +1,13 @@
 <div layout="column">
-	<md-content layout-padding layout-margin>
+	<div layout-padding layout-margin>
 		<div id="seat-map">
 			<div class="front" id="title"></div>
 			<div id="seat-info"></div>
 		</div>
 		<div>
-			<md-content>
+			<div>
 				<md-list layout="row">
-					<md-subheader class="md-no-sticky">Legends</md-subheader>
+					<md-subheader class="md-no-sticky" style="background: #fafafa;">Legends</md-subheader>
 					<md-list-item>
 						<div class="seatCharts-seat seatCharts-cell available md-clickable" md-ink-ripple="#ff008c"></div>
 						<span class="seatCharts-legendDescription">Present</span>
@@ -25,7 +25,7 @@
 						<span class="seatCharts-legendDescription">Unavailable</span>
 					</md-list-item>
 				</md-list>
-			</md-content>
+			</div>
 			<div layout="row">
 				<div flex="50" layout-margin layout-padding>
 					<h3 class="md-title">Selected seats: {{seatPlanCtrl.selectedSeats.length}}</h3>
@@ -58,5 +58,5 @@
 			</div>
 			<!-- md-date-filter="seatPlanCtrl.hasScheduleToday" -->
 		</div>
-	</md-content>
+	</div>
 </div>

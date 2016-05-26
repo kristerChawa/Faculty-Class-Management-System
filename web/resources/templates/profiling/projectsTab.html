@@ -1,20 +1,20 @@
 <div layout="column" layout-padding layout-margin ng-show="project.displayContent">
-	<md-content layout="column" layout-align="center center" ng-hide="project.hasFiles">
+	<div layout="column" layout-align="center center" ng-hide="project.hasFiles">
 		<h5 class="md-title">No projects</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Help the department manage your profiles for the PAASCU.</p>
-	</md-content>
+	</div>
 
-	<md-content layout="column" ng-show="project.hasFiles">
+	<div layout="column" ng-show="project.hasFiles">
 		<md-grid-list
 			md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="2:2"
         md-gutter="12px" md-gutter-gt-sm="8px">
 
         	<md-grid-tile ng-repeat="file in project.getFiles() | orderBy: 'prID' ">
-        		<md-content>
+        		<div>
         			<img ng-src="resources/img/docx.png" style="height: 50px !important;"/>
-        		</md-content>
+        		</div>
         		<md-grid-tile-footer layout="row" layout-align="center center">   			
     				<span class="md-caption">{{file.projectName}}</span>
     				<md-button class="md-icon-button" aria-label="icon"
@@ -24,7 +24,7 @@
 		      	</md-grid-tile-footer>
         	</md-grid-tile>
 		</md-grid-list>
-	</md-content>
+	</div>
    
     <md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" style="position: fixed;" 
     				ng-click="project.showUploadDialog($event)">

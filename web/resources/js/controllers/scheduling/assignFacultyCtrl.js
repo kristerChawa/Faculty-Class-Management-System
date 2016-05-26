@@ -10,8 +10,6 @@
 		self.saveChanges = saveChanges;
 		self.generate_assignedFaculty = generate_assignedFaculty;
 		self.hasConflict = false;
-
-
 		self.sortList = [
 			{ category: "Course code", value: "subject.courseCode"},
 			{ category: "Time", value: "sched.time"},
@@ -19,6 +17,12 @@
 			{ category: "Section", value: "sched.section"},
 			{ category: "Room", value: "sched.room"},
 		];
+
+		self.paginate = {
+			query: "",
+			limit: 5,
+			page: 1
+		};
 
 		$scope.$watch(function(){
 			return self.filedata;
@@ -39,7 +43,8 @@
 
 			uploadSubjectsService.saveChanges(selectedList, dataList).then(function(response){
 				self.hasList = false;
-				displayToast($mdToast, "You have successfully assigned faculties. Download the PDF now containing your assigned faculties.");
+				displayToast($mdToast, `You have successfully assigned faculties. 
+					Download the PDF now containing your assigned faculties.`);
 			});
 		}
 

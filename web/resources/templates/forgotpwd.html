@@ -1,14 +1,43 @@
-<div layout="column">
-	<md-content layout="column" layout-align="center center">
-		<form>
-			<md-input-container>
-		        <label>Username</label>
-		        <input ng-model="forgotpwdCtrl.username" type="text">
-		    </md-input-container>
-		    <md-button class="md-primary md-raised" aria-label="icon" 
-		    	ng-click="forgotpwdCtrl.changePassword(forgotpwdCtrl.username)">
-		 	 	Change password
-		    </md-button>
-		</form>
-	</md-content>
+<div layout="column" layout-padding>
+	<div layout="row" layout-align="center center">
+		<md-content layout-padding style="background-color: #fafafa;">
+			<md-card style="width: 400px; height: 100%;" class="md-whiteframe-5dp">
+				<div layout="column" layout-align="center center">
+					<img ng-src="resources/img/DLS-CSB_Seal.png" 
+						class="md-card-image" style="width: 50px; height: 50px;">
+					<span class="md-caption">Faculty Class Management System</span>
+				</div>
+			 <md-card-content>
+			 	<form name="form">
+			  		<div layout="column">
+				   		<md-input-container>
+				   			<label>Username</label>
+				   			<input name="username" ng-model="forgotpwdCtrl.username" required />
+                            <div ng-messages="form.username.$error" role="alert">
+                                <div ng-message="required">
+                                    This field is required.
+                                </div>
+                            </div>
+				   		</md-input-container>
+				   		<div layout="row" layout-align="end end">
+				   			<div>
+				   				<md-button class="md-primary" aria-label="icon" 
+	   						    	ui-sref="index">
+	   						 	 	Back to Login
+	   						    </md-button>
+				   			</div>
+				   			<div>
+				   				<md-button class="md-primary md-raised" aria-label="icon" 
+				   					form-error-watcher error-Object="form.username.$error" 
+	   						    	ng-click="forgotpwdCtrl.changePassword(forgotpwdCtrl.username)">
+	   						 	 	Change password
+	   						    </md-button>
+				   			</div>
+				   		</div>
+			   		</div>
+			   </form>
+			 </md-card-content>
+			</md-card>
+		</md-content>
+	</div>
 </div>

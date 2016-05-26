@@ -8,7 +8,15 @@
 		self.createSession = createSession;
 		self.destroySession = destroySession;
 		self.getAccountType = getAccountType;
-		self.userInfo = {};
+		self.userInfo = {
+		    // username: "11363266",
+		    // firstName: "JM",
+		    // lastName: "Santos",
+		    // userRole: "Chairperson",
+		    // pictureUrl: {
+		    //     url: "resources/img/avatar.png"
+		    // }
+		};
 
 		function createSession(response){
 

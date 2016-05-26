@@ -11,6 +11,8 @@
 		self.selectedUsers = {};
 		self.displayUsersTable = false;
 
+		loadProfessors();
+
 		function uploadProfessors(){
 			developerService.uploadProfessors().then(function(response){
 				self.loadProfessors();

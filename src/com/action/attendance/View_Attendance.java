@@ -19,16 +19,18 @@ public class View_Attendance extends ActionSupport{
 		// TODO Auto-generated method stub
 		AttendanceHelper a_helper = new AttendanceHelper();
 		Attendance attendance = new Attendance();
-		int assignID = 0;
-		attendance.setDate(date);
-		assignID = a_helper.getAssignID(schedObj.getSubjects().getCourseCode(), schedObj.getSection());
-		aList = a_helper.viewAttendance(attendance.getDate(), assignID);
 		
-		aList.forEach(i -> {
-			System.out.println(i.getAttendance() + i.getClasslist().getUsers().getUsername());
-		});
-		
-		return SUCCESS;
+		try {
+			attendance.setDate(date);
+			int assignID = a_helper.getAssignID(schedObj.getSubjects().getCourseCode(), schedObj.getSection());
+			aList = a_helper.viewAttendance(attendance.getDate(), assignID);
+
+			return SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return INPUT;
+		}
 	}
 	
 	public void setSchedObj(Schedule schedObj) {

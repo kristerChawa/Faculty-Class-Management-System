@@ -1,21 +1,18 @@
 <div layout="column" layout-padding layout-margin>
-	<md-content>
-		
-          <md-toolbar class="md-table-toolbar md-default">
-          <div class="md-toolbar-tools">
-            <h3 class="md-title"> Activity Logs </h3>
+	<div>
+        <div class="md-toolbar-tools">
+            <h5 class="md-title">Activity Logs</h5>
             <div flex>
-              <!-- Separation -->
+                <!-- Separation -->
             </div>
-              <md-input-container md-no-float class="md-block">
-                   <md-icon md-svg-icon="resources/img/svg/search.svg"></md-icon>
-                   <input ng-model="act.paginate.query" placeholder="Search" type="text">   
-              </md-input-container>
-          </div>
-         </md-toolbar>
+            <md-input-container md-no-float class="md-block">
+                <md-icon md-svg-icon="resources/img/svg/search.svg"></md-icon>
+                <input ng-model="act.paginate.query" placeholder="Search" type="text">   
+            </md-input-container>
+        </div>
 		<md-table-container>
      		<table md-table>
-     	    	<thead md-head md-head md-order="act.paginate.order">
+     	    	<thead md-head md-order="act.paginate.order">
      	    		<tr md-row>
      	    			<th md-column><span>NO.</span></th>
      	    			<th md-column md-order-by="auditAction"><span>Audit Action</span></th>
@@ -39,5 +36,5 @@
      		<md-table-pagination md-limit="act.paginate.limit" md-page="act.paginate.page"
      		md-total="{{act.activityLogList.length}}"></md-table-pagination>
      	</div>
-	</md-content>
+	</div>
 </div>

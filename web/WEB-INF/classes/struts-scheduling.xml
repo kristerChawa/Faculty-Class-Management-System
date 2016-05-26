@@ -32,6 +32,7 @@
 	  					response\[\d+\]\.professorProfile\.researches,
 	  					response\[\d+\]\.professorProfile\.resume,
 	  					response\[\d+\]\.professorProfile\.users\.attendance,
+	  					response\[\d+\]\.professorProfile\.users\.auditLog,
 	  					response\[\d+\]\.professorProfile\.users\.accountType,
 						response\[\d+\]\.professorProfile\.users\.classList,
 						response\[\d+\]\.professorProfile\.users\.idNo,

@@ -1,12 +1,12 @@
 <div layout="column" layout-padding layout-margin ng-show="achieve.displayContent">
 	
-	<md-content layout="column" layout-align="center center" ng-hide="achieve.hasFiles">
+	<div layout="column" layout-align="center center" ng-hide="achieve.hasFiles">
 		<h5 class="md-title">No achievements/certifications</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Help the department manage your profiles for the PAASCU.</p>
-	</md-content>
+	</div>
 	
-	<md-content layout="column" ng-show="achieve.hasFiles">
+	<div layout="column" ng-show="achieve.hasFiles">
 		<md-grid-list
 			md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
 	        md-row-height-gt-md="1:1" md-row-height="2:2"
@@ -24,7 +24,7 @@
         	</md-grid-tile>
 	
 		</md-grid-list>
-	</md-content>
+	</div>
 
 	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="achieve.showUploadDialog($event)"
 		style="position: fixed;">

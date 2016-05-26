@@ -9,6 +9,7 @@
 		self.viewAttendance = viewAttendance;
 		self.getDate_Helper = getDate_Helper;
 		self.hasScheduleToday_Helper = hasScheduleToday_Helper;
+		self.viewAttendanceDates = viewAttendanceDates;
 		self.classList = [];
 		self.classAttendance = [];
 		self.date = new Date();
@@ -78,6 +79,26 @@
 				});
 		}
 
+		function viewAttendanceDates(schedObj){
+			var request = {
+				url: "viewAttendanceDates.action",
+				method: "post",
+				data: schedObj,
+				headers: {
+					"Content-Type": "application/json",
+					"dataType": "json"
+				}
+			};
+
+			return $http(request)
+				.then(function(response){
+					return response;
+				})
+				.catch(function(error){
+					return error;
+				});
+		}
+
 		function getDate_Helper(){
 			var d = new Date();
 
@@ -91,7 +112,7 @@
 				var d = new self.date;
 				
 				return [d.getMonth() + 1, 
-						d.getDate().length > 1? d.getDate() : '0' + d.getDate(), 
+						d.getDate().toString().length > 1? d.getDate() : '0' + d.getDate(), 
 						d.getFullYear()].join("/");
 			}
 			function getDayFormat(){
@@ -100,7 +121,7 @@
 			}
 			function formatDate(date){
 				return [date.getMonth() + 1, 
-						date.getDate().length > 1? date.getDate() : '0' + date.getDate(), 
+						date.getDate().toString().length > 1? date.getDate() : '0' + date.getDate(), 
 						date.getFullYear()].join("/");
 			}
 		}

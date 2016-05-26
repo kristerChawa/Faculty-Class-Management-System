@@ -1,10 +1,19 @@
 <div layout="column">
-	<md-content>
+	<div layout="column" layout-align="center center" ng-hide="attendanceRptCtrl.hasClasslist">
+		<h5 class="md-title">Classlist</h5>
+		<img ng-src="resources/img/null.png">
+		<p class="md-subhead">You haven't uploaded any classlist yet.</p>
+		<md-button class="md-primary" ui-sref="dashboard.manageClasslist.class({ c: attendanceRptCtrl.class.schedObj.subjects.courseCode, s: attendanceRptCtrl.class.schedObj.section })">Let's Get Started</md-button>
+	</div>
+
+	<div ng-show="attendanceRptCtrl.hasClasslist">
+		<h5 class="md-title">{{attendanceRptCtrl.class.schedObj.subjects.courseCode}} - {{attendanceRptCtrl.class.schedObj.section}}</h5>
 		<highchart id="chart1" config="attendanceRptCtrl.chartConfig"></highchart>
-	</md-content>
-	<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="attendanceRptCtrl.downloadChart()"
-		style="position: fixed;">
-		<md-tooltip md-direction="left"> Download Chart </md-tooltip>
-		<md-icon md-svg-src="resources/img/svg/file_download.svg"></md-icon>
-	</md-button>
+		
+		<md-button class="md-primary md-fab md-fab-bottom-right" aria-label="icon" ng-click="attendanceRptCtrl.downloadChart()"
+			style="position: fixed;">
+			<md-tooltip md-direction="left"> Download Chart </md-tooltip>
+			<md-icon md-svg-src="resources/img/svg/file_download.svg"></md-icon>
+		</md-button>
+	</div>
 </div>

@@ -2,7 +2,7 @@
 	angular.module("attendanceModule")
 		.controller("mngCLCtrl", mngCLCtrl);
 
-	function mngCLCtrl($stateParams, $scope, mngCLService, $mdDialog){
+	function mngCLCtrl($stateParams, $scope, mngCLService, $mdDialog, $timeout){
 
 		const TEMP_LOC = "resources/templates/";
 
@@ -32,6 +32,13 @@
 				viewClassList();	
 			}
 		});
+
+		$timeout(function(){
+			viewClassList();
+		}, 1000);
+		
+
+
 
 		function viewClassList(){
 			var schedObj = {

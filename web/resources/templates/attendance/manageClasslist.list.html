@@ -1,24 +1,29 @@
-<md-grid-list 
-	md-cols-xs="1" md-cols-gt-xs="1" md-cols-sm="2" md-cols-gt-sm="2"
-	md-cols-gt-md="3" md-cols-lg="3" md-cols="3"
-
-	md-row-height-xs="1:1" md-row-height-gt-xs="1:1" md-row-height-gt-sm="1:1"
-	md-row-height-sm="1:1" md-row-height-gt-md="3:2" md-row-height-lg="3:2"
-	md-row-height="2:2">
-
-		<md-grid-tile ng-repeat="class in mngCLCtrlList.schedule">
-			<md-content layout-xs="column" layout-sm="column" layout="row">
-				<md-card ui-sref="dashboard.manageClasslist.class({ c: class.courseCode, s: class.schedule.section })" 
-				class="md-whiteframe-5dp" style="width: 300px;" card-Hover>
-					<md-card-content>
-						<h3 class="md-headline">{{class.courseCode}}</h3>
-						<md-divider></md-divider>
-						<p class="md-subhead"> Schedule: <span class="md-caption"> {{class.schedule.time}} </span> </p>
-						<p class="md-subhead"> Day: <span class="md-caption"> {{class.schedule.day}} </span> </p>
-						<p class="md-subhead"> Section: <span class="md-caption"> {{class.schedule.section}} </span> </p>
-						<p class="md-subhead"> Room: <span class="md-caption"> {{class.schedule.room}} </span> </p>
-					</md-card-content>
-				</md-card>
-			</md-content>
-		</md-grid-tile>
-</md-grid-list>
+<div layout="column">
+    <md-grid-list md-cols-xs="1" md-cols-gt-xs="1" md-cols-sm="2" md-cols-gt-sm="2"
+                  md-cols-gt-md="3" md-cols-lg="3" md-cols="3"
+                  md-row-height-xs="1:1" md-row-height-gt-xs="1:1" md-row-height-gt-sm="1:1"
+                  md-row-height-sm="1:1" md-row-height-gt-md="3:2" md-row-height-lg="3:2"
+                  md-row-height="2:2">
+        <md-grid-tile ng-repeat="class in mngCLCtrlList.schedule">
+            <div layout-xs="column" layout-sm="column" layout="column">
+                <md-card ui-sref="dashboard.manageClasslist.class({ c: class.courseCode, s: class.schedule.section })"
+                         class="md-whiteframe-2dp" style="width: 300px;" card-Hover>
+                    <md-card-content>
+                        <div>
+                            <span class="md-title">{{class.courseCode}}</span>
+                            <p class="md-caption">
+                                <span>{{class.schedule.section}}</span>
+                                <span class="md-caption"> {{class.schedule.room}}</span>
+                            </p>
+                            <p class="md-caption">
+                                <span class="md-caption"> {{class.schedule.day}}</span>
+                                <span> {{class.schedule.time}}</span>
+                            </p>
+                            <md-divider></md-divider>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </md-grid-tile>
+    </md-grid-list>
+</div>

@@ -5,7 +5,7 @@
 	function attendanceRptStudCtrl(attendanceRptStudService){
 		var self = this;
 
-		view_highCharts();
+		//view_highCharts();
 		self.chartConfig = {
 	        options: {
 	            chart: {
@@ -16,7 +16,7 @@
 	        title: {
 	            text: "Attendance Reports"
 	        },
-			loading: false,
+			loading: true,
 		    yAxis: {
 			  currentMin: 0,
 			  currentMax: 5.5,

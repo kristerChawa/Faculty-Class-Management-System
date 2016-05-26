@@ -16,11 +16,13 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.HibernateUtil.GenericHelper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.model.AccountType;
+import com.model.AuditLog;
 import com.model.Password;
 import com.model.Users;
 
@@ -196,22 +198,20 @@ public class HelperClass {
 		return fileType.indexOf("image/") > -1 ? true : false;
 	}
 	
-	public static String getKeyPropertyFile(String propertyName){
+	public static String getPropertyFile(String propertyFileName, String propertyName){
 		
 		Properties prop = new Properties();
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
 		String result = "";
 		try {
-			prop.load(classloader.getResourceAsStream("/dropbox.properties"));
+			prop.load(classloader.getResourceAsStream("/" + propertyFileName + ".properties"));
 			
 			result  = prop.getProperty(propertyName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return result;
-		
 	}
 	
 	public static Users validateUser(Users user, Users dbResult){
@@ -235,5 +235,12 @@ public class HelperClass {
 	
 	public static String setJSESSIONID(Map<String, Object> userSession){
 		return HelperClass.encrypt(((Users)userSession.get(Utilities.user_sessionName)).getUsername());
+	}
+	
+	public void setAdminLoginAuditLog(Users usersModel){
+
+		GenericHelper g_helper = new GenericHelper();
+		AuditLog auditLog = new AuditLog(AuditLogUtil.loginAction, AuditLogUtil.loginType, usersModel);
+		g_helper.AddAuditLog(auditLog);
 	}
 }

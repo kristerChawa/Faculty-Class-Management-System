@@ -37,15 +37,6 @@
 				});
 			}
 
-			// $scope.$watch(function(){
-			// 	return seatPlanService.date;
-			// }, function(newValue){
-			// 	if(typeof newValue === "string"){
-			// 		var d = new Date(newValue);
-			// 		self.date = d;
-			// 	}
-			// });
-
 			function addSelectedSeat(studentObj){
 				//Let's sync it to the view! 
 				$timeout(function(){

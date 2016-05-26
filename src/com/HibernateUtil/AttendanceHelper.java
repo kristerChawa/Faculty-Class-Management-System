@@ -1,14 +1,14 @@
 package com.HibernateUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.transform.Transformers;
 
 import com.helper.Utilities;
 import com.model.AccountType;
@@ -187,15 +187,6 @@ public class AttendanceHelper {
 				Hibernate.initialize(i.getUsers());
 				Hibernate.initialize(i.getAttendance());
 			});
-
-			System.out.println("Free memory (bytes): " + 
-					Runtime.getRuntime().freeMemory());
-
-			/* Total memory currently in use by the JVM */
-			System.out.println("Total memory (bytes): " + 
-					Runtime.getRuntime().totalMemory());
-
-
 
 			trans.commit();
 		} catch (Exception e) {
@@ -408,6 +399,40 @@ public class AttendanceHelper {
 		}
 		return aList;
 	}
+	
+	public Set<Attendance> viewAttendanceDates(int assignID){
+		
+		Session session = null;
+		Transaction trans = null;
+		Query query = null;
+		List<Classlist> cList = new ArrayList<Classlist>(); 
+		Set<Attendance> aList = new HashSet<Attendance>();
+
+		try{
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			cList = session.createQuery("From Classlist where AssignID =:aid")
+					.setParameter("aid" , assignID)
+					.list();
+
+			for(Classlist cObjc : cList){
+				query = session.createQuery("Select distinct date From Attendance where ClassID=:cid")
+						.setParameter("cid", cObjc.getClassID());
+				aList.addAll(query.list());
+			}
+
+			trans.commit();
+		}
+		catch (Exception e) {
+			if(trans != null){
+				trans.rollback();
+			}
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
+		return aList;
+	}
 
 	public boolean hasAttendance(Attendance attendance){
 
@@ -438,39 +463,39 @@ public class AttendanceHelper {
 		return hasAttendance;
 	}
 
-	public List<Attendance> viewAttendance(int assignID){
-
-		Session session = null;
-		Transaction trans = null;
-		Query query = null;
-		List<Classlist> cList = new ArrayList<Classlist>();
-		List<Attendance> aList = new ArrayList<Attendance>();
-
-		try{
-			session = HibernateFactory.getSession().openSession();
-			trans = session.beginTransaction();
-			cList = session.createQuery("From Classlist where AssignID =:aid")
-					.setParameter("aid" , assignID)
-					.list();
-
-			for(Classlist cObjc : cList){
-				query = session.createQuery("From Attendance where ClassID=:cid")
-						.setParameter("cid", cObjc.getClassID());
-				aList.addAll(query.list());
-			}
-
-			trans.commit();
-		}
-		catch (Exception e) {
-			if(trans != null){
-				trans.rollback();
-			}
-			e.printStackTrace();
-		} finally{
-			session.close();
-		}
-		return aList;
-	}
+//	public List<Attendance> viewAttendance(int assignID){
+//
+//		Session session = null;
+//		Transaction trans = null;
+//		Query query = null;
+//		List<Classlist> cList = new ArrayList<Classlist>();
+//		List<Attendance> aList = new ArrayList<Attendance>();
+//
+//		try{
+//			session = HibernateFactory.getSession().openSession();
+//			trans = session.beginTransaction();
+//			cList = session.createQuery("From Classlist where AssignID =:aid")
+//					.setParameter("aid" , assignID)
+//					.list();
+//
+//			for(Classlist cObjc : cList){
+//				query = session.createQuery("From Attendance where ClassID=:cid")
+//						.setParameter("cid", cObjc.getClassID());
+//				aList.addAll(query.list());
+//			}
+//
+//			trans.commit();
+//		}
+//		catch (Exception e) {
+//			if(trans != null){
+//				trans.rollback();
+//			}
+//			e.printStackTrace();
+//		} finally{
+//			session.close();
+//		}
+//		return aList;
+//	}
 	
 	public List<Attendance> getHighCharts (List<Classlist> cList)
 	{
@@ -673,10 +698,6 @@ public class AttendanceHelper {
 					.setParameter("ac", Utilities.STUDENT);
 					
 			uList = query.list();
-	
-			
-			
-			
 			trans.commit();
 			
 		}

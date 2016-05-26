@@ -10,6 +10,7 @@ public interface AuditLogUtil {
 			loginAction = "Log-in",
 			logoutAction = "Log-out",
 			saveAction = "Save",
+			emailAction = "Email",
 			downloadAction = "Download";
 	
 	
@@ -27,6 +28,7 @@ public interface AuditLogUtil {
 			studentType = "Student",
 			classListType = "Classlist",
 			attendanceType = "Attendance",
-			pdfType = "PDF";
+			pdfType = "PDF",
+			emailType = "Email";
 			
 }

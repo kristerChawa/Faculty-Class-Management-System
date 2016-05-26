@@ -7,10 +7,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.helper.AuditLogUtil;
 import com.helper.HelperClass;
 import com.helper.Utilities;
 import com.model.AuditLog;
+import com.model.Feedback;
 import com.model.Password;
 import com.model.Users;
 
@@ -99,12 +99,25 @@ public class GenericHelper {
 		return list;
 	}
 
-	public void setAdminLoginAuditLog(Users usersModel){
-
-		GenericHelper g_helper = new GenericHelper();
-		AuditLog auditLog = new AuditLog(AuditLogUtil.loginAction, AuditLogUtil.loginType, usersModel);
-		g_helper.AddAuditLog(auditLog);
-	
+	public void saveFeedback(Feedback feedback){
+		
+		Session session = null;
+		Transaction trans = null;
+		try {
+			session = HibernateFactory.getSession().openSession();
+			trans = session.beginTransaction();
+			session.save(feedback);
+			trans.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			if(trans != null)
+				trans.rollback();
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
 	}
+	
+	
 
 }	

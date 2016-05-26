@@ -22,7 +22,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		// TODO Auto-generated method stub
 		
 		LoginHelper loginHelper = new LoginHelper();
-		GenericHelper g_helper = new GenericHelper();
+		HelperClass helper = new HelperClass();
 		try{
 			
 			usersModel = loginHelper.loginUser(usersModel);
@@ -33,7 +33,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 				JSESSIONID = HelperClass.setJSESSIONID(userSession);
 				
 				if(usersModel.getUsername().equalsIgnoreCase(Utilities.adminUsername)){
-					g_helper.setAdminLoginAuditLog(usersModel);
+					helper.setAdminLoginAuditLog(usersModel);
 				}
 				return SUCCESS;
 			}

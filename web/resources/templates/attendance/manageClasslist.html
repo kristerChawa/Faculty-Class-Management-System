@@ -1,13 +1,13 @@
-<md-content layout="column" layout-padding layout-margin>
-	<md-content layout="column" layout-align="center center" ng-hide="mngCLCtrl.hasClasslist">
+<div layout="column" layout-padding layout-margin>
+	<div layout="column" layout-align="center center" ng-hide="mngCLCtrl.hasClasslist">
 		<h5 class="md-title">Classlist</h5>
 		<img ng-src="resources/img/null.png">
 		<p class="md-subhead">Let's get started by uploading your classlist.</p>
-	</md-content>
+	</div>
 
-	<md-content ng-show="mngCLCtrl.hasClasslist">
+	<div ng-show="mngCLCtrl.hasClasslist">
 
-	<md-toolbar class="md-table-toolbar md-default">
+	
       <div class="md-toolbar-tools">
         <p class="md-subhead">{{mngCLCtrl.class.subject}} {{mngCLCtrl.class.section}}</p>
         <div flex>
@@ -19,7 +19,6 @@
           <input ng-model="mngCLCtrl.paginate.query" placeholder="Search" type="text">
         </md-input-container>
       </div>
-    </md-toolbar>
 
 	<md-table-container>
 	  <table md-table>
@@ -52,9 +51,9 @@
 		<md-table-pagination md-limit="mngCLCtrl.paginate.limit" md-page="mngCLCtrl.paginate.page"
 		md-total="{{mngCLCtrl.classList.length}}"></md-table-pagination>
 	</div>
-	</md-content>
+	</div>
 
-</md-content>
+</div>
 <div>
 	<md-fab-speed-dial class="md-fab-bottom-right md-scale" 
 				md-direction="up" style="position: fixed;">

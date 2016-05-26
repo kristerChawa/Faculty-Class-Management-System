@@ -4,6 +4,7 @@
 
 	function attendanceRptCtrl($stateParams, $timeout, attendanceRptService){
 		var self = this;
+		self.hasClasslist = false;
 		self.class = {
 			"schedObj": {
 				"section": $stateParams.s,
@@ -18,20 +19,24 @@
 		self.chartConfig = {
 	        options: {
 	            chart: {
-	                type: 'column'
+	                type:  "column"
 	            }
 	        },
 	        series: [],
 	        title: {
-	            text: [self.class.subject, self.class.section].join(" ")
+	            text: [self.class.schedObj.subjects.courseCode, self.class.schedObj.section].join(" ")
 	        },
 			loading: false,
 		    yAxis: {
 			  currentMin: 0,
 			  currentMax: 5.5,
-			}
+		    },
+		    credits: {
+		        enabled: false
+		    }
 		};
-		view_highCharts();
+
+	    view_highCharts();
 
 		function downloadChart(){
 			var chart = this.chartConfig.getHighcharts();
@@ -42,7 +47,12 @@
 			var schedObj = self.class;
 			attendanceRptService.view_highCharts(schedObj).then(function(response){
 				console.log(response);
-				pushAttendance(response.data.aList);
+				if(response.data.aList.length == 0){
+					self.hasClasslist = false;
+				}else{
+					self.hasClasslist = true;
+					pushAttendance(response.data.aList);	
+				}
 			});
 		}
 
